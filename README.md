@@ -10,8 +10,11 @@ Efficient and fast interactive learning platform signifie Plateforme d'apprentis
 
 ## Technologies utilisées
 
-- Symfony(Framework)
-- Angular(Framework)
-- PHP(language)
-- JavaScript(language)
-- TypeScript(langage)
+- Symfony v4(Framework)
+- Angular v7(Framework)
+- PHP v7(language)
+- JavaScript ES6(language)
+- TypeScript (langage)
+- Socket.io (lib javascript)
+- Bootstrap v4(css + lib javascript + package npm pour angular et typescript)
+- Chart.js (lib javascript)
