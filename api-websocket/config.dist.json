@@ -1,0 +1,7 @@
+{
+	"db_name": "efilp",
+	"db_user": "default",
+	"db_pass": "default",
+	"db_host": "127.0.0.1",
+	"db_port": "3306"
+}

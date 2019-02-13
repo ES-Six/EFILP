@@ -1,0 +1,18 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+fos_rest:
+    body_listener: true
+    param_fetcher_listener: true
+    routing_loader:
+        default_format: json
+    format_listener:
+        enabled: true
+        rules:
+            - priorities: [ json, xml ]
+            - fallback_format: json
+            - prefer_extension: true
+    view:
+        formats:
+            json: true
+            xml: true
+    exception:
+        exception_controller: 'fos_rest.exception.controller:showAction'
