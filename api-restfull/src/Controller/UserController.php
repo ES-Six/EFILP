@@ -39,7 +39,7 @@ class UserController extends AbstractFOSRestController
      * @apiVersion 1.0.0
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/login_check"
+     *     curl -X POST -i "http://api-rest-efilp/v1/login_check" -d '{"username": "TEST", "password": "testpass"}'
      */
 
     /**
