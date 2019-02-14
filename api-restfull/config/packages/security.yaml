@@ -11,15 +11,15 @@ security:
 
     firewalls:
         login:
-            pattern:  ^/v2/login
+            pattern:  ^/v1/login
             stateless: true
             anonymous: true
             json_login:
-                check_path:               /v2/login_check
+                check_path:               /v1/login_check
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
         api:
-            pattern:   ^/v2
+            pattern:   ^/v1
             stateless: true
             anonymous: true
             guard:
@@ -29,6 +29,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/v1/professeurs/login,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/login,               roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/apprenants,          roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/professeurs,         roles: IS_AUTHENTICATED_FULLY }

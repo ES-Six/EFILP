@@ -8,6 +8,10 @@ EFILP (Efficient and fast interactive learning platform) sera une plateforme à 
 
 Efficient and fast interactive learning platform signifie Plateforme d'apprentissage interactif efficasse et rapide.
 
+## Déployement
+
+Pour consulter les instructions relatives au déployement des 4 parties du projet lisez le README.md qui y est associé.
+
 ## Technologies utilisées
 
 - Symfony v4(Framework)

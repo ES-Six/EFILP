@@ -33,16 +33,26 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
+     * @api {get} /v1/login_check Obtenir un token d'authentification
+     * @apiName LoginProfesseur
+     * @apiGroup Users
+     * @apiVersion 1.0.0
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/login_check"
+     */
+
+    /**
      * @Rest\Get("/users/current")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
-     * @api {get} /v1/professeur/users/current Voir le professeur actuellement connecté
+     * @api {get} /v1/users/current Voir le professeur actuellement connecté
      * @apiName GetCurrentProfesseur
      * @apiGroup Users
      * @apiVersion 1.0.0
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/professeur/users/current"
+     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/users/current"
      */
     public function currentUserAction()
     {

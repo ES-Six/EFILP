@@ -1,9 +1,9 @@
 api_login_check:
-  path: /v2/login_check
+  path: /v1/login_check
 
 users:
   type: rest
   host: ~
-  prefix: /v1/professeurs
+  prefix: /v1
   resource: App\Controller\UserController
   name_prefix:  api_professeurs_
