@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
 
@@ -12,9 +12,9 @@ class Shared
 
     /**
      * Shared constructor.
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
     }
 

@@ -57,8 +57,7 @@ services:
 
     # Ajout du service de code générique partagé
     App\Service\Shared:
-        arguments:
-            - "@doctrine.orm.entity_manager"
+        autowire: true
 
     # Service de ParamConverter doctrine pour les données de requêtes de type QueryParameter et PayloadParameter
     App\ParamConverter\RequestParamConverter:
@@ -67,3 +66,6 @@ services:
         arguments:
             - "@?doctrine"
             - "@?sensio_framework_extra.converter.doctrine.orm.expression_language"
+
+    App\Service\UserValidation:
+        autowire: true
