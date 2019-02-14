@@ -37,7 +37,7 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
-     * @api {get} /v1/login_check Obtenir un token d'authentification
+     * @api {post} /v1/login_check Obtenir un token d'authentification
      * @apiName LoginProfesseur
      * @apiGroup Users
      * @apiVersion 1.0.0
@@ -73,7 +73,7 @@ class UserController extends AbstractFOSRestController
      *
      * @api {post} /v1/professeurs/register Créer un compte professeur
      * @apiName CreateProfesseur
-     * @apiGroup User
+     * @apiGroup Users
      * @apiVersion 1.0.0
      *
      * @apiParam {string} nom le nom associé au compte
@@ -110,7 +110,7 @@ class UserController extends AbstractFOSRestController
      *
      * @api {delete} /v1/professeurs/{id_professeur} Effacer un professeur
      * @apiName DeleteProfesseur
-     * @apiGroup User
+     * @apiGroup Users
      * @apiVersion 1.0.0
      *
      * @apiParam {number} id_professeur l'id du compte professeur

@@ -4,7 +4,7 @@ define({ "api": [
     "url": "/v1/professeurs/register",
     "title": "Créer un compte professeur",
     "name": "CreateProfesseur",
-    "group": "User",
+    "group": "Users",
     "version": "1.0.0",
     "parameter": {
       "fields": {
@@ -48,14 +48,14 @@ define({ "api": [
       }
     ],
     "filename": "src/Controller/UserController.php",
-    "groupTitle": "User"
+    "groupTitle": "Users"
   },
   {
     "type": "delete",
     "url": "/v1/professeurs/{id_professeur}",
     "title": "Effacer un professeur",
     "name": "DeleteProfesseur",
-    "group": "User",
+    "group": "Users",
     "version": "1.0.0",
     "parameter": {
       "fields": {
@@ -78,7 +78,7 @@ define({ "api": [
       }
     ],
     "filename": "src/Controller/UserController.php",
-    "groupTitle": "User"
+    "groupTitle": "Users"
   },
   {
     "type": "get",
@@ -98,7 +98,7 @@ define({ "api": [
     "groupTitle": "Users"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/v1/login_check",
     "title": "Obtenir un token d'authentification",
     "name": "LoginProfesseur",
