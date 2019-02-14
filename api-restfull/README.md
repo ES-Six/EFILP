@@ -54,9 +54,9 @@ L'API restfull EFILP permet la gestion des ressources de la plateforme EFILP
 
 ## Documentation de l'API
 
-La documentation autogénérée est consultatble à l'adresse suivante: NON_CRÉÉ_ACTUELLEMENT
+La documentation autogénérée est consultatble à l'adresse suivante: [https://andnerb.github.io/EFILP/api-restfull/public/](https://andnerb.github.io/EFILP/api-restfull/public/)
 
-La documentation est générée dans le répertoire public et est automatiquement déployée par gitlab.
+La documentation est générée dans le répertoire public et est automatiquement déployée par github.
 
 ## Générer la documentation
     npm install -g apidoc http-server
