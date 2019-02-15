@@ -136,6 +136,141 @@
   },
   {
     "type": "post",
+    "url": "/v1/professeurs/{id_professeur}/qcms",
+    "title": "Créer un QCMs",
+    "name": "CreateQCMs",
+    "group": "QCMs",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_professeur",
+            "description": "<p>l'id du compte professeur</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "nom",
+            "description": "<p>Le nom du QCM</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/qcms\" -d '{\"nom\": \"QCM_test\"}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "QCMs"
+  },
+  {
+    "type": "get",
+    "url": "/v1/professeurs/{id_professeur}/qcms",
+    "title": "Voir les QCMs d'un professeur",
+    "name": "GetQCMs",
+    "group": "QCMs",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/qcms\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "QCMs"
+  },
+  {
+    "type": "put",
+    "url": "/v1/professeurs/{id_professeur}/qcms/{id_qcm}",
+    "title": "Mettre à jour un QCMs",
+    "name": "UpdateQCMs",
+    "group": "QCMs",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_professeur",
+            "description": "<p>l'id du compte professeur</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "nom",
+            "description": "<p>Le nom du QCM</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X PUT -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/qcms/4\" -d '{\"nom\": \"QCM_test\"}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "QCMs"
+  },
+  {
+    "type": "delete",
+    "url": "/v1/professeurs/{id_professeur}/qcms/{id_qcm}",
+    "title": "Supprimer un QCMs",
+    "name": "UpdateQCMs",
+    "group": "QCMs",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_professeur",
+            "description": "<p>l'id du compte professeur</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/qcms/4\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "QCMs"
+  },
+  {
+    "type": "post",
     "url": "/v1/professeurs/register",
     "title": "Créer un compte professeur",
     "name": "CreateProfesseur",
