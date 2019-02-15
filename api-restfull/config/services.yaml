@@ -72,3 +72,6 @@ services:
 
     App\Service\ClasseValidation:
         autowire: true
+
+    App\Service\QCMValidation:
+        autowire: true

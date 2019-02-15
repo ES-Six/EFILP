@@ -14,3 +14,10 @@ classes:
   prefix: /v1
   resource: App\Controller\ClasseController
   name_prefix:  api_classes_
+
+qcms:
+  type: rest
+  host: ~
+  prefix: /v1
+  resource: App\Controller\QCMController
+  name_prefix:  api_qcms_

@@ -65,6 +65,14 @@ class User implements UserInterface, \Serializable, JWTUserInterface
     private $classes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\QCM", mappedBy="professeur")
+     * @Serialize\Type("array<integer>")
+     * @Serialize\Accessor(getter="getIdQCMs")
+     * @Serialize\SerializedName("qcms")
+     */
+    private $QCMs;
+
+    /**
      * User constructor.
      * @param null $username
      * @param null $roles
@@ -75,6 +83,7 @@ class User implements UserInterface, \Serializable, JWTUserInterface
         $this->username = $username;
         $this->roles = $roles;
         $this->classes = new ArrayCollection();
+        $this->QCMs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -241,6 +250,37 @@ class User implements UserInterface, \Serializable, JWTUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|QCM[]
+     */
+    public function getQCMs(): Collection
+    {
+        return $this->QCMs;
+    }
+
+    public function addQCM(QCM $qCM): self
+    {
+        if (!$this->QCMs->contains($qCM)) {
+            $this->QCMs[] = $qCM;
+            $qCM->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQCM(QCM $qCM): self
+    {
+        if ($this->QCMs->contains($qCM)) {
+            $this->QCMs->removeElement($qCM);
+            // set the owning side to null (unless already changed)
+            if ($qCM->getProfesseur() === $this) {
+                $qCM->setProfesseur(null);
+            }
+        }
+
+        return $this;
+    }
+
     /*
      * Méthodes pour le JMS serializer
      */
@@ -248,6 +288,13 @@ class User implements UserInterface, \Serializable, JWTUserInterface
         $ids = array_map(function(Classe $classe) {
             return $classe->getId();
         }, $this->classes->toArray());
+        return $ids;
+    }
+
+    public function getIdQCMs() {
+        $ids = array_map(function(QCM $qcm) {
+            return $qcm->getId();
+        }, $this->QCMs->toArray());
         return $ids;
     }
 }
