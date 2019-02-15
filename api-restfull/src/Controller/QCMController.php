@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Classe;
 use App\Entity\QCM;
+use App\Entity\Question;
+use App\Entity\Reponse;
 use App\Entity\User;
 use App\Service\ClasseValidation;
 use App\Service\QCMValidation;
@@ -145,5 +147,69 @@ class QCMController extends AbstractFOSRestController
         $this->em->flush();
 
         return $this->handleView($this->shared->createSuccessResponse(null, 'ressource supprimée', 200));
+    }
+
+    /**
+     * @Rest\Post("/professeurs/{id_professeur}/qcms/{id_qcm}/questions")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == request.get('id_professeur')")
+     * @ParamConverter("professeur", options={"mapping": {"id_professeur" : "id"}})
+     * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
+     *
+     * @param User $professeur
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \App\Exception\BadRequestException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @api {post} /v1/professeurs/{id_professeur}/qcms/{id_qcm}/questions Ajouter une question et les réponses à un QCM
+     * @apiName CreateQuestionQCMs
+     * @apiGroup QCMs
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {number} id_professeur l'id du compte professeur
+     * @apiParam {number} id_qcm l'id du QCM
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/professeurs/123/qcms" -d '{"nom": "QCM_test"}'
+     */
+    public function createQuestionQCMsAction(Request $request, User $professeur, QCM $qcm)
+    {
+        // $this->validation->validateCreateQuestionQCM($request);
+
+        // Obtenir la position maximale des questions du QCM
+        $maxPosition = $this->em->createQueryBuilder()
+            ->select('MAX(Question.position) max_position')
+            ->from(Question::class, 'Question')
+            ->join('Question.qcm', 'QCM')
+            ->where('QCM.id = :id_qcm')
+            ->setParameter('id_qcm', $qcm->getId())
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // Créer la question dans le QCM
+        $question = new Question();
+        $question->setDuree($request->get('duree'))
+            ->setTitre($request->get('titre'))
+            ->setPosition(!empty($maxPosition) ? $maxPosition + 1 : 1)
+            ->setQcm($qcm);
+
+        $this->em->persist($question);
+
+        // Ajouter chaque réponses à la question dans le QCM
+        $reponsesToAdd = $request->get('reponses');
+        foreach ($reponsesToAdd as $reponseToAdd) {
+            $reponse = new Reponse();
+
+            $reponse->setNom($reponseToAdd['nom'])
+                ->setEstValide($reponseToAdd['est_valide'])
+                ->setQuestion($question);
+
+            $this->em->persist($reponse);
+        }
+
+        $this->em->flush();
+
+        return $this->handleView($this->shared->createSuccessResponse(null, 'ressource créée', 201));
     }
 }
