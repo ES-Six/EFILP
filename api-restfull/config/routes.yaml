@@ -12,5 +12,5 @@ classes:
   type: rest
   host: ~
   prefix: /v1
-  resource: App\Controller\UserController
+  resource: App\Controller\ClasseController
   name_prefix:  api_classes_
