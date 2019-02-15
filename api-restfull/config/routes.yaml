@@ -7,3 +7,10 @@ users:
   prefix: /v1
   resource: App\Controller\UserController
   name_prefix:  api_professeurs_
+
+classes:
+  type: rest
+  host: ~
+  prefix: /v1
+  resource: App\Controller\UserController
+  name_prefix:  api_classes_

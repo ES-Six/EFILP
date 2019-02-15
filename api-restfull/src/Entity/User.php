@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
@@ -56,6 +58,11 @@ class User implements UserInterface, \Serializable, JWTUserInterface
     private $prenom;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="professeur")
+     */
+    private $classes;
+
+    /**
      * User constructor.
      * @param null $username
      * @param null $roles
@@ -65,6 +72,7 @@ class User implements UserInterface, \Serializable, JWTUserInterface
     {
         $this->username = $username;
         $this->roles = $roles;
+        $this->classes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,5 +206,36 @@ class User implements UserInterface, \Serializable, JWTUserInterface
             $username,
             $payload['roles']
         );
+    }
+
+    /**
+     * @return Collection|Classe[]
+     */
+    public function getClasses(): Collection
+    {
+        return $this->classes;
+    }
+
+    public function addClass(Classe $class): self
+    {
+        if (!$this->classes->contains($class)) {
+            $this->classes[] = $class;
+            $class->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClass(Classe $class): self
+    {
+        if ($this->classes->contains($class)) {
+            $this->classes->removeElement($class);
+            // set the owning side to null (unless already changed)
+            if ($class->getProfesseur() === $this) {
+                $class->setProfesseur(null);
+            }
+        }
+
+        return $this;
     }
 }

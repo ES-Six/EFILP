@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Exception\ForbiddenRequestException;
 use App\Service\Shared;
 use App\Service\UserValidation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -25,14 +26,15 @@ class UserController extends AbstractFOSRestController
     private $tokenStorage;
     private $shared;
     private $validation;
-    private $mailer;
 
-    public function __construct(Shared $shared, UserValidation $validation, EntityManagerInterface $em, TokenStorageInterface $tokenStorage, \Swift_Mailer $mailer)
+    public function __construct(Shared $shared,
+                                UserValidation $validation,
+                                EntityManagerInterface $em,
+                                TokenStorageInterface $tokenStorage)
     {
         $this->em = $em;
         $this->shared = $shared;
         $this->tokenStorage = $tokenStorage;
-        $this->mailer = $mailer;
         $this->validation = $validation;
     }
 
@@ -98,6 +100,78 @@ class UserController extends AbstractFOSRestController
         $this->em->persist($user);
         $this->em->flush();
         return $this->handleView($this->shared->createSuccessResponse(null, 'ressource créé', 201));
+    }
+
+    /**
+     * @Rest\Patch("/professeurs/{id_professeur}/info")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == request.get('id_professeur')")
+     * @ParamConverter("professeur", options={"mapping": {"id_professeur" : "id"}})
+     *
+     * @param Request $request
+     * @param User $professeur
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     *
+     * @api {patch} /v1/professeurs/{id_professeur}/info Mettre à jour les informations personelles
+     * @apiName UpdateProfesseur
+     * @apiGroup Users
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {number} id_professeur l'id du compte professeur
+     * @apiParam {string} nom le nom associé au compte
+     * @apiParam {string} prenom le prénom associé au compte
+     * @apiParam {string} username l'identifiant du compte
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/{id_professeur}/info" -d '{"username": "nom_d_utilisateur", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
+     */
+    public function updateInfoProfesseurAction(Request $request, User $professeur)
+    {
+        $this->validation->validateUpdateUserInfo($request, $professeur);
+
+        $professeur->setNom($request->get('nom'))
+            ->setPrenom($request->get('prenom'))
+            ->setUsername($request->get('username'));
+
+        $this->em->flush();
+        return $this->handleView($this->shared->createSuccessResponse(null, 'ressource mise à jour', 200));
+    }
+
+    /**
+     * @Rest\Patch("/professeurs/{id_professeur}/password")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == request.get('id_professeur')")
+     * @ParamConverter("professeur", options={"mapping": {"id_professeur" : "id"}})
+     *
+     * @param Request $request
+     * @param User $professeur
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws ForbiddenRequestException
+     * @throws \App\Exception\BadRequestException
+     *
+     * @api {patch} /v1/professeurs/{id_professeur}/password Mettre à jour le mot de passe
+     * @apiName UpdatePasswordProfesseur
+     * @apiGroup Users
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {number} id_professeur l'id du compte professeur
+     * @apiParam {string} currentPassword l'ancien mot de passe
+     * @apiParam {string} newPassword le nouveau mot de passe
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/{id_professeur}/password" -d '{"username": "nom_d_utilisateur", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
+     */
+    public function updatePasswordProfesseurAction(Request $request, User $professeur, UserPasswordEncoderInterface $encoder)
+    {
+        $this->validation->validateUpdateUserPassword($request);
+
+        if ($encoder->isPasswordValid($professeur, $request->get('currentPassword'))) {
+            $professeur->setPassword($encoder->encodePassword($professeur, $request->get('password')));
+            $this->em->flush();
+        } else {
+            throw new ForbiddenRequestException('currentPassword: Mot de passe erroné');
+        }
+        return $this->handleView($this->shared->createSuccessResponse(null, 'ressource mise à jour', 200));
     }
 
     /**
