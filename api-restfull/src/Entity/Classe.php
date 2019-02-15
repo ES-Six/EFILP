@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serialize;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClasseRepository")
@@ -29,6 +30,8 @@ class Classe
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="classes")
      * @ORM\JoinColumn(nullable=false)
+     * @Serialize\Type("integer")
+     * @Serialize\Accessor(getter="getIdProfesseur")
      */
     private $professeur;
 
@@ -80,5 +83,12 @@ class Classe
         $this->professeur = $professeur;
 
         return $this;
+    }
+
+    /*
+     * Méthodes pour le JMS serializer
+     */
+    public function getIdProfesseur(): ?int {
+        return $this->professeur instanceof User ? $this->professeur->getId() : null;
     }
 }

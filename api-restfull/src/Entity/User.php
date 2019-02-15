@@ -59,6 +59,8 @@ class User implements UserInterface, \Serializable, JWTUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="professeur")
+     * @Serialize\Type("array<integer>")
+     * @Serialize\Accessor(getter="getIdClasses")
      */
     private $classes;
 
@@ -216,7 +218,7 @@ class User implements UserInterface, \Serializable, JWTUserInterface
         return $this->classes;
     }
 
-    public function addClass(Classe $class): self
+    public function addClasse(Classe $class): self
     {
         if (!$this->classes->contains($class)) {
             $this->classes[] = $class;
@@ -226,7 +228,7 @@ class User implements UserInterface, \Serializable, JWTUserInterface
         return $this;
     }
 
-    public function removeClass(Classe $class): self
+    public function removeClasse(Classe $class): self
     {
         if ($this->classes->contains($class)) {
             $this->classes->removeElement($class);
@@ -237,5 +239,15 @@ class User implements UserInterface, \Serializable, JWTUserInterface
         }
 
         return $this;
+    }
+
+    /*
+     * Méthodes pour le JMS serializer
+     */
+    public function getIdClasses() {
+        $ids = array_map(function(Classe $classe) {
+            return $classe->getId();
+        }, $this->classes->toArray());
+        return $ids;
     }
 }

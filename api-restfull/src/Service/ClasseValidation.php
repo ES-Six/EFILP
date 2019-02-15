@@ -61,4 +61,26 @@ class ClasseValidation
 
         $this->flushErrors();
     }
+
+    /**
+     * @param Request $request
+     * @throws BadRequestException
+     */
+    public function validateUpdateClass(Request $request)
+    {
+        $validator = Validation::createValidator();
+
+        $violations = $validator->validate($request->get('nom'), [
+            new NotBlank([
+                'message' => "Un nom de classe doit être spécifié"
+            ]),
+            new Length([
+                'max'=>255,
+                'maxMessage' => "Un nom de classe fait au maximum 255 caractères"
+            ])
+        ]);
+        $this->storeErrors('nom', $violations);
+
+        $this->flushErrors();
+    }
 }
