@@ -93,7 +93,7 @@ class ClasseController extends AbstractFOSRestController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      *
-     * @api {put} /v1/professeurs/{id_professeur}/classes/{id_professeur} Mettre à jour une classe
+     * @api {put} /v1/professeurs/{id_professeur}/classes/{id_classe} Mettre à jour une classe
      * @apiName UpdateClasse
      * @apiGroup Classes
      * @apiVersion 1.0.0

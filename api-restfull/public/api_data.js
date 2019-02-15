@@ -92,7 +92,7 @@ define({ "api": [
   },
   {
     "type": "put",
-    "url": "/v1/professeurs/{id_professeur}/classes/{id_professeur}",
+    "url": "/v1/professeurs/{id_professeur}/classes/{id_classe}",
     "title": "Mettre à jour une classe",
     "name": "UpdateClasse",
     "group": "Classes",
