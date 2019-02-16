@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serialize;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QCMRepository")
@@ -15,22 +16,28 @@ class QCM
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Serialize\Groups({"lite", "complete"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serialize\Groups({"lite", "complete"})
      */
     private $nom;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="QCMs")
      * @ORM\JoinColumn(nullable=false)
+     * @Serialize\Type("integer")
+     * @Serialize\Accessor(getter="getIdProfesseur")
+     * @Serialize\Groups({"lite", "complete"})
      */
     private $professeur;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="qcm")
+     * @Serialize\Groups({"complete"})
      */
     private $questions;
 
@@ -97,5 +104,12 @@ class QCM
         }
 
         return $this;
+    }
+
+    /*
+     * Méthodes pour le JMS serializer
+     */
+    public function getIdProfesseur(): ?int {
+        return $this->professeur instanceof User ? $this->professeur->getId() : null;
     }
 }

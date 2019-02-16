@@ -22,13 +22,20 @@ class Shared
      * @param $datas
      * @param string $message
      * @param int $code
+     * @param array $group
      * @return View
      */
-    public function createSuccessResponse($datas, $message = 'success', $code = 200) {
-        return View::create(array(
+    public function createSuccessResponse($datas, $message = 'success', $code = 200, array $group = null) {
+        $view = View::create([
             'code'=>$code,
             'message'=>$message,
             'results'=>$datas
-        ), $code);
+        ], $code);
+
+        if (!empty($group)) {
+            $view->getContext()->setGroups($group);
+        }
+
+        return $view;
     }
 }
