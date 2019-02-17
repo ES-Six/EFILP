@@ -227,7 +227,7 @@ class QCMController extends AbstractFOSRestController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \App\Exception\BadRequestException
      *
-     * @api {post} /v1/qcms/{id_qcm}/questions/{id_question} Mettre à jour une question
+     * @api {put} /v1/qcms/{id_qcm}/questions/{id_question} Mettre à jour une question
      * @apiName UpdateQuestion
      * @apiGroup Questions
      * @apiVersion 1.0.0
@@ -352,7 +352,7 @@ class QCMController extends AbstractFOSRestController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \App\Exception\BadRequestException
      *
-     * @api {post} /v1/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse} Mettre à jour une réponse
+     * @api {put} /v1/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse} Mettre à jour une réponse
      * @apiName CreateQuestionQCMs
      * @apiGroup Reponses
      * @apiVersion 1.0.0

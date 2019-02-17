@@ -347,7 +347,7 @@
     "groupTitle": "Questions"
   },
   {
-    "type": "post",
+    "type": "put",
     "url": "/v1/qcms/{id_qcm}/questions/{id_question}",
     "title": "Mettre à jour une question",
     "name": "UpdateQuestion",
@@ -384,7 +384,7 @@
     "groupTitle": "Questions"
   },
   {
-    "type": "post",
+    "type": "put",
     "url": "/v1/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse}",
     "title": "Mettre à jour une réponse",
     "name": "CreateQuestionQCMs",
