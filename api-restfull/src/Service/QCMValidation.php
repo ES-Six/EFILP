@@ -2,6 +2,9 @@
 
 namespace App\Service;
 
+use App\Entity\QCM;
+use App\Entity\Question;
+use App\Entity\Reponse;
 use App\Entity\User;
 use App\Exception\ConflictException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -82,5 +85,33 @@ class QCMValidation
         $this->storeErrors('nom', $violations);
 
         $this->flushErrors();
+    }
+
+    /**
+     * @param QCM $qcm
+     * @param Question $question
+     * @throws BadRequestException
+     */
+    public function validateQuestionBelongToQCM(QCM $qcm, Question $question)
+    {
+        if (!$qcm->getId() === $question->getQcm()->getId()) {
+            $idQCM = $qcm->getId();
+            $idQuestion = $question->getId();
+            throw new BadRequestException(["La question avec l'ID $idQuestion n'existe pas dans le QCM avec l'ID $idQCM"]);
+        }
+    }
+
+    /**
+     * @param QCM $qcm
+     * @param Question $question
+     * @throws BadRequestException
+     */
+    public function validateReponseBelongToQuestion(Question $question, Reponse $reponse)
+    {
+        if (!$reponse->getQuestion()->getId() === $question->getId()) {
+            $idQuestion = $question->getId();
+            $idReponse = $reponse->getId();
+            throw new BadRequestException(["La réponse avec l'ID $idReponse n'existe pas dans la question avec l'ID $idQuestion"]);
+        }
     }
 }

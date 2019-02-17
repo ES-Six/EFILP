@@ -241,7 +241,8 @@ class QCMController extends AbstractFOSRestController
     public function updateQuestionQCMsAction(Request $request, QCM $qcm, Question $question)
     {
         // $this->validation->validateCreateQuestionQCM($request);
-
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+        
         $question->setDuree($request->get('duree'))
             ->setTitre($request->get('titre'))
             ->setQcm($qcm);
@@ -259,6 +260,7 @@ class QCMController extends AbstractFOSRestController
      * @param QCM $qcm
      * @param Question $question
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \App\Exception\BadRequestException
      *
      * @api {delete} /v1/qcms/{id_qcm}/questions/{id_question} Supprimer une question
      * @apiName DeleteQuestion
@@ -273,6 +275,8 @@ class QCMController extends AbstractFOSRestController
      */
     public function deleteQCMQuestionAction(QCM $qcm, Question $question)
     {
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+
         $next_questions = $this->em->createQueryBuilder()
             ->select('DISTINCT Question')
             ->from(Question::class, 'Question')
@@ -319,6 +323,8 @@ class QCMController extends AbstractFOSRestController
     public function createReponseToQuestionQCMsAction(Request $request, QCM $qcm, Question $question)
     {
         // $this->validation->validateCreateQuestionQCM($request);
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+
         $reponse = new Reponse();
 
         $reponse->setNom($request->get('nom'))
@@ -334,7 +340,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Put("/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse}")
-     * @Security("is_granted('ROLE_PROFESSEUR')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
      * @ParamConverter("reponse", options={"mapping": {"id_reponse" : "id"}})
@@ -346,7 +352,7 @@ class QCMController extends AbstractFOSRestController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \App\Exception\BadRequestException
      *
-     * @api {post} /v1/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse} Mettre à jour du contenu d'une question et les réponses à un QCM
+     * @api {post} /v1/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse} Mettre à jour une réponse
      * @apiName CreateQuestionQCMs
      * @apiGroup Reponses
      * @apiVersion 1.0.0
@@ -360,7 +366,8 @@ class QCMController extends AbstractFOSRestController
      */
     public function updateReponseQCMsAction(Request $request, QCM $qcm, Question $question, Reponse $reponse)
     {
-        // $this->validation->validateCreateQuestionQCM($request);
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+        $this->validation->validateReponseBelongToQuestion($question, $reponse);
 
         $reponse->setNom($request->get('nom'))
             ->setEstValide($request->get('est_valide'));
@@ -371,7 +378,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Delete("/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse}")
-     * @Security("is_granted('ROLE_PROFESSEUR')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
      * @ParamConverter("reponse", options={"mapping": {"id_reponse" : "id"}})
@@ -380,6 +387,7 @@ class QCMController extends AbstractFOSRestController
      * @param Question $question
      * @param Reponse $reponse
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \App\Exception\BadRequestException
      *
      * @api {delete} /v1/qcms/{id_qcm}/questions/{id_question}/reponses/{id_reponse} Supprimer une réponse
      * @apiName DeleteReponseQCMs
@@ -395,6 +403,9 @@ class QCMController extends AbstractFOSRestController
      */
     public function deleteQCMReponseAction(QCM $qcm, Question $question, Reponse $reponse)
     {
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+        $this->validation->validateReponseBelongToQuestion($question, $reponse);
+
         $this->em->remove($reponse);
         $this->em->flush();
 
