@@ -165,36 +165,6 @@ define({ "api": [
     "groupTitle": "QCMs"
   },
   {
-    "type": "post",
-    "url": "/v1/qcms/{id_qcm}/questions",
-    "title": "Ajouter une question à un QCM",
-    "name": "CreateQuestionQCMs",
-    "group": "QCMs",
-    "version": "1.0.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "id_qcm",
-            "description": "<p>l'id du QCM</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Exemple d'utilisation:",
-        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4/questions\" -d '{\"duree\": 120,\"titre\": \"Qui est perlimpinpin ?\"}'",
-        "type": "curl"
-      }
-    ],
-    "filename": "src/Controller/QCMController.php",
-    "groupTitle": "QCMs"
-  },
-  {
     "type": "get",
     "url": "/v1/professeurs/{id_professeur}/qcms",
     "title": "Voir tous les QCMs d'un professeur",
@@ -308,6 +278,36 @@ define({ "api": [
     ],
     "filename": "src/Controller/QCMController.php",
     "groupTitle": "QCMs"
+  },
+  {
+    "type": "post",
+    "url": "/v1/qcms/{id_qcm}/questions",
+    "title": "Ajouter une question à un QCM",
+    "name": "CreateQuestionQCMs",
+    "group": "Questions",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4/questions\" -d '{\"duree\": 120,\"titre\": \"Qui est perlimpinpin ?\"}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "Questions"
   },
   {
     "type": "delete",

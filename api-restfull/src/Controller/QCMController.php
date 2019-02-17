@@ -179,7 +179,7 @@ class QCMController extends AbstractFOSRestController
      *
      * @api {post} /v1/qcms/{id_qcm}/questions Ajouter une question à un QCM
      * @apiName CreateQuestionQCMs
-     * @apiGroup QCMs
+     * @apiGroup Questions
      * @apiVersion 1.0.0
      *
      * @apiParam {number} id_qcm l'id du QCM
