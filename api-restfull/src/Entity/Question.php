@@ -42,9 +42,14 @@ class Question
     private $position;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="question", cascade={"remove"})
      */
     private $reponses;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Media", mappedBy="question", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $media;
 
     public function __construct()
     {
@@ -130,6 +135,24 @@ class Question
             if ($reponse->getQuestion() === $this) {
                 $reponse->setQuestion(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): self
+    {
+        $this->media = $media;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newQuestion = $media === null ? null : $this;
+        if ($media instanceof Media && $newQuestion !== $media->getQuestion()) {
+            $media->setQuestion($newQuestion);
         }
 
         return $this;

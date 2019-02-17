@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Entity\Media;
 use App\Entity\QCM;
 use App\Entity\Question;
 use App\Entity\Reponse;
 use App\Entity\User;
+use App\Exception\BadRequestException;
 use App\Service\ClasseValidation;
 use App\Service\QCMValidation;
 use App\Service\Shared;
+use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -409,6 +412,93 @@ class QCMController extends AbstractFOSRestController
 
         $this->em->remove($reponse);
         $this->em->flush();
+
+        return $this->handleView($this->shared->createSuccessResponse(null, 'ressource supprimée', 200));
+    }
+
+    /**
+     * @Rest\Post("/qcms/{id_qcm}/questions/{id_question}/media")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
+     * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
+     * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
+     *
+     * @param Request $request
+     * @param QCM $qcm
+     * @param Question $question
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws BadRequestException
+     * @throws ConnectionException
+     *
+     * @api {post} /v1/qcms/{id_qcm}/questions/{id_question}/media Définir ou remplacer le média d'une question
+     * @apiName UpsertMedia
+     * @apiGroup Media
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {number} id_qcm l'id du QCM
+     * @apiParam {number} id_question l'id de la question
+     * @apiParam {string} url l'url qui pointe vers le média
+     * @apiParam {string} type le type du média
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/2/media" -d '{"url": "http://www.lesite.com/image.jpg", "type": "IMAGE"}'
+     */
+    public function upsertMediaAction(Request $request, QCM $qcm, Question $question)
+    {
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+        $message = 'ressource ajoutée';
+
+        $this->em->transactional(function(EntityManagerInterface $em) use ($request, &$message, $question) {
+            if ($question->getMedia() instanceof Media) {
+                $em->remove($question->getMedia());
+                $question->setMedia(null);
+                $em->flush();
+                $message = 'ressource mise à jour';
+            }
+
+            $media = new Media();
+            $media->setQuestion($question)
+                ->setType($request->get('type'))
+                ->setUrl($request->get('url'));
+
+            $em->persist($media);
+            $em->flush();
+        });
+
+        return $this->handleView($this->shared->createSuccessResponse(null, $message, 200));
+    }
+
+    /**
+     * @Rest\Delete("/qcms/{id_qcm}/questions/{id_question}/media")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
+     * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
+     * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
+     *
+     * @param QCM $qcm
+     * @param Question $question
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \App\Exception\BadRequestException
+     *
+     * @api {delete} /v1/qcms/{id_qcm}/questions/{id_question}/media Supprimer un média
+     * @apiName DeleteMedia
+     * @apiGroup Media
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {number} id_qcm l'id du QCM
+     * @apiParam {number} id_question l'id de la question
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X DELETE -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/2/media"
+     */
+    public function deleteMediaAction(QCM $qcm, Question $question)
+    {
+        $this->validation->validateQuestionBelongToQCM($qcm, $question);
+
+        if ($question->getMedia() instanceof Media) {
+            $this->em->remove($question->getMedia());
+            $this->em->flush();
+        } else {
+            throw new BadRequestException(["La question avec l'ID ".$question->getId()." n'a pas de média"]);
+        }
 
         return $this->handleView($this->shared->createSuccessResponse(null, 'ressource supprimée', 200));
     }
