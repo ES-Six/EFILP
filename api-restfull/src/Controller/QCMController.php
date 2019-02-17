@@ -17,7 +17,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Matcher\RedirectableUrlMatcher;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class QCMController extends AbstractFOSRestController
 {
@@ -109,7 +109,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Put("/qcms/{id_qcm}")
-     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == request.get('id_professeur')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      *
      * @param Request $request
@@ -141,7 +141,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Delete("/qcms/{id_qcm}")
-     * @Security("is_granted('ROLE_PROFESSEUR') && user.getI() === qcm.getProfesseur().getId()")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      *
      * @param QCM $qcm
@@ -168,7 +168,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/qcms/{id_qcm}/questions")
-     * @Security("is_granted('ROLE_PROFESSEUR')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      *
      * @param Request $request
@@ -182,11 +182,10 @@ class QCMController extends AbstractFOSRestController
      * @apiGroup QCMs
      * @apiVersion 1.0.0
      *
-     * @apiParam {number} id_professeur l'id du compte professeur
      * @apiParam {number} id_qcm l'id du QCM
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions" -d '{"duree":120,"titre":"Qui est perlimpinpin ?","reponses":[{"nom":"Un lapin ?","est_valide":true},{"nom":"Une tortue ?","est_valide":false},{"nom":"Un mamouth ?","est_valide":false}]}'
+     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions" -d '{"duree": 120,"titre": "Qui est perlimpinpin ?"}'
      */
     public function createQuestionQCMsAction(Request $request, QCM $qcm)
     {
@@ -218,7 +217,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Put("/qcms/{id_qcm}/questions/{id_question}")
-     * @Security("is_granted('ROLE_PROFESSEUR')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
      *
@@ -237,7 +236,7 @@ class QCMController extends AbstractFOSRestController
      * @apiParam {number} id_question l'id de la question du QCM
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X PUT -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/1" -d ''
+     *     curl -X PUT -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/1" -d '{"duree": 120,"titre": "Qui est perlimpinpin ?"}'
      */
     public function updateQuestionQCMsAction(Request $request, QCM $qcm, Question $question)
     {
@@ -253,7 +252,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Delete("/qcms/{id_qcm}/questions/{id_question}")
-     * @Security("is_granted('ROLE_PROFESSEUR')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
      *
@@ -274,6 +273,19 @@ class QCMController extends AbstractFOSRestController
      */
     public function deleteQCMQuestionAction(QCM $qcm, Question $question)
     {
+        $next_questions = $this->em->createQueryBuilder()
+            ->select('DISTINCT Question')
+            ->from(Question::class, 'Question')
+            ->where('Question.position > :position')
+            ->setParameter('position', $question->getPosition())
+            ->orderBy('Question.position', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        foreach ($next_questions as $next_question) {
+            $next_question->setPosition($next_question->getPosition() - 1);
+        }
+
         $this->em->remove($question);
         $this->em->flush();
 
@@ -282,7 +294,7 @@ class QCMController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/qcms/{id_qcm}/questions/{id_question}/reponses")
-     * @Security("is_granted('ROLE_PROFESSEUR')")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
      * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
      *
