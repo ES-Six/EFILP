@@ -189,7 +189,7 @@ class QCMController extends AbstractFOSRestController
      */
     public function createQuestionQCMsAction(Request $request, QCM $qcm)
     {
-        // $this->validation->validateCreateQuestionQCM($request);
+        $this->validation->validateCreateQuestion($request);
 
         // Obtenir la position maximale des questions du QCM
         $maxPosition = $this->em->createQueryBuilder()
@@ -240,9 +240,9 @@ class QCMController extends AbstractFOSRestController
      */
     public function updateQuestionQCMsAction(Request $request, QCM $qcm, Question $question)
     {
-        // $this->validation->validateCreateQuestionQCM($request);
+        $this->validation->validateUpdateQuestion($request);
         $this->validation->validateQuestionBelongToQCM($qcm, $question);
-        
+
         $question->setDuree($request->get('duree'))
             ->setTitre($request->get('titre'))
             ->setQcm($qcm);
@@ -322,7 +322,7 @@ class QCMController extends AbstractFOSRestController
      */
     public function createReponseToQuestionQCMsAction(Request $request, QCM $qcm, Question $question)
     {
-        // $this->validation->validateCreateQuestionQCM($request);
+        $this->validation->validateCreateReponse($request);
         $this->validation->validateQuestionBelongToQCM($qcm, $question);
 
         $reponse = new Reponse();
@@ -366,6 +366,7 @@ class QCMController extends AbstractFOSRestController
      */
     public function updateReponseQCMsAction(Request $request, QCM $qcm, Question $question, Reponse $reponse)
     {
+        $this->validation->validateUpdateReponse($request);
         $this->validation->validateQuestionBelongToQCM($qcm, $question);
         $this->validation->validateReponseBelongToQuestion($question, $reponse);
 

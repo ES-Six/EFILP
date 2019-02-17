@@ -11,6 +11,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\BadRequestException;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -83,6 +86,144 @@ class QCMValidation
             ])
         ]);
         $this->storeErrors('nom', $violations);
+
+        $this->flushErrors();
+    }
+
+    /**
+     * @param Request $request
+     * @throws BadRequestException
+     */
+    public function validateCreateQuestion(Request $request)
+    {
+        $validator = Validation::createValidator();
+
+        $violations = $validator->validate($request->get('titre'), [
+            new NotBlank([
+                'message' => "Un titre de question doit être spécifié"
+            ]),
+            new Length([
+                'max'=>255,
+                'maxMessage' => "Un titre de question fait au maximum 255 caractères"
+            ])
+        ]);
+        $this->storeErrors('titre', $violations);
+
+        $violations = $validator->validate($request->get('duree'), [
+            new NotBlank([
+                'message' => "Une duree de question doit être spécifié"
+            ]),
+            new Range([
+                'min' => 10,
+                'max' => 120,
+                'minMessage' => 'Une question doit durer au minimum {{ limit }} secondes',
+                'maxMessage' => 'Une question doit durer au maximum {{ limit }} secondes',
+                'invalidMessage' => 'Une durée doit être un nombre entier positif'
+            ])
+        ]);
+        $this->storeErrors('duree', $violations);
+
+        $this->flushErrors();
+    }
+
+    /**
+     * @param Request $request
+     * @throws BadRequestException
+     */
+    public function validateUpdateQuestion(Request $request)
+    {
+        $validator = Validation::createValidator();
+
+        $violations = $validator->validate($request->get('titre'), [
+            new NotBlank([
+                'message' => "Un titre de question doit être spécifié"
+            ]),
+            new Length([
+                'max'=>255,
+                'maxMessage' => "Un titre de question fait au maximum 255 caractères"
+            ])
+        ]);
+        $this->storeErrors('titre', $violations);
+
+        $violations = $validator->validate($request->get('duree'), [
+            new NotBlank([
+                'message' => "Une duree de question doit être spécifié"
+            ]),
+            new Range([
+                'min' => 10,
+                'max' => 120,
+                'minMessage' => 'Une question doit durer au minimum {{ limit }} secondes',
+                'maxMessage' => 'Une question doit durer au maximum {{ limit }} secondes',
+                'invalidMessage' => 'Une durée doit être un nombre entier positif'
+            ])
+        ]);
+        $this->storeErrors('duree', $violations);
+
+        $this->flushErrors();
+    }
+
+    /**
+     * @param Request $request
+     * @throws BadRequestException
+     */
+    public function validateCreateReponse(Request $request)
+    {
+        $validator = Validation::createValidator();
+
+        $violations = $validator->validate($request->get('nom'), [
+            new NotBlank([
+                'message' => "Un nom de réponse doit être spécifié"
+            ]),
+            new Length([
+                'max'=>255,
+                'maxMessage' => "Un nom de réponse fait au maximum 255 caractères"
+            ])
+        ]);
+        $this->storeErrors('nom', $violations);
+
+        $violations = $validator->validate($request->get('est_valide'), [
+            new NotNull([
+                'message' => "Il faut spécifier si c'est une réponse valide"
+            ]),
+            new Type([
+                'type' => 'bool',
+                'message' => 'Ce champ doit être un booléen'
+            ])
+        ]);
+        $this->storeErrors('est_valide', $violations);
+
+        $this->flushErrors();
+    }
+
+    /**
+     * @param Request $request
+     * @throws BadRequestException
+     */
+    public function validateUpdateReponse(Request $request)
+    {
+        $validator = Validation::createValidator();
+
+        $violations = $validator->validate($request->get('nom'), [
+            new NotBlank([
+                'message' => "Un nom de réponse doit être spécifié"
+            ]),
+            new Length([
+                'max'=>255,
+                'maxMessage' => "Un nom de réponse fait au maximum 255 caractères"
+            ])
+        ]);
+        $this->storeErrors('nom', $violations);
+
+        $violations = $validator->validate($request->get('est_valide'), [
+            new NotNull([
+                'message' => "Il faut spécifier si c'est une réponse valide"
+            ]),
+            new Type([
+                'type' => 'bool',
+                'message' => 'Ce champ doit être un booléen'
+            ])
+        ]);
+        $this->storeErrors('est_valide', $violations);
 
         $this->flushErrors();
     }
