@@ -135,6 +135,94 @@ define({ "api": [
     "groupTitle": "Classes"
   },
   {
+    "type": "delete",
+    "url": "/v1/qcms/{id_qcm}/questions/{id_question}/media",
+    "title": "Supprimer un média",
+    "name": "DeleteMedia",
+    "group": "Media",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_question",
+            "description": "<p>l'id de la question</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4/questions/2/media\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "Media"
+  },
+  {
+    "type": "post",
+    "url": "/v1/qcms/{id_qcm}/questions/{id_question}/media",
+    "title": "Définir ou remplacer le média d'une question",
+    "name": "UpsertMedia",
+    "group": "Media",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_question",
+            "description": "<p>l'id de la question</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "url",
+            "description": "<p>l'url qui pointe vers le média</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "type",
+            "description": "<p>le type du média</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4/questions/2/media\" -d '{\"url\": \"http://www.lesite.com/image.jpg\", \"type\": \"IMAGE\"}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "Media"
+  },
+  {
     "type": "post",
     "url": "/v1/qcms",
     "title": "Créer un QCMs",
@@ -199,6 +287,43 @@ define({ "api": [
     "groupTitle": "QCMs"
   },
   {
+    "type": "delete",
+    "url": "/v1/qcms/{id_qcm}",
+    "title": "Supprimer un QCMs",
+    "name": "UpdateQCMs",
+    "group": "QCMs",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_professeur",
+            "description": "<p>l'id du compte professeur</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "QCMs"
+  },
+  {
     "type": "put",
     "url": "/v1/qcms/{id_qcm}",
     "title": "Mettre à jour un QCMs",
@@ -236,43 +361,6 @@ define({ "api": [
       {
         "title": "Exemple d'utilisation:",
         "content": "curl -X PUT -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4\" -d '{\"nom\": \"QCM_test\"}'",
-        "type": "curl"
-      }
-    ],
-    "filename": "src/Controller/QCMController.php",
-    "groupTitle": "QCMs"
-  },
-  {
-    "type": "delete",
-    "url": "/v1/qcms/{id_qcm}",
-    "title": "Supprimer un QCMs",
-    "name": "UpdateQCMs",
-    "group": "QCMs",
-    "version": "1.0.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "id_professeur",
-            "description": "<p>l'id du compte professeur</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "number",
-            "optional": false,
-            "field": "id_qcm",
-            "description": "<p>l'id du QCM</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Exemple d'utilisation:",
-        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4\"",
         "type": "curl"
       }
     ],
