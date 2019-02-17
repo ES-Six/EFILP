@@ -151,7 +151,7 @@ class QCMController extends AbstractFOSRestController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @api {delete} /v1/qcms/{id_qcm} Supprimer un QCMs
-     * @apiName UpdateQCMs
+     * @apiName DeleteQCMs
      * @apiGroup QCMs
      * @apiVersion 1.0.0
      *
