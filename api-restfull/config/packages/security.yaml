@@ -32,4 +32,5 @@ security:
         - { path: ^/v1/login,               roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/apprenants,          roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/professeurs/register,roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/apprenant/session,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/professeurs,         roles: IS_AUTHENTICATED_FULLY }

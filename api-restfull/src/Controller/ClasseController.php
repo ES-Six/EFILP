@@ -66,7 +66,7 @@ class ClasseController extends AbstractFOSRestController
      * @apiParam {string} nom Le nom de la classe
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/123/classes" -d '{"nom": "terminale_1"}'
+     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/123/classes" -d '{"nom": "terminale_1"}'
      */
     public function createClasseAction(Request $request, User $professeur)
     {
@@ -103,7 +103,7 @@ class ClasseController extends AbstractFOSRestController
      * @apiParam {string} nom Le nom de la classe
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X PUT -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/123/classes/2" -d '{"nom": "terminale_1"}'
+     *     curl -X PUT -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/123/classes/2" -d '{"nom": "terminale_1"}'
      */
     public function updateClasseAction(Request $request, User $professeur, Classe $classe)
     {
@@ -136,7 +136,7 @@ class ClasseController extends AbstractFOSRestController
      * @apiParam {number} id_classe l'id de la classe
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X DELETE -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/123/classes/1"
+     *     curl -X DELETE -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/123/classes/1"
      */
     public function deleteClasseAction(User $professeur, Classe $classe)
     {

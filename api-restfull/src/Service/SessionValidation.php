@@ -6,10 +6,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\BadRequestException;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ClasseValidation
+class SessionValidation
 {
     private $em;
     private $errors = array();
@@ -42,42 +44,42 @@ class ClasseValidation
      * @param Request $request
      * @throws BadRequestException
      */
-    public function validateCreateClass(Request $request)
+    public function validateCreateSession(Request $request)
     {
         $validator = Validation::createValidator();
 
         $violations = $validator->validate($request->get('nom'), [
             new NotBlank([
-                'message' => "Un nom de classe doit être spécifié"
+                'message' => "Un nom de session doit être spécifié"
             ]),
             new Length([
                 'max'=>255,
-                'maxMessage' => "Un nom de classe fait au maximum 255 caractères"
+                'maxMessage' => "Un nom de session fait au maximum 255 caractères"
             ])
         ]);
         $this->storeErrors('nom', $violations);
 
-        $this->flushErrors();
-    }
-
-    /**
-     * @param Request $request
-     * @throws BadRequestException
-     */
-    public function validateUpdateClass(Request $request)
-    {
-        $validator = Validation::createValidator();
-
-        $violations = $validator->validate($request->get('nom'), [
-            new NotBlank([
-                'message' => "Un nom de classe doit être spécifié"
+        $violations = $validator->validate($request->get('afficher_classement'), [
+            new NotNull([
+                'message' => "Il faut spécifier si la session comporte l'affichage du classement entre les questions"
             ]),
-            new Length([
-                'max'=>255,
-                'maxMessage' => "Un nom de classe fait au maximum 255 caractères"
+            new Type([
+                'type' => 'bool',
+                'message' => 'Ce champ doit être un booléen'
             ])
         ]);
-        $this->storeErrors('nom', $violations);
+        $this->storeErrors('afficher_classement', $violations);
+
+        $violations = $validator->validate($request->get('generer_pseudo'), [
+            new NotNull([
+                'message' => "Il faut spécifier si les élèves ont le droit de choisir leur pseudonymes avant le début de la session"
+            ]),
+            new Type([
+                'type' => 'bool',
+                'message' => 'Ce champ doit être un booléen'
+            ])
+        ]);
+        $this->storeErrors('generer_pseudo', $violations);
 
         $this->flushErrors();
     }

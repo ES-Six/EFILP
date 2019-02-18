@@ -5,8 +5,6 @@ namespace App\Service;
 use App\Entity\QCM;
 use App\Entity\Question;
 use App\Entity\Reponse;
-use App\Entity\User;
-use App\Exception\ConflictException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\BadRequestException;

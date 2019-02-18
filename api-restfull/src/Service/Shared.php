@@ -4,7 +4,6 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
-use JMS\Serializer\SerializationContext;
 
 class Shared
 {

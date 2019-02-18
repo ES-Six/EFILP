@@ -21,3 +21,10 @@ qcms:
   prefix: /v1
   resource: App\Controller\QCMController
   name_prefix:  api_qcms_
+
+sessions:
+  type: rest
+  host: ~
+  prefix: /v1
+  resource: App\Controller\SessionController
+  name_prefix:  api_sessions_

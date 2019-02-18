@@ -84,7 +84,7 @@ class UserController extends AbstractFOSRestController
      * @apiParam {string} password le mot de passe du compte
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/register" -d '{"username": "nom_d_utilisateur", "password": "greetings earthling", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
+     *     curl -X POST -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/register" -d '{"username": "nom_d_utilisateur", "password": "greetings earthling", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
      */
     public function createProfesseurAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
@@ -123,7 +123,7 @@ class UserController extends AbstractFOSRestController
      * @apiParam {string} username l'identifiant du compte
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/{id_professeur}/info" -d '{"username": "nom_d_utilisateur", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
+     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/{id_professeur}/info" -d '{"username": "nom_d_utilisateur", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
      */
     public function updateInfoProfesseurAction(Request $request, User $professeur)
     {
@@ -159,7 +159,7 @@ class UserController extends AbstractFOSRestController
      * @apiParam {string} newPassword le nouveau mot de passe
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/{id_professeur}/password" -d '{"username": "nom_d_utilisateur", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
+     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/{id_professeur}/password" -d '{"username": "nom_d_utilisateur", "nom": "UN_NOM", "prenom": "UN_PRENOM"}'
      */
     public function updatePasswordProfesseurAction(Request $request, User $professeur, UserPasswordEncoderInterface $encoder)
     {
@@ -190,7 +190,7 @@ class UserController extends AbstractFOSRestController
      * @apiParam {number} id_professeur l'id du compte professeur
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X DELETE -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-base.hub3e.com/v1/professeurs/123"
+     *     curl -X DELETE -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-restfull/v1/professeurs/123"
      *
      */
     public function delProfesseurAction(User $professeur)

@@ -29,7 +29,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/123/classes\" -d '{\"nom\": \"terminale_1\"}'",
+        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/123/classes\" -d '{\"nom\": \"terminale_1\"}'",
         "type": "curl"
       }
     ],
@@ -66,7 +66,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/123/classes/1\"",
+        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/123/classes/1\"",
         "type": "curl"
       }
     ],
@@ -127,7 +127,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X PUT -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/123/classes/2\" -d '{\"nom\": \"terminale_1\"}'",
+        "content": "curl -X PUT -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/123/classes/2\" -d '{\"nom\": \"terminale_1\"}'",
         "type": "curl"
       }
     ],
@@ -598,6 +598,114 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/v1/professeurs/{id_professeur}/sessions",
+    "title": "Créer une session",
+    "name": "CreateSession",
+    "group": "Sessions",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_professeur",
+            "description": "<p>l'id du compte professeur</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du qcm auquel la session sera lié</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_classe",
+            "description": "<p>l'id de la classe à laquelle la session sera liée</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/sessions\" -d '{\"id_qcm\": \"123\", \"id_classe\": \"4\"}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/SessionController.php",
+    "groupTitle": "Sessions"
+  },
+  {
+    "type": "delete",
+    "url": "/v1/sessions/{id_session}",
+    "title": "Supprimer une session",
+    "name": "DeleteSession",
+    "group": "Sessions",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_session",
+            "description": "<p>l'id de la session</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/123/sessions/4\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/SessionController.php",
+    "groupTitle": "Sessions"
+  },
+  {
+    "type": "get",
+    "url": "/v1/professeurs/{id_professeur}/classes",
+    "title": "Voir une session par son code unique",
+    "name": "FindSession",
+    "group": "Sessions",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/sessions/00000001\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/SessionController.php",
+    "groupTitle": "Sessions"
+  },
+  {
+    "type": "get",
+    "url": "/v1/professeurs/{id_professeur}/classes",
+    "title": "Voir une session par son code unique",
+    "name": "FindSession",
+    "group": "Sessions",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/sessions\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/SessionController.php",
+    "groupTitle": "Sessions"
+  },
+  {
+    "type": "post",
     "url": "/v1/professeurs/register",
     "title": "Créer un compte professeur",
     "name": "CreateProfesseur",
@@ -640,7 +748,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/register\" -d '{\"username\": \"nom_d_utilisateur\", \"password\": \"greetings earthling\", \"nom\": \"UN_NOM\", \"prenom\": \"UN_PRENOM\"}'",
+        "content": "curl -X POST -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/register\" -d '{\"username\": \"nom_d_utilisateur\", \"password\": \"greetings earthling\", \"nom\": \"UN_NOM\", \"prenom\": \"UN_PRENOM\"}'",
         "type": "curl"
       }
     ],
@@ -670,7 +778,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/123\"",
+        "content": "curl -X DELETE -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/123\"",
         "type": "curl"
       }
     ],
@@ -748,7 +856,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X PATCH -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/{id_professeur}/password\" -d '{\"username\": \"nom_d_utilisateur\", \"nom\": \"UN_NOM\", \"prenom\": \"UN_PRENOM\"}'",
+        "content": "curl -X PATCH -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/{id_professeur}/password\" -d '{\"username\": \"nom_d_utilisateur\", \"nom\": \"UN_NOM\", \"prenom\": \"UN_PRENOM\"}'",
         "type": "curl"
       }
     ],
@@ -799,7 +907,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X PATCH -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-base.hub3e.com/v1/professeurs/{id_professeur}/info\" -d '{\"username\": \"nom_d_utilisateur\", \"nom\": \"UN_NOM\", \"prenom\": \"UN_PRENOM\"}'",
+        "content": "curl -X PATCH -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-restfull/v1/professeurs/{id_professeur}/info\" -d '{\"username\": \"nom_d_utilisateur\", \"nom\": \"UN_NOM\", \"prenom\": \"UN_PRENOM\"}'",
         "type": "curl"
       }
     ],

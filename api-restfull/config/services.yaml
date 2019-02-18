@@ -75,3 +75,6 @@ services:
 
     App\Service\QCMValidation:
         autowire: true
+
+    App\Service\SessionValidation:
+        autowire: true
