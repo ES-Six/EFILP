@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Entity\Participant;
 use App\Entity\QCM;
 use App\Entity\Session;
 use App\Entity\User;
@@ -141,5 +142,54 @@ class SessionController extends AbstractFOSRestController
         $this->em->remove($session);
         $this->em->flush();
         return $this->handleView($this->shared->createSuccessResponse(null, 'ressource supprimée', 200));
+    }
+
+    /**
+     * @Rest\Post("/apprenant/sessions/{id_session}/participant")
+     * @ParamConverter("session", options={"mapping": {"id_session" : "id"}})
+     *
+     * @param Request $request
+     * @param Session $session
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @api {get} /v1/apprenant/sessions/{id_session}/participant Collecter un participant d'une session
+     * @apiName CollecteParticipant
+     * @apiGroup Sessions
+     * @apiVersion 1.0.0
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/apprenant/sessions/1/participant"
+     */
+    public function collecterParticipantSessionAction(Request $request, Session $session)
+    {
+        $participant = null;
+        if (!empty($request->get('code_dedoublonage'))) {
+            $participant = $this->em->getRepository(Participant::class)->findOneById($request->get('code_dedoublonage'));
+        } else {
+            $participant = $this->em->createQueryBuilder()
+                ->select('Participant')
+                ->from(Participant::class, 'Participant')
+                ->andWhere('Participant.nom LIKE :nom')
+                ->andWhere('Participant.prenom LIKE :prenom')
+                ->andWhere('Participant.classe = :classe')
+                ->setParameters(array(
+                    'nom'=>$request->get('nom'),
+                    'prenom'=>$request->get('prenom'),
+                    'classe'=>$session->getClasse()))
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if (!$participant instanceof Participant) {
+                $participant = new Participant();
+                $participant->setClasse($session->getClasse())
+                    ->setNom($request->get('nom'))
+                    ->setPrenom($request->get('prenom'));
+
+                $this->em->persist($participant);
+                $this->em->flush();
+            }
+        }
+        return $this->handleView($this->shared->createSuccessResponse($participant));
     }
 }

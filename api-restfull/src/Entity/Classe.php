@@ -43,6 +43,11 @@ class Classe
     private $sessions;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="classe")
+     */
+    private $participants;
+
+    /**
      * Classe constructor.
      * @throws \Exception
      */
@@ -50,6 +55,7 @@ class Classe
     {
         $this->date_creation = new \DateTime();
         $this->sessions = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +131,37 @@ class Classe
             // set the owning side to null (unless already changed)
             if ($session->getClasse() === $this) {
                 $session->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->contains($participant)) {
+            $this->participants->removeElement($participant);
+            // set the owning side to null (unless already changed)
+            if ($participant->getClasse() === $this) {
+                $participant->setClasse(null);
             }
         }
 
