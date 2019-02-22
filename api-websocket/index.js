@@ -68,17 +68,13 @@ io.sockets.on('connection', (socket) => {
                 sessions.forEach((session_manager) => {
                     if (session_manager.getSession().id === session.id) {
                         const participants = session_manager.getParticiants();
-                        let participant_exist = false;
                         for (let i = 0; i < participants.length; i ++) {
                             if (participants[i].id === participant.id) {
-                                participant_exist = true;
+                                session_manager.delParticipant(i);
                             }
                         }
-
-                        if (!participant_exist) {
-                            console.log('ajout participant');
-                            session_manager.addParticipant(participant, socket);
-                        }
+                        console.log('ajout participant');
+                        session_manager.addParticipant(participant, socket);
                     }
                 })
             }
@@ -106,13 +102,14 @@ io.sockets.on('connection', (socket) => {
                     }
                 }
                 if (!session_exist) {
-                    sessions.push(new SessionManager(connection, session));
+                    sessions.push(new SessionManager(connection, io, session));
                 }
 
                 // Assigner le professeur dans sa session
                 sessions.forEach((session_manager) => {
                     if (session_manager.getSession().id === session.id) {
                         console.log('definir professeur');
+                        response.data.results.token = token;
                         session_manager.setProfesseur(response.data.results, socket);
                         socket.on('SESSION_START', () => {
                             session_manager.startSession();
