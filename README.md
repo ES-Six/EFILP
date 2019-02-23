@@ -12,7 +12,8 @@ Efficient and fast interactive learning platform signifie Plateforme d'apprentis
 
 Pour consulter les instructions relatives au déployement des 4 parties du projet lisez le README.md qui y est associé.
 
-Instruction de l'API restfull : [https://andnerb.github.io/EFILP/api-restfull/](https://andnerb.github.io/EFILP/api-restfull/)
+Instructions de l'API restfull : [https://andnerb.github.io/EFILP/api-restfull/](https://andnerb.github.io/EFILP/api-restfull/)
+Instructions de l'API websocket : [https://andnerb.github.io/EFILP/api-websocket/](https://andnerb.github.io/EFILP/api-websocket/)
 
 ## Technologies utilisées
 

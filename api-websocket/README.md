@@ -10,7 +10,8 @@ Utilisez la commande :
 	
 	npm install
 	
-Puis copier config.dist.json sous le nom config.json et éditez la configuration de votre projet
+Puis copier le fichir .env sous le nom .env.local
+Puis éditez le fichier .env.local avec la configuration de votre projet
 
 ## Procédure de démarage en mode dev
 
