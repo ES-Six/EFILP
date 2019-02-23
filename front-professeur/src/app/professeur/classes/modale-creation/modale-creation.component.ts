@@ -25,14 +25,28 @@ export class ModaleCreationComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   creerClasse() {
-    this.activeModal.close('classe_creee');
+    this.isLoading = true;
+    this.professeurService.createClasse(this.formAjoutClasse.value).subscribe(
+      (result) => {
+        this.isLoading = false;
+        this.activeModal.close('classe_creee');
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   onSubmitAjouterClasse() {
-    this.creerClasse();
+    if (this.formAjoutClasse.valid) {
+      this.creerClasse();
+    } else {
+      this.professeurService.markAllFormlementsAsTouched(this.formAjoutClasse);
+    }
   }
 
 }

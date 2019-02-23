@@ -3,7 +3,11 @@
   <div class="py-2 my-1 bg-light class-container border d-flex" *ngFor="let classe of classes">
     <span class="ml-3 justify-content-center align-self-center"><span class="font-weight-bold">{{ classe.nom }}</span> (créer le : {{ classe.date_creation | date: 'dd/MM/yyyy'}})</span>
 
-    <div class="ml-auto justify-content-center align-self-center"><button class="btn btn-success rounded-circle"><i class="fas fa-pen-square"></i></button></div>
-    <div class="mx-2 justify-content-center align-self-center"><button class="btn btn-danger rounded-circle"><i class="fas fa-trash"></i></button></div>
+    <div class="ml-auto justify-content-center align-self-center">
+      <button class="btn btn-success rounded-circle"><i class="fas fa-pen-square"></i></button>
+    </div>
+    <div class="mx-2 justify-content-center align-self-center">
+      <button class="btn btn-danger rounded-circle"><i class="fas fa-trash"></i></button>
+    </div>
   </div>
 </div>
