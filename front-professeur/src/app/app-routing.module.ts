@@ -18,6 +18,7 @@ export const routes: Routes = [
       { path: 'login', component: LoginFormComponent },
     ]
   },
+  { path: 'professeur', redirectTo: 'professeur/home', pathMatch: 'full' },
   {
     path: 'professeur',
     component: ProfesseurComponent,

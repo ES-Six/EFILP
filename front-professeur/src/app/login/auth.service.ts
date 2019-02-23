@@ -67,6 +67,7 @@ export class AuthService {
     )
       .pipe(
         map((data: ApiSuccessResponse<User>) => {
+          this.setUserInfo(data.results);
           return data.results;
         }),
         catchError((data: ApiErrorResponse) => {
