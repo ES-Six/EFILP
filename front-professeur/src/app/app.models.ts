@@ -15,3 +15,11 @@ export class ApiAuthResponse {
   constructor(
     public token: string) {}
 }
+
+export class User {
+  constructor(
+    public id: number,
+    public role: string,
+    public nom: string,
+    public prenom: string) {}
+}
