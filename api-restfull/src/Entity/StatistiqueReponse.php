@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StatistiqueReponseRepository")
+ * @ORM\Table(name="statistique_reponse",
+ * uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_metric", columns={"reponse_id", "participant_id"})
+ * })
  */
 class StatistiqueReponse
 {

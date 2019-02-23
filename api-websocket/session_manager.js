@@ -45,24 +45,30 @@ module.exports = class SessionManager {
         return this.session;
     }
 
-    respondToQuestion(response_data) {
-        if (question.reponses) {
-            for (let i = 0; i < question.reponses.length; i ++) {
-                if (question.reponses[i].id === response_data.id_reponse) {
-                    this.responsesMetrics.push({
-                        id_participant: response_data.id_participant,
-                        id_reponse: response_data.id_reponse,
-                        est_valide: question.reponses[i].est_valide
-                    });
+    respondToQuestion() {
+        return (response_data) => {
+            if (this.qcm.questions[this.idxQuestion] &&
+                this.qcm.questions[this.idxQuestion].reponses) {
+                for (let i = 0; i < this.qcm.questions[this.idxQuestion].reponses.length; i++) {
+                    if (this.qcm.questions[this.idxQuestion].reponses[i].id === response_data.id_reponse) {
+                        this.responsesMetrics.push({
+                            id_participant: response_data.id_participant,
+                            id_reponse: response_data.id_reponse,
+                            est_valide: this.qcm.questions[this.idxQuestion].reponses[i].est_valide
+                        });
+                    }
                 }
-            }
 
-            connection.query('INSERT INTO statistique_reponse (reponse_id, participant_id) VALUES (?, ?)', [response_data.id_reponse, response_data.id_participant], (error, results, fields) => {
-                if (error) {
-                    socket.emit('INTERNAL_ERROR', null);
-                    console.error(error);
-                }
-            });
+                this.mysqlclient.query('INSERT INTO statistique_reponse (reponse_id, participant_id) VALUES (?, ?)', [response_data.id_reponse, response_data.id_participant], (error, results, fields) => {
+                    if (error) {
+                        if (!error.Error === 'ER_DUP_ENTRY') {
+                            console.error(error);
+                        } else {
+                            console.log("L'utilisateur a répondu plus d'une fois");
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -167,6 +173,7 @@ module.exports = class SessionManager {
             this.professeur.socket.on('NEXT_SLIDE', this.startMedia());
             for (let i = 0; i < this.participants.length; i ++) {
                 this.participants[i].socket.on('REQUEST_STATS', this.envoiClassementTop3());
+                this.participants[i].socket.on('SEND_RESPONSE', this.respondToQuestion());
             }
 
             this.qcm = response.data.results;
