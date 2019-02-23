@@ -5,6 +5,7 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AuthGuard } from './guard/auth.guard';
 import { ProfesseurComponent } from './professeur/professeur.component';
 import { HomeComponent } from './professeur/home/home.component';
+import { ClassesComponent } from './professeur/classes/classes.component';
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
 * le logins, récupération de mot de passe, etc...
@@ -25,6 +26,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'classes', component: ClassesComponent },
     ]
   },
 

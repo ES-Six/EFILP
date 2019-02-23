@@ -20,6 +20,15 @@ export class User {
   constructor(
     public id: number,
     public role: string,
+    public username: string,
     public nom: string,
     public prenom: string) {}
+}
+
+export class Classe {
+  constructor(
+    public id: number,
+    public professeur: string,
+    public date_creation: string,
+    public nom: string) {}
 }
