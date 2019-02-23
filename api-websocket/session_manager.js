@@ -77,26 +77,31 @@ module.exports = class SessionManager {
     }
 
     envoiClassementTop3() {
-        const scores = [];
-        // Créer le tableau des scores
-        for (let i = 0; i < this.participants.length; i ++) {
-            scores.push({
-                score: this.getScoreParticipant(this.participants[i].id),
-                id_participant: this.participants[i].id
-            });
-        }
-
-        // trier le tableau des scores
-        scores.sort((participant_1, participant_2) => {
-            if (participant_1.score < participant_2.score) {
-                return -1;
-            } else if (participant_1.score > participant_2.score) {
-                return 1;
-            } else {
-                return 0;
+        return (id) => {
+            const scores = [];
+            // Créer le tableau des scores
+            for (let i = 0; i < this.participants.length; i++) {
+                scores.push({
+                    score: this.getScoreParticipant(this.participants[i].id),
+                    id_participant: this.participants[i].id
+                });
             }
-        });
-        socket.emit('TOP_3', null);
+
+            // trier le tableau des scores
+            scores.sort((participant_1, participant_2) => {
+                if (participant_1.score < participant_2.score) {
+                    return -1;
+                } else if (participant_1.score > participant_2.score) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+
+            scores.splice(0, 3);
+
+            this.io.to(id).emit('TOP_3', scores);
+        };
     }
 
     removeSensitiveInfos(question) {
@@ -116,6 +121,8 @@ module.exports = class SessionManager {
                 this.io.to(`session_${this.session.id}`).emit('QUESTION_TIMEOUT', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
                 this.idxQuestion ++;
             }, this.qcm.questions[this.idxQuestion].duree * 1000 || 10000);
+        } else {
+            this.professeur.socket.emit('QCM_ENDED', null);
         }
     }
 
@@ -133,11 +140,13 @@ module.exports = class SessionManager {
     }
 
     startMedia() {
-        if (this.qcm.questions[this.idxQuestion] && this.qcm.questions[this.idxQuestion].media) {
-            this.io.to(`session_${this.session.id}`).emit('START_MEDIA', this.removeSensitiveInfos(this.qcm.questions[idx]));
-        } else {
-            this.startQuestion();
-        }
+        return () => {
+            if (this.qcm.questions[this.idxQuestion] && this.qcm.questions[this.idxQuestion].media) {
+                this.io.to(`session_${this.session.id}`).emit('START_MEDIA', this.removeSensitiveInfos(this.qcm.questions[idx]));
+            } else {
+                this.startQuestion();
+            }
+        };
     }
 
     skipMedia() {
@@ -154,8 +163,14 @@ module.exports = class SessionManager {
         })
         .then(response => {
             console.log('QCM', response.data.results);
+            this.professeur.socket.on('REQUEST_STATS', this.envoiClassementTop3());
+            this.professeur.socket.on('NEXT_SLIDE', this.startMedia());
+            for (let i = 0; i < this.participants.length; i ++) {
+                this.participants[i].socket.on('REQUEST_STATS', this.envoiClassementTop3());
+            }
+
             this.qcm = response.data.results;
-            this.startMedia();
+            this.startMedia()();
         })
         .catch(error => {
             console.log(error);
