@@ -110,5 +110,22 @@ export class ProfesseurService {
       );
   }
 
+  getQCMs() {
+    return this.httpClient.get<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${this.authService.getUserInfo().id}/qcms`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
 }
 

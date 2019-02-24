@@ -6,9 +6,11 @@ import { AuthGuard } from './guard/auth.guard';
 import { ProfesseurComponent } from './professeur/professeur.component';
 import { HomeComponent } from './professeur/home/home.component';
 import { ClassesComponent } from './professeur/classes/classes.component';
+import { QcmsComponent } from './professeur/qcms/qcms.component';
+
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
-* le logins, récupération de mot de passe, etc...
+* le login, les classes, etc...
 */
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,6 +29,7 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'classes', component: ClassesComponent },
+      { path: 'qcms', component: QcmsComponent },
     ]
   },
 

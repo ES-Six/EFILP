@@ -28,7 +28,14 @@ export class User {
 export class Classe {
   constructor(
     public id: number,
-    public professeur: string,
+    public professeur: number,
     public date_creation: string,
+    public nom: string) {}
+}
+
+export class QCM {
+  constructor(
+    public id: number,
+    public professeur: number,
     public nom: string) {}
 }

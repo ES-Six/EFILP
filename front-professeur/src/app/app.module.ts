@@ -16,6 +16,7 @@ import { ProfesseurService } from './professeur/professeur.service';
 import { ModaleCreationComponent as ModaleCreationClasseComponent } from './professeur/classes/modale-creation/modale-creation.component';
 import { ModaleConfirmationSuppressionComponent as ModaleConfirmationSuppressionClasseComponent } from './professeur/classes/modale-confirmation-suppression/modale-confirmation-suppression.component';
 import { ModaleModificationComponent as ModaleModificationClasseComponent } from './professeur/classes/modale-modification/modale-modification.component';
+import { QcmsComponent } from './professeur/qcms/qcms.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ModaleModificationComponent as ModaleModificationClasseComponent } from
     ModaleCreationClasseComponent,
     ModaleConfirmationSuppressionClasseComponent,
     ModaleModificationClasseComponent,
+    QcmsComponent,
   ],
   imports: [
     BrowserModule,

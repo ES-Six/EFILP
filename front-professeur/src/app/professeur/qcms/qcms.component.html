@@ -1,0 +1,20 @@
+<div class="container">
+  <div>
+    <button class="my-3 btn btn-primary rounded-circle" (click)="creerQCM()"><i class="fas fa-plus"></i></button>
+  </div>
+  <div class="py-2 my-1 bg-light class-container border d-flex" *ngFor="let qcm of qcms">
+    <span class="ml-3 justify-content-center align-self-center">{{ qcm.nom }}</span>
+
+    <div class="ml-auto justify-content-center align-self-center">
+      <button class="btn btn-primary rounded-circle" (click)="editerContenuQCM(qcm)"><i class="fas fa-ellipsis-h"></i></button>
+    </div>
+
+    <div class="ml-2 justify-content-center align-self-center">
+      <button class="btn btn-success rounded-circle" (click)="editerQCM(qcm)"><i class="fas fa-pen-square"></i></button>
+    </div>
+
+    <div class="mx-2 justify-content-center align-self-center">
+      <button class="btn btn-danger rounded-circle" (click)="supprimerQCM(qcm.id)"><i class="fas fa-trash"></i></button>
+    </div>
+  </div>
+</div>
