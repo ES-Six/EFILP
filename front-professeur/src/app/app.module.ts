@@ -14,6 +14,8 @@ import { HomeComponent } from './professeur/home/home.component';
 import { ClassesComponent } from './professeur/classes/classes.component';
 import { ProfesseurService } from './professeur/professeur.service';
 import { ModaleCreationComponent as ModaleCreationClasseComponent } from './professeur/classes/modale-creation/modale-creation.component';
+import { ModaleConfirmationSuppressionComponent as ModaleConfirmationSuppressionClasseComponent } from './professeur/classes/modale-confirmation-suppression/modale-confirmation-suppression.component';
+import { ModaleModificationComponent as ModaleModificationClasseComponent } from './professeur/classes/modale-modification/modale-modification.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ModaleCreationComponent as ModaleCreationClasseComponent } from './prof
     HomeComponent,
     ClassesComponent,
     ModaleCreationClasseComponent,
+    ModaleConfirmationSuppressionClasseComponent,
+    ModaleModificationClasseComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,10 @@ import { ModaleCreationComponent as ModaleCreationClasseComponent } from './prof
   ],
   providers: [AuthService, CookieService, ProfesseurService],
   bootstrap: [AppComponent],
-  entryComponents: [ModaleCreationClasseComponent]
+  entryComponents: [
+    ModaleCreationClasseComponent,
+    ModaleConfirmationSuppressionClasseComponent,
+    ModaleModificationClasseComponent
+  ]
 })
 export class AppModule { }

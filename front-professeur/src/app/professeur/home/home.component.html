@@ -1,7 +1,25 @@
-<div>
-  Bienvenue sur EFILP.<br>
-  Que souhaitez-vous faire aujourd'hui ?<br>
-  <button class="btn btn-primary mx-1" routerLink="../classes">Gérer vos classes</button>
-  <button class="btn btn-primary mx-1" routerLink="../qcms">Gérer vos QCMs</button>
-  <button class="btn btn-primary mx-1" routerLink="../sessions">Lancer une session</button>
+<div class="d-flex custom-container mx-3 mx-md-0">
+  <div class="justify-content-center align-self-center mx-auto">
+    <div class="text-center">
+      Bienvenue sur EFILP.<br>
+      Que souhaitez-vous faire aujourd'hui ?<br>
+
+      <button class="btn btn-primary mx-1 my-1 col col-md-5" routerLink="../classes">
+        Gérer vos classes<br>
+        <i class="fas fa-users"></i>
+      </button>
+      <button class="btn btn-primary mx-1 my-1 col col-md-5" routerLink="../qcms">
+        Gérer vos QCMs<br>
+        <i class="far fa-question-circle"></i>
+      </button>
+      <button class="btn btn-primary mx-1 my-1 col col-md-5" routerLink="../sessions">
+        Lancer une session<br>
+        <i class="far fa-play-circle"></i>
+      </button>
+      <button class="btn btn-primary mx-1 my-1 col col-md-5" routerLink="../sessions">
+        Voir les statistiques<br>
+        <i class="fas fa-chart-pie"></i>
+      </button>
+    </div>
+  </div>
 </div>

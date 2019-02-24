@@ -73,5 +73,42 @@ export class ProfesseurService {
       );
   }
 
+  updateClasse(id_classe, data_classe) {
+    return this.httpClient.put<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${this.authService.getUserInfo().id}/classes/${id_classe}`,
+      data_classe,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  deleteClasse(id_classe) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${this.authService.getUserInfo().id}/classes/${id_classe}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
 }
 
