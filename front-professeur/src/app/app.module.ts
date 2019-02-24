@@ -17,6 +17,7 @@ import { ModaleCreationComponent as ModaleCreationClasseComponent } from './prof
 import { ModaleConfirmationSuppressionComponent as ModaleConfirmationSuppressionClasseComponent } from './professeur/classes/modale-confirmation-suppression/modale-confirmation-suppression.component';
 import { ModaleModificationComponent as ModaleModificationClasseComponent } from './professeur/classes/modale-modification/modale-modification.component';
 import { QcmsComponent } from './professeur/qcms/qcms.component';
+import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { QcmsComponent } from './professeur/qcms/qcms.component';
     ModaleConfirmationSuppressionClasseComponent,
     ModaleModificationClasseComponent,
     QcmsComponent,
+    QcmQuestionsComponent,
   ],
   imports: [
     BrowserModule,

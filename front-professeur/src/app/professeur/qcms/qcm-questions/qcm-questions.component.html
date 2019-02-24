@@ -1,0 +1,22 @@
+<div class="container">
+  <div>
+    <button class="my-3 btn btn-primary rounded-circle" (click)="creerQuestion()"><i class="fas fa-plus"></i></button>
+  </div>
+  <div draggable="true" class="my-1 bg-light class-container border d-flex" style="display: flex !important;flex-direction: row;justify-content: center;align-items: stretch;" *ngFor="let question of qcm?.questions">
+    <div class="px-2" style="background: #a5a5a5;align-self: stretch;vertical-align: middle;">
+      <div style="align-items: center;height: 100%;display: flex;">
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+    </div>
+
+    <span class="ml-2 justify-content-center align-self-center">{{ question.titre }}</span>
+
+    <div class="my-2 ml-auto justify-content-center align-self-center">
+      <button class="btn btn-success rounded-circle" (click)="editerQuestion(question)"><i class="fas fa-pen-square"></i></button>
+    </div>
+
+    <div class="my-2 mx-2 justify-content-center align-self-center">
+      <button class="btn btn-danger rounded-circle" (click)="supprimerQuestion(question.id)"><i class="fas fa-trash"></i></button>
+    </div>
+  </div>
+</div>

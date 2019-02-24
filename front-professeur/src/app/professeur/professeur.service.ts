@@ -127,5 +127,23 @@ export class ProfesseurService {
         })
       );
   }
+
+  getQCMContent(id_qcm: number) {
+    return this.httpClient.get<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+    .pipe(
+      map((data: ApiSuccessResponse<any>) => {
+        return data.results;
+      })
+    );
+  }
 }
 

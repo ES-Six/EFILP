@@ -33,9 +33,26 @@ export class Classe {
     public nom: string) {}
 }
 
+export class Reponse {
+  constructor(
+    public id: number,
+    public nom: string,
+    public est_valide: boolean) {}
+}
+
+export class Question {
+  constructor(
+    public id: number,
+    public titre: string,
+    public duree: number,
+    public position: number,
+    public reponses: Reponse[]) {}
+}
+
 export class QCM {
   constructor(
     public id: number,
     public professeur: number,
-    public nom: string) {}
+    public nom: string,
+    public questions: Question[]) {}
 }
