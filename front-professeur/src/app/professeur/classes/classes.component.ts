@@ -4,7 +4,7 @@ import { Classe } from '../../app.models';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModaleCreationComponent } from './modale-creation/modale-creation.component';
 import { ModaleConfirmationSuppressionComponent } from './modale-confirmation-suppression/modale-confirmation-suppression.component';
-import {ModaleModificationComponent} from './modale-modification/modale-modification.component';
+import { ModaleModificationComponent } from './modale-modification/modale-modification.component';
 
 @Component({
   selector: 'app-classes',
@@ -20,8 +20,7 @@ export class ClassesComponent implements OnInit {
   private supprimerClasseModalInstance: NgbModalRef = null;
 
   constructor(private professeurService: ProfesseurService,
-              private modalService: NgbModal
-  ) { }
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.refreshClasses();

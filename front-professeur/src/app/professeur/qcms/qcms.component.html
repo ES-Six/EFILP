@@ -6,7 +6,7 @@
     <span class="ml-3 justify-content-center align-self-center">{{ qcm.nom }}</span>
 
     <div class="ml-auto justify-content-center align-self-center">
-      <button class="btn btn-primary rounded-circle" (click)="editerContenuQCM(qcm)" [routerLink]="'../qcms/'+qcm.id"><i class="fas fa-ellipsis-h"></i></button>
+      <button class="btn btn-primary rounded-circle" [routerLink]="'../qcms/'+qcm.id"><i class="fas fa-ellipsis-h"></i></button>
     </div>
 
     <div class="ml-2 justify-content-center align-self-center">

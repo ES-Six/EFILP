@@ -145,5 +145,61 @@ export class ProfesseurService {
       })
     );
   }
+
+  createQCM(qcm) {
+    return this.httpClient.post<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms`,
+      qcm,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  updateQCM(id_qcm, data_qcm) {
+    return this.httpClient.put<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}`,
+      data_qcm,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  deleteQCM(id_qcm) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
 }
 

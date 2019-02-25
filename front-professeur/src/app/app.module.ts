@@ -18,6 +18,9 @@ import { ModaleConfirmationSuppressionComponent as ModaleConfirmationSuppression
 import { ModaleModificationComponent as ModaleModificationClasseComponent } from './professeur/classes/modale-modification/modale-modification.component';
 import { QcmsComponent } from './professeur/qcms/qcms.component';
 import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
+import { ModaleCreationComponent as ModaleCreationQCMComponent  } from './professeur/qcms/modales/modale-creation/modale-creation.component';
+import { ModaleModificationComponent as ModaleModificationQCMComponent } from './professeur/qcms/modales/modale-modification/modale-modification.component';
+import { ModaleSuppressionComponent as ModaleConfirmationSuppressionQCMComponent } from './professeur/qcms/modales/modale-suppression/modale-suppression.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-quest
     ModaleModificationClasseComponent,
     QcmsComponent,
     QcmQuestionsComponent,
+    ModaleCreationQCMComponent,
+    ModaleModificationQCMComponent,
+    ModaleConfirmationSuppressionQCMComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,10 @@ import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-quest
   entryComponents: [
     ModaleCreationClasseComponent,
     ModaleConfirmationSuppressionClasseComponent,
-    ModaleModificationClasseComponent
+    ModaleModificationClasseComponent,
+    ModaleCreationQCMComponent,
+    ModaleModificationQCMComponent,
+    ModaleConfirmationSuppressionQCMComponent,
   ]
 })
 export class AppModule { }
