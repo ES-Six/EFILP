@@ -14,13 +14,25 @@ import { HomeComponent } from './professeur/home/home.component';
 import { ClassesComponent } from './professeur/classes/classes.component';
 import { ProfesseurService } from './professeur/professeur.service';
 import { ModaleCreationComponent as ModaleCreationClasseComponent } from './professeur/classes/modale-creation/modale-creation.component';
-import { ModaleConfirmationSuppressionComponent as ModaleConfirmationSuppressionClasseComponent } from './professeur/classes/modale-confirmation-suppression/modale-confirmation-suppression.component';
-import { ModaleModificationComponent as ModaleModificationClasseComponent } from './professeur/classes/modale-modification/modale-modification.component';
+import {
+  ModaleConfirmationSuppressionComponent as ModaleConfirmationSuppressionClasseComponent
+} from './professeur/classes/modale-confirmation-suppression/modale-confirmation-suppression.component';
+import {
+  ModaleModificationComponent as ModaleModificationClasseComponent
+} from './professeur/classes/modale-modification/modale-modification.component';
 import { QcmsComponent } from './professeur/qcms/qcms.component';
 import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
-import { ModaleCreationComponent as ModaleCreationQCMComponent  } from './professeur/qcms/modales/modale-creation/modale-creation.component';
-import { ModaleModificationComponent as ModaleModificationQCMComponent } from './professeur/qcms/modales/modale-modification/modale-modification.component';
-import { ModaleSuppressionComponent as ModaleConfirmationSuppressionQCMComponent } from './professeur/qcms/modales/modale-suppression/modale-suppression.component';
+import {
+  ModaleCreationComponent as ModaleCreationQCMComponent
+} from './professeur/qcms/modales/modale-creation/modale-creation.component';
+import {
+  ModaleModificationComponent as ModaleModificationQCMComponent
+} from './professeur/qcms/modales/modale-modification/modale-modification.component';
+import {
+  ModaleSuppressionComponent as ModaleConfirmationSuppressionQCMComponent
+} from './professeur/qcms/modales/modale-suppression/modale-suppression.component';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -41,6 +53,7 @@ import { ModaleSuppressionComponent as ModaleConfirmationSuppressionQCMComponent
   ],
   imports: [
     BrowserModule,
+    DragDropModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,

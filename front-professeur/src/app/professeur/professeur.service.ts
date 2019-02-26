@@ -201,5 +201,26 @@ export class ProfesseurService {
         })
       );
   }
+
+  updatePositionQuestionQCM(id_qcm: number, datas: {id: number, position: number}[]) {
+    return this.httpClient.patch<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/position`,
+      {
+        updates: datas
+      },
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
 }
 

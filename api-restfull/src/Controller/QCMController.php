@@ -300,6 +300,46 @@ class QCMController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Patch("/qcms/{id_qcm}/questions/position")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
+     * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})
+     *
+     * @param Request $request
+     * @param QCM $qcm
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \App\Exception\BadRequestException
+     *
+     * @api {post} /v1/qcms/{id_qcm}/questions/position Mettre à jour l'ordre des questions d'un QCM
+     * @apiName UpdatePositionQuestion
+     * @apiGroup Questions
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {number} id_qcm l'id du QCM
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/position" -d '[{id: 1, position: 1}, {id: 3, position: 2}, {id: 2, position: 3}]'
+     */
+    public function updatePositionQuestionAction(Request $request, QCM $qcm)
+    {
+        // $this->validation->validateCreateQuestion($request);
+
+        $updates = $request->get('updates');
+        $questions = $qcm->getQuestions();
+
+        foreach ($questions as $idx => $question) {
+            foreach ($updates as $update) {
+                if ($update['id'] === $question->getId()) {
+                    $questions[$idx]->setPosition($update['position']);
+                }
+            }
+        }
+
+        $this->em->flush();
+
+        return $this->handleView($this->shared->createSuccessResponse(null, 'position des questions mise à jour', 201));
+    }
+
+    /**
      * @Rest\Post("/qcms/{id_qcm}/questions/{id_question}/reponses")
      * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() === qcm.getProfesseur().getId()")
      * @ParamConverter("qcm", options={"mapping": {"id_qcm" : "id"}})

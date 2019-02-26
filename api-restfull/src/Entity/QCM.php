@@ -37,6 +37,7 @@ class QCM
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="qcm")
+     * @ORM\OrderBy({"position" = "ASC"})
      * @Serialize\Groups({"complete"})
      */
     private $questions;
