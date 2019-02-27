@@ -317,7 +317,7 @@ class QCMController extends AbstractFOSRestController
      * @apiParam {number} id_qcm l'id du QCM
      *
      * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/position" -d '[{id: 1, position: 1}, {id: 3, position: 2}, {id: 2, position: 3}]'
+     *     curl -X PATCH -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/qcms/4/questions/position" -d '{updates: [{id: 1, position: 1}, {id: 3, position: 2}, {id: 2, position: 3}]}'
      */
     public function updatePositionQuestionAction(Request $request, QCM $qcm)
     {
