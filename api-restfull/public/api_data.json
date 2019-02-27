@@ -435,6 +435,36 @@
     "groupTitle": "Questions"
   },
   {
+    "type": "post",
+    "url": "/v1/qcms/{id_qcm}/questions/position",
+    "title": "Mettre à jour l'ordre des questions d'un QCM",
+    "name": "UpdatePositionQuestion",
+    "group": "Questions",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id_qcm",
+            "description": "<p>l'id du QCM</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X PATCH -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/qcms/4/questions/position\" -d '{updates: [{id: 1, position: 1}, {id: 3, position: 2}, {id: 2, position: 3}]}'",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/QCMController.php",
+    "groupTitle": "Questions"
+  },
+  {
     "type": "put",
     "url": "/v1/qcms/{id_qcm}/questions/{id_question}",
     "title": "Mettre à jour une question",
@@ -597,6 +627,23 @@
     "groupTitle": "Reponses"
   },
   {
+    "type": "get",
+    "url": "/v1/apprenant/sessions/{id_session}/participant",
+    "title": "Collecter un participant d'une session",
+    "name": "CollecteParticipant",
+    "group": "Sessions",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/apprenant/sessions/1/participant\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/SessionController.php",
+    "groupTitle": "Sessions"
+  },
+  {
     "type": "post",
     "url": "/v1/professeurs/{id_professeur}/sessions",
     "title": "Créer une session",
@@ -680,7 +727,7 @@
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/sessions/00000001\"",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/sessions\"",
         "type": "curl"
       }
     ],
@@ -697,7 +744,7 @@
     "examples": [
       {
         "title": "Exemple d'utilisation:",
-        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/sessions\"",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/professeurs/123/sessions/00000001\"",
         "type": "curl"
       }
     ],
