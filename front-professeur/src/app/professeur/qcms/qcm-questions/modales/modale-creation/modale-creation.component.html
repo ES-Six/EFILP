@@ -1,0 +1,99 @@
+<div class="modal-header">
+  <h4 class="modal-title">Créer une question</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="formAjoutQuestion" (submit)="onSubmitQuestion()">
+  <div class="modal-body">
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="titre">Titre <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="titre" id="titre">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="duree">Durée <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="duree" id="duree" type="text">
+          <option value="10">10 secondes</option>
+          <option value="20">20 secondes</option>
+          <option value="30">30 secondes</option>
+          <option value="60">60 secondes</option>
+          <option value="120">120 secondes</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="has_media" (ngModelChange)="onChangeAfficherMedia($event)" id="media-question">
+      <label class="custom-control-label" for="media-question">
+        Afficher un média avant la question ?
+      </label>
+    </div>
+
+    <div formGroupName="media">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="type">Type de média <span class="text-danger" *ngIf="formAjoutQuestion.controls.media.enabled">*</span></label>
+          <select class="form-control" formControlName="type" id="type" type="text">
+            <option value="TEXT">Texte</option>
+            <option value="IMAGE">Image</option>
+            <option value="AUDIO">Audio</option>
+            <option value="VIDEO">Vidéo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="url">Url <span class="text-danger" *ngIf="formAjoutQuestion.controls.media.enabled">*</span></label>
+          <input type="text" class="form-control" formControlName="url" id="url">
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button type="button" class="my-3 btn btn-primary" (click)="ajoutReponse()">
+        <i class="fas fa-plus"></i> Ajouter une réponse
+      </button>
+    </div>
+
+    <div *ngIf="getReponsesFormArray().errors && getReponsesFormArray().errors.required && getReponsesFormArray().touched">
+      <label class="text-danger">Il faut au moins ajouter une réponse</label>
+    </div>
+
+    <div *ngFor="let reponseFormGroup of getReponsesFormArray().controls; let i = index; let last = last" formArrayName="reponses">
+      <div [formGroupName]="i">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label [for]="'reponse-nom-'+i">Nom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="nom" [id]="'reponse-nom-'+i">
+          </div>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input class="custom-control-input" type="checkbox" formControlName="est_valide" [id]="'reponse-valide-'+i">
+          <label class="custom-control-label" [for]="'reponse-valide-'+i">
+            La réponse est valide
+          </label>
+        </div>
+
+        <div>
+          <button type="button" class="my-3 btn btn-danger rounded-circle" (click)="suppressionReponse(i)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <hr *ngIf="!last">
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="isLoading">Créer</button>
+    <button type="button" class="btn btn-primary" [disabled]="isLoading" (click)="activeModal.dismiss('close-btn')">Annuler</button>
+  </div>
+
+</form>

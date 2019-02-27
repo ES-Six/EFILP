@@ -3,6 +3,8 @@ import { QCM, Question } from '../../../app.models';
 import { ActivatedRoute } from '@angular/router';
 import { ProfesseurService } from '../../professeur.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModaleCreationComponent } from './modales/modale-creation/modale-creation.component';
 
 @Component({
   selector: 'app-qcm-questions',
@@ -12,9 +14,14 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class QcmQuestionsComponent implements OnInit {
 
   private id_qcm: number = null;
+  private ajouterQuestionModalInstance: NgbModalRef = null;
+  private editerQuestionModalInstance: NgbModalRef = null;
+  private supprimerQuestionModalInstance: NgbModalRef = null;
+
   public qcm: QCM = null;
 
   constructor(private route: ActivatedRoute,
+              private modalService: NgbModal,
               private professeurService: ProfesseurService) { }
 
   ngOnInit() {
@@ -36,7 +43,20 @@ export class QcmQuestionsComponent implements OnInit {
   }
 
   creerQuestion() {
+    if (this.id_qcm) {
+      this.ajouterQuestionModalInstance = this.modalService.open(ModaleCreationComponent, {
+        centered: true,
+      });
 
+      this.ajouterQuestionModalInstance.componentInstance.id_qcm = this.id_qcm;
+      this.ajouterQuestionModalInstance.result.then((result) => {
+        // Confirmation acceptée : rafraichir la liste des classes du professeur
+        this.qcm = null;
+        this.refreshQCMContent();
+      }, (reason) => {
+        // Confirmation rejetée
+      });
+    }
   }
 
   editerQuestion(question) {

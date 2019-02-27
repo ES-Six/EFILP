@@ -33,6 +33,13 @@ export class Classe {
     public nom: string) {}
 }
 
+export class Media {
+  constructor(
+    public id: number,
+    public url: string,
+    public type: string) {}
+}
+
 export class Reponse {
   constructor(
     public id: number,
@@ -46,7 +53,8 @@ export class Question {
     public titre: string,
     public duree: number,
     public position: number,
-    public reponses: Reponse[]) {}
+    public reponses: Reponse[],
+    public media?: Media) {}
 }
 
 export class QCM {

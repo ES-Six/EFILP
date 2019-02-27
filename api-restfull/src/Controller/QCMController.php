@@ -215,7 +215,7 @@ class QCMController extends AbstractFOSRestController
         $this->em->persist($question);
         $this->em->flush();
 
-        return $this->handleView($this->shared->createSuccessResponse(null, 'ressource créée', 201));
+        return $this->handleView($this->shared->createSuccessResponse(['id_question'=>$question->getId()], 'ressource créée', 201));
     }
 
     /**

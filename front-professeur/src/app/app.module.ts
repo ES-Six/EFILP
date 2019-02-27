@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AuthService } from './login/auth.service';
@@ -31,8 +32,15 @@ import {
 import {
   ModaleSuppressionComponent as ModaleConfirmationSuppressionQCMComponent
 } from './professeur/qcms/modales/modale-suppression/modale-suppression.component';
-
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  ModaleCreationComponent as ModaleCreationQuestionComponent
+} from './professeur/qcms/qcm-questions/modales/modale-creation/modale-creation.component';
+import {
+  ModaleSuppressionComponent as ModaleSuppressionQuestionComponent
+} from './professeur/qcms/qcm-questions/modales/modale-suppression/modale-suppression.component';
+import {
+  ModaleModificationComponent as ModaleModificationQuestionComponent
+} from './professeur/qcms/qcm-questions/modales/modale-modification/modale-modification.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +58,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ModaleCreationQCMComponent,
     ModaleModificationQCMComponent,
     ModaleConfirmationSuppressionQCMComponent,
+    ModaleCreationQuestionComponent,
+    ModaleSuppressionQuestionComponent,
+    ModaleModificationQuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +80,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ModaleCreationQCMComponent,
     ModaleModificationQCMComponent,
     ModaleConfirmationSuppressionQCMComponent,
+    ModaleCreationQuestionComponent,
+    ModaleSuppressionQuestionComponent,
+    ModaleModificationQuestionComponent,
   ]
 })
 export class AppModule { }

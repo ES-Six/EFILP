@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { ApiErrorResponse, ApiSuccessResponse, Classe } from '../app.models';
+import {ApiErrorResponse, ApiSuccessResponse, Classe, Media, Question, Reponse} from '../app.models';
 import { of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../app.models';
@@ -208,6 +208,63 @@ export class ProfesseurService {
       {
         updates: datas
       },
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  createQuestion(id_qcm, question: Question) {
+    return this.httpClient.post<ApiSuccessResponse<{id_question: number}>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions`,
+      question,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<{id_question: number}>) => {
+          return data.results;
+        })
+      );
+  }
+
+  createReponse(id_qcm: number, id_question: number, reponse: Reponse) {
+    return this.httpClient.post<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}/reponses`,
+      reponse,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  upsertMedia(id_qcm: number, id_question: number, media: Media) {
+    return this.httpClient.post<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}/media`,
+      media,
       {
         observe: 'body',
         responseType: 'json',
