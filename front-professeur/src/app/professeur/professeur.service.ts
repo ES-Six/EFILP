@@ -280,9 +280,83 @@ export class ProfesseurService {
       );
   }
 
+  deleteMedia(id_qcm: number, id_question: number) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}/media`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  updateQuestion(id_qcm, id_question: number, question: Question) {
+    return this.httpClient.put<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}`,
+      question,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
   deleteQuestion(id_qcm: number, id_question: number) {
     return this.httpClient.delete<ApiSuccessResponse<any>>(
       `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  updateReponse(id_qcm: number, id_question: number, id_reponse: number, reponse: Reponse) {
+    return this.httpClient.put<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}/reponses/${id_reponse}`,
+      reponse,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  deleteReponse(id_qcm: number, id_question: number, id_reponse: number) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}/reponses/${id_reponse}`,
       {
         observe: 'body',
         responseType: 'json',

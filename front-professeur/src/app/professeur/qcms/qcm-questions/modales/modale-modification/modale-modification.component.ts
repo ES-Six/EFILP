@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesseurService } from '../../../../professeur.service';
-import { Media, Question } from '../../../../../app.models';
+import { Question, Reponse} from '../../../../../app.models';
+import {forkJoin, from, Observable} from 'rxjs';
+import {concatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-modale-modification',
@@ -13,6 +15,8 @@ export class ModaleModificationComponent implements OnInit {
 
   @Input() id_qcm: number;
   @Input() question: Question;
+
+  private reponsesToDelete: Reponse[] = [];
 
   public formModificationQuestion: FormGroup = null;
   public isLoading = false;
@@ -35,6 +39,12 @@ export class ModaleModificationComponent implements OnInit {
     });
 
     this.formModificationQuestion.controls.media.disable();
+  }
+
+  static runQueries(observables: Observable<any>[]): Observable<any> {
+    return from(observables).pipe(
+      concatMap(observable => observable)
+    );
   }
 
   ngOnInit() {
@@ -74,6 +84,12 @@ export class ModaleModificationComponent implements OnInit {
 
   suppressionReponse(idx: number) {
     const fbArray = this.formModificationQuestion.controls.reponses as FormArray;
+    const reponseFormGroup: FormGroup = fbArray.at(idx) as FormGroup;
+
+    if (reponseFormGroup.getRawValue().id !== null) {
+      this.reponsesToDelete.push(reponseFormGroup.getRawValue());
+    }
+
     fbArray.removeAt(idx);
   }
 
@@ -99,10 +115,90 @@ export class ModaleModificationComponent implements OnInit {
     }));
   }
 
+  updateResponses() {
+    const observables = [];
+    const responsesFormArray = this.getReponsesFormArray();
+
+    for (let i = 0; i < this.reponsesToDelete.length; i ++) {
+      observables.push(this.professeurService.deleteReponse(this.id_qcm, this.question.id, this.reponsesToDelete[i].id));
+    }
+
+    for (let i = 0; i < responsesFormArray.controls.length; i ++) {
+      if (responsesFormArray.controls[i].value.id !== null) {
+        observables.push(this.professeurService.updateReponse(this.id_qcm,
+          this.question.id,
+          responsesFormArray.controls[i].value.id,
+          responsesFormArray.controls[i].value));
+      } else {
+        observables.push(this.professeurService.createReponse(this.id_qcm, this.question.id, responsesFormArray.controls[i].value));
+      }
+    }
+
+    forkJoin(ModaleModificationComponent.runQueries(observables)).subscribe(
+      (results) => {
+        console.log(results);
+        this.isLoading = false;
+        this.activeModal.close('question_mise_à_jour');
+      },
+      (errors) => {
+        console.log(errors);
+      }
+    );
+
+    /*
+    forkJoin(observables).subscribe(
+      (result) => {
+        this.isLoading = false;
+        this.activeModal.close('question_mise_à_jour');
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    */
+  }
+
+  updateMedia() {
+    if (this.formModificationQuestion.value.media) {
+      this.professeurService.upsertMedia(this.id_qcm, this.question.id, this.formModificationQuestion.value.media).subscribe(
+        (result) => {
+          this.updateResponses();
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    } else {
+      if (this.question.media) {
+        this.professeurService.deleteMedia(this.id_qcm, this.question.id).subscribe(
+          (result) => {
+            this.updateResponses();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else {
+        this.updateResponses();
+      }
+    }
+  }
+
+  updateQuestion() {
+    this.isLoading = true;
+    this.professeurService.updateQuestion(this.id_qcm, this.question.id, this.formModificationQuestion.value).subscribe(
+      (result) => {
+        this.updateMedia();
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
   onSubmitQuestion() {
     if (this.formModificationQuestion.valid) {
-      // todo
-      console.log('Envoyer tout ça');
+      this.updateQuestion();
     } else {
       this.professeurService.markAllFormlementsAsTouched(this.formModificationQuestion);
     }
