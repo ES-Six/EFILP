@@ -8,6 +8,7 @@ import { HomeComponent } from './professeur/home/home.component';
 import { ClassesComponent } from './professeur/classes/classes.component';
 import { QcmsComponent } from './professeur/qcms/qcms.component';
 import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
+import { GestionCompteComponent } from './professeur/gestion-compte/gestion-compte.component';
 
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
@@ -29,6 +30,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'gestion-compte', component: GestionCompteComponent },
       { path: 'classes', component: ClassesComponent },
       { path: 'qcms', component: QcmsComponent },
       { path: 'qcms/:id', component: QcmQuestionsComponent },

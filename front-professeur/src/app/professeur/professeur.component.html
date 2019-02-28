@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar navbar-dark sticky-top navbar-expand-lg bg-dark">
-    <a class="navbar-brand" routerLink="/professeur">EFILP</a>
+    <a class="navbar-brand text-white" routerLink="/professeur">EFILP</a>
     <button class="navbar-toggler" (click)="mobileMenuOpened = !mobileMenuOpened" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,7 +27,7 @@
             {{ user?.username }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" [class.show]="userDropdownOpened" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="javascript:">Paramètres de compte</a>
+            <a class="dropdown-item" routerLink="/professeur/gestion-compte">Paramètres de compte</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="logout()" href="javascript:">Deconnection</a>
           </div>

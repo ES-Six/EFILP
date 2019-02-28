@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AuthService } from './login/auth.service';
@@ -41,6 +43,8 @@ import {
 import {
   ModaleModificationComponent as ModaleModificationQuestionComponent
 } from './professeur/qcms/qcm-questions/modales/modale-modification/modale-modification.component';
+import { GestionCompteComponent } from './professeur/gestion-compte/gestion-compte.component';
+import { ModaleSuppressionComponent } from './professeur/gestion-compte/modale-suppression/modale-suppression.component';
 
 @NgModule({
   declarations: [
@@ -61,15 +65,19 @@ import {
     ModaleCreationQuestionComponent,
     ModaleSuppressionQuestionComponent,
     ModaleModificationQuestionComponent,
+    GestionCompteComponent,
+    ModaleSuppressionComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     DragDropModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [AuthService, CookieService, ProfesseurService],
   bootstrap: [AppComponent],

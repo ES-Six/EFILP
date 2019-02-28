@@ -76,4 +76,17 @@ export class AuthService {
       );
   }
 
+  changePassword(id_professeur: number, passwords: {currentPassword: string, newPassword: string}) {
+    return this.httpClient.patch<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${id_professeur}/password`,
+      passwords,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.getAuthToken()}`
+        })
+      }
+    );
+  }
 }

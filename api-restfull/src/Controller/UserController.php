@@ -166,7 +166,7 @@ class UserController extends AbstractFOSRestController
         $this->validation->validateUpdateUserPassword($request);
 
         if ($encoder->isPasswordValid($professeur, $request->get('currentPassword'))) {
-            $professeur->setPassword($encoder->encodePassword($professeur, $request->get('password')));
+            $professeur->setPassword($encoder->encodePassword($professeur, $request->get('newPassword')));
             $this->em->flush();
         } else {
             throw new ForbiddenRequestException('currentPassword: Mot de passe erroné');

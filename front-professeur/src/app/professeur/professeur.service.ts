@@ -371,5 +371,37 @@ export class ProfesseurService {
         })
       );
   }
+
+  deleteUser(id_professeur: number) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${id_professeur}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  updateProfesseur(id_professeur: number, user: User) {
+    return this.httpClient.patch<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${id_professeur}/info`,
+      user,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    );
+  }
 }
 
