@@ -1,3 +1,14 @@
-<p>
-  modale-suppression works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title">Confirmer la suppression</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  Souhaitez-vous vraiment supprimer cette question ?<br>
+  <strong>Attention :</strong> les réponses qui y sont asociés ainsi que toutes les statistiques de ces réponses seront supprimés aussi.
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="supprimerQuestion()" [disabled]="isLoading">Supprimer</button>
+  <button type="button" class="btn btn-primary" [disabled]="isLoading" (click)="activeModal.dismiss('close-btn')">Annuler</button>
+</div>

@@ -279,5 +279,23 @@ export class ProfesseurService {
         })
       );
   }
+
+  deleteQuestion(id_qcm: number, id_question: number) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/qcms/${id_qcm}/questions/${id_question}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
 }
 

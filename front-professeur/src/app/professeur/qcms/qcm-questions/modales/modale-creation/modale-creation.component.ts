@@ -45,7 +45,7 @@ export class ModaleCreationComponent implements OnInit {
     }));
   }
 
-  suppressionReponse(idx) {
+  suppressionReponse(idx: number) {
     const fbArray = this.formAjoutQuestion.controls.reponses as FormArray;
     fbArray.removeAt(idx);
   }

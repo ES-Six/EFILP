@@ -5,6 +5,8 @@ import { ProfesseurService } from '../../professeur.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModaleCreationComponent } from './modales/modale-creation/modale-creation.component';
+import { ModaleSuppressionComponent } from './modales/modale-suppression/modale-suppression.component';
+import { ModaleModificationComponent } from './modales/modale-modification/modale-modification.component';
 
 @Component({
   selector: 'app-qcm-questions',
@@ -50,7 +52,7 @@ export class QcmQuestionsComponent implements OnInit {
 
       this.ajouterQuestionModalInstance.componentInstance.id_qcm = this.id_qcm;
       this.ajouterQuestionModalInstance.result.then((result) => {
-        // Confirmation acceptée : rafraichir la liste des classes du professeur
+        // Création confirmée : rafraichir la liste des questions du QCM
         this.qcm = null;
         this.refreshQCMContent();
       }, (reason) => {
@@ -59,12 +61,40 @@ export class QcmQuestionsComponent implements OnInit {
     }
   }
 
-  editerQuestion(question) {
+  editerQuestion(question: Question) {
+    if (this.id_qcm) {
+      this.editerQuestionModalInstance = this.modalService.open(ModaleModificationComponent, {
+        centered: true,
+      });
 
+      this.editerQuestionModalInstance.componentInstance.id_qcm = this.id_qcm;
+      this.editerQuestionModalInstance.componentInstance.question = question;
+      this.editerQuestionModalInstance.result.then((result) => {
+        // Suppression confirmée : rafraichir la liste des questions du QCM
+        this.qcm = null;
+        this.refreshQCMContent();
+      }, (reason) => {
+        // Confirmation rejetée
+      });
+    }
   }
 
   supprimerQuestion(id_question: number) {
+    if (this.id_qcm) {
+      this.supprimerQuestionModalInstance = this.modalService.open(ModaleSuppressionComponent, {
+        centered: true,
+      });
 
+      this.supprimerQuestionModalInstance.componentInstance.id_qcm = this.id_qcm;
+      this.supprimerQuestionModalInstance.componentInstance.id_question = id_question;
+      this.supprimerQuestionModalInstance.result.then((result) => {
+        // Suppression confirmée : rafraichir la liste des questions du QCM
+        this.qcm = null;
+        this.refreshQCMContent();
+      }, (reason) => {
+        // Confirmation rejetée
+      });
+    }
   }
 
   drop(event: CdkDragDrop<Question[]>) {
