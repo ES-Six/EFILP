@@ -1,0 +1,12 @@
+<div class="container">
+  <div><button class="my-3 btn btn-primary rounded-circle" (click)="creerSession()"><i class="fas fa-plus"></i></button></div>
+  <div class="py-2 my-1 bg-light class-container border d-flex" *ngFor="let session of sessions">
+    <span class="ml-3 justify-content-center align-self-center">{{ session.nom_session }}</span>
+    <div class="ml-auto mr-2 justify-content-center align-self-center">
+      <button class="btn btn-danger rounded-circle" (click)="supprimerSession(session.id)"><i class="fas fa-trash"></i></button>
+    </div>
+  </div>
+  <div class="py-2 my-1 bg-light class-container border d-flex" *ngIf="sessions.length === 0">
+    <span class="w-100 text-center">Aucune session à afficher</span>
+  </div>
+</div>

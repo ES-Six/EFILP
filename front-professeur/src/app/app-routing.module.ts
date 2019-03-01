@@ -9,6 +9,7 @@ import { ClassesComponent } from './professeur/classes/classes.component';
 import { QcmsComponent } from './professeur/qcms/qcms.component';
 import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
 import { GestionCompteComponent } from './professeur/gestion-compte/gestion-compte.component';
+import { SessionsComponent } from './professeur/sessions/sessions.component';
 
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
@@ -33,6 +34,7 @@ export const routes: Routes = [
       { path: 'gestion-compte', component: GestionCompteComponent },
       { path: 'classes', component: ClassesComponent },
       { path: 'qcms', component: QcmsComponent },
+      { path: 'sessions', component: SessionsComponent },
       { path: 'qcms/:id', component: QcmQuestionsComponent },
     ]
   },

@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <h4 class="modal-title">Créer une session</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="formAjoutSession" (submit)="onSubmitAjouterSession()">
+  <div class="modal-body">
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="nom">Nom <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="nom" id="nom">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="classe">Classe <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="id_classe" id="classe" type="text">
+          <option value="">Selectionnez une classe</option>
+          <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="QCM">QCM <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="id_qcm" id="QCM" type="text">
+          <option value="">Selectionnez un QCM</option>
+          <option *ngFor="let qcm of qcms" [value]="qcm.id">{{ qcm.nom }}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="generer_pseudo" id="generation-pseudo">
+      <label class="custom-control-label" for="generation-pseudo">
+        Générer automatiquement le pseudonyme des participants ?
+      </label>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="afficher_classement" id="afficher-classement">
+      <label class="custom-control-label" for="afficher-classement">
+        Afficher le classement entre les questions ?
+      </label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="isLoading">Créer</button>
+    <button type="button" class="btn btn-primary" [disabled]="isLoading" (click)="activeModal.dismiss('close-btn')">Annuler</button>
+  </div>
+
+</form>

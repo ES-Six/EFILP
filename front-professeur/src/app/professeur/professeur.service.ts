@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import {ApiErrorResponse, ApiSuccessResponse, Classe, Media, Question, Reponse} from '../app.models';
+import { ApiErrorResponse, ApiSuccessResponse, Classe, Media, Question, Reponse, Session } from '../app.models';
 import { of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../app.models';
@@ -414,6 +414,61 @@ export class ProfesseurService {
         })
       }
     );
+  }
+
+  getSessions() {
+    return this.httpClient.get<ApiSuccessResponse<Session[]>>(
+      `${environment.api_base_url}/professeurs/${this.authService.getUserInfo().id}/sessions`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<Session[]>) => {
+          return data.results;
+        })
+      );
+  }
+
+  deleteSession(id_session: number) {
+    return this.httpClient.delete<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/sessions/${id_session}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
+  }
+
+  createSession(id_professeur: number, data_session) {
+    return this.httpClient.post<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/${id_professeur}/sessions`,
+      data_session,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    )
+      .pipe(
+        map((data: ApiSuccessResponse<any>) => {
+          return data.results;
+        })
+      );
   }
 }
 

@@ -47,7 +47,16 @@ import { GestionCompteComponent } from './professeur/gestion-compte/gestion-comp
 import {
   ModaleSuppressionComponent as ModaleSuppressionCompteComponent
 } from './professeur/gestion-compte/modale-suppression/modale-suppression.component';
-import { ModaleConfigYoutubeEmbedComponent } from './professeur/qcms/qcm-questions/modales/modale-config-youtube-embed/modale-config-youtube-embed.component';
+import {
+  ModaleConfigYoutubeEmbedComponent
+} from './professeur/qcms/qcm-questions/modales/modale-config-youtube-embed/modale-config-youtube-embed.component';
+import { SessionsComponent } from './professeur/sessions/sessions.component';
+import {
+  ModaleCreationComponent as ModaleCreationSessionComponent
+} from './professeur/sessions/modale-creation/modale-creation.component';
+import {
+  ModaleSuppressionComponent as ModaleSuppressionSessionComponent
+} from './professeur/sessions/modale-suppression/modale-suppression.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +80,9 @@ import { ModaleConfigYoutubeEmbedComponent } from './professeur/qcms/qcm-questio
     GestionCompteComponent,
     ModaleSuppressionCompteComponent,
     ModaleConfigYoutubeEmbedComponent,
+    SessionsComponent,
+    ModaleCreationSessionComponent,
+    ModaleSuppressionSessionComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +109,8 @@ import { ModaleConfigYoutubeEmbedComponent } from './professeur/qcms/qcm-questio
     ModaleModificationQuestionComponent,
     ModaleConfigYoutubeEmbedComponent,
     ModaleSuppressionCompteComponent,
+    ModaleCreationSessionComponent,
+    ModaleSuppressionSessionComponent,
   ]
 })
 export class AppModule { }

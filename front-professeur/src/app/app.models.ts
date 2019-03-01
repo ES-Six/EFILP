@@ -64,3 +64,11 @@ export class QCM {
     public nom: string,
     public questions: Question[]) {}
 }
+
+export class Session {
+  constructor(
+    public id: number,
+    public nom_session: string,
+    public classe: number,
+    public qcm: number) {}
+}
