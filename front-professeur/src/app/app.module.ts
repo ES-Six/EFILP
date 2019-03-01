@@ -57,6 +57,8 @@ import {
 import {
   ModaleSuppressionComponent as ModaleSuppressionSessionComponent
 } from './professeur/sessions/modale-suppression/modale-suppression.component';
+import { PresentationComponent } from './professeur/presentation/presentation.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,7 @@ import {
     SessionsComponent,
     ModaleCreationSessionComponent,
     ModaleSuppressionSessionComponent,
+    PresentationComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +97,7 @@ import {
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    QRCodeModule,
   ],
   providers: [AuthService, CookieService, ProfesseurService],
   bootstrap: [AppComponent],

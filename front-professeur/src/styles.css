@@ -33,3 +33,12 @@
 .toast-warning {
   background-color: #F89406 !important;
 }
+
+/*
+ * Centrer le QRCode
+ */
+
+qrcode.qrcode-centered img {
+  margin-left: auto;
+  margin-right: auto;
+}

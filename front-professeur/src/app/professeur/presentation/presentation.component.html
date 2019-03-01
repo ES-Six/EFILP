@@ -1,0 +1,15 @@
+<div>
+  <div class="d-flex custom-container mx-3 mx-md-0">
+    <div class="w-100">
+      <div class="mt-5 mb-2 text-center">
+        <h3>Pour participer à la présentation</h3>
+        <br>
+        <h4>Connectez vous à l'adresse : <a [href]="frontal_apprenant_base_url" target="_blank">{{ frontal_apprenant_base_url }}</a></h4>
+        <br>
+        <h4 class="mb-5">Saisissez le code : {{ id_session_pad }} ou scannez le QRCode</h4>
+        <qrcode *ngIf="qrcode_data" [qrdata]="qrcode_data" [size]="350" [level]="'M'" class="qrcode-centered"></qrcode>
+        <button class="btn btn-primary mt-4 px-4 py-4" (click)="sessionStart()">Démarrer la session</button>
+      </div>
+    </div>
+  </div>
+</div>

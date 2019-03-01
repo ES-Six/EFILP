@@ -10,6 +10,7 @@ import { QcmsComponent } from './professeur/qcms/qcms.component';
 import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
 import { GestionCompteComponent } from './professeur/gestion-compte/gestion-compte.component';
 import { SessionsComponent } from './professeur/sessions/sessions.component';
+import {PresentationComponent} from './professeur/presentation/presentation.component';
 
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
@@ -36,6 +37,7 @@ export const routes: Routes = [
       { path: 'qcms', component: QcmsComponent },
       { path: 'sessions', component: SessionsComponent },
       { path: 'qcms/:id', component: QcmQuestionsComponent },
+      { path: 'presentation/:id', component: PresentationComponent },
     ]
   },
 

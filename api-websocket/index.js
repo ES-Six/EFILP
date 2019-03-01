@@ -25,6 +25,9 @@ console.log(`Server listening on port ${port}`);
 
 // Quand un client se connecte, on le note dans la console
 io.sockets.on('connection', (socket) => {
+    if (!socket.off) {
+        socket.off = socket.removeListener;
+    }
     console.log('client connected');
     let session = null;
 
