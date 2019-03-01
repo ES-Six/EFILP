@@ -69,7 +69,11 @@ export class GestionCompteComponent implements OnInit {
         (error) => {
           console.error(error);
           this.isLoading = false;
-          this.toastr.error('Echec de la mises à jour des informations');
+          if (error.status === 409) {
+            this.formEditionInformationsPersonelles.controls.username.setErrors({usernameAlreadyExist: true});
+          } else {
+            this.toastr.error('Echec de la mises à jour des informations personelles');
+          }
         }
       );
     } else {

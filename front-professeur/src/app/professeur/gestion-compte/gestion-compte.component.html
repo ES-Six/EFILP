@@ -1,6 +1,9 @@
 <div class="container my-2">
   <h3>Informations personelles</h3>
   <form [formGroup]="formEditionInformationsPersonelles" (submit)="onSubmitInformationsPersonelles()">
+    <div *ngIf="formEditionInformationsPersonelles.controls.username.errors && formEditionInformationsPersonelles.controls.username.errors.usernameAlreadyExist">
+      <label class="text-danger">Impossible de mettre à jour les informations personelles car le nouveau nom d'utilisateur et déjà utilisé</label>
+    </div>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="username">Nom d'utilisateur<span class="text-danger">*</span></label>
