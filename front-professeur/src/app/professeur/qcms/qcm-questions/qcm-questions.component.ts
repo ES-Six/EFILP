@@ -99,22 +99,25 @@ export class QcmQuestionsComponent implements OnInit {
 
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(this.qcm.questions, event.previousIndex, event.currentIndex);
-    for (let i = 0; i < this.qcm.questions.length; i ++) {
-      this.qcm.questions[i].position = i + 1;
-    }
-    const updates = this.qcm.questions.map((question) => {
-      return {
-        id: question.id,
-        position: question.position
-      };
-    });
-    this.professeurService.updatePositionQuestionQCM(this.id_qcm, updates).subscribe(
-      () => {
 
-      },
-      (error) => {
-        console.error(error);
+    setTimeout(() => {
+      for (let i = 0; i < this.qcm.questions.length; i ++) {
+        this.qcm.questions[i].position = i + 1;
       }
-    );
+      const updates = this.qcm.questions.map((question) => {
+        return {
+          id: question.id,
+          position: question.position
+        };
+      });
+      this.professeurService.updatePositionQuestionQCM(this.id_qcm, updates).subscribe(
+        () => {
+
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }, 0);
   }
 }

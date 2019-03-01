@@ -6,6 +6,10 @@
   display: none !important;
 }
 
+.cdk-drag.cdk-drag-preview.cdk-drag-animating:not(:last-child) {
+  display: none !important;
+}
+
 /*
 ** Toaster bugfix
 */
