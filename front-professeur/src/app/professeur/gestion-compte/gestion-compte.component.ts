@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesseurService } from '../professeur.service';
 import { AuthService } from '../../login/auth.service';
 import { User } from '../../app.models';
-import { ModaleSuppressionComponent } from '../qcms/modales/modale-suppression/modale-suppression.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ModaleSuppressionComponent } from './modale-suppression/modale-suppression.component';
 
 @Component({
   selector: 'app-gestion-compte',

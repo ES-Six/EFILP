@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ProfesseurService} from '../../../../professeur.service';
 
 @Component({
   selector: 'app-modale-config-youtube-embed',
@@ -15,13 +16,14 @@ export class ModaleConfigYoutubeEmbedComponent implements OnInit {
   public formConfigurationVideo: FormGroup = null;
 
   constructor(private fb: FormBuilder,
+              private professeurService: ProfesseurService,
               public activeModal: NgbActiveModal) {
 
     this.formConfigurationVideo = this.fb.group({
       disable_start_after: [true, [Validators.required]],
-      start_after: ['0', [Validators.required]],
+      start_after: ['0', [Validators.required, Validators.min(0)]],
       disable_end_after: [true, [Validators.required]],
-      end_after: ['0', [Validators.required]],
+      end_after: ['0', [Validators.required, Validators.min(0)]],
       enable_auto_hide_controls: [false, [Validators.required]],
       enable_controls: [false, [Validators.required]],
       enable_auto_play: [false, [Validators.required]]
@@ -85,13 +87,17 @@ export class ModaleConfigYoutubeEmbedComponent implements OnInit {
   }
 
   configurer() {
-    const auto_play = this.formConfigurationVideo.value.enable_auto_play ? '&autoplay=1' : '&autoplay=0';
-    const auto_hide_controls = this.formConfigurationVideo.value.enable_auto_hide_controls ? '&autohide=1' : '&autohide=0';
-    const start = !this.formConfigurationVideo.value.disable_start_after ? `&start=${this.formConfigurationVideo.value.start_after}` : '';
-    const end = !this.formConfigurationVideo.value.disable_end_after ? `&end=${this.formConfigurationVideo.value.end_after}` : '';
-    const controls = this.formConfigurationVideo.value.enable_controls ? '&controls=1' : '&controls=0';
-    const params = `showinfo=0${auto_play}${auto_hide_controls}${start}${end}${controls}&rel=0`;
-    const embed_url = `https://www.youtube.com/embed/${this.id_video_youtube}?${params}`;
-    this.activeModal.close(embed_url);
+    if (this.formConfigurationVideo.valid) {
+      const auto_play = this.formConfigurationVideo.value.enable_auto_play ? '&autoplay=1' : '&autoplay=0';
+      const auto_hide_controls = this.formConfigurationVideo.value.enable_auto_hide_controls ? '&autohide=1' : '&autohide=0';
+      const start = !this.formConfigurationVideo.value.disable_start_after ? `&start=${this.formConfigurationVideo.value.start_after}` : '';
+      const end = !this.formConfigurationVideo.value.disable_end_after ? `&end=${this.formConfigurationVideo.value.end_after}` : '';
+      const controls = this.formConfigurationVideo.value.enable_controls ? '&controls=1' : '&controls=0';
+      const params = `showinfo=0${auto_play}${auto_hide_controls}${start}${end}${controls}&rel=0`;
+      const embed_url = `https://www.youtube.com/embed/${this.id_video_youtube}?${params}`;
+      this.activeModal.close(embed_url);
+    } else {
+      this.professeurService.markAllFormlementsAsTouched(this.formConfigurationVideo);
+    }
   }
 }

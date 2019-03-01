@@ -27,8 +27,10 @@ export class ModaleSuppressionComponent implements OnInit {
         this.authService.logout();
         this.isLoading = false;
         this.router.navigate(['/'], { replaceUrl: true });
+        this.activeModal.close();
       },
       (error) => {
+        this.isLoading = false;
         console.error(error);
       },
     );

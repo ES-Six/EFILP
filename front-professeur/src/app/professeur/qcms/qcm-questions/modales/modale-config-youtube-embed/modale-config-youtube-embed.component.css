@@ -1,0 +1,6 @@
+/*
+** Style des inputs en erreurs
+*/
+input.form-control.ng-invalid.ng-touched, select.form-control.ng-invalid.ng-touched {
+  border-color: red;
+}
