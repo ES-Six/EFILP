@@ -11,8 +11,9 @@ import {AuthService} from '../auth.service';
 })
 export class LoginFormComponent implements OnInit {
   @HostBinding('class') hostClass = 'vertical-center';
-  public formError: { reason: string } | null = null;
 
+  public isLoading = false;
+  public formError: { reason: string } | null = null;
   public formLogin: FormGroup = null;
 
   constructor(
@@ -31,16 +32,21 @@ export class LoginFormComponent implements OnInit {
   }
 
   requestLogin() {
+    this.isLoading = true;
     this.authService.sendAuthRequest(this.formLogin.value).subscribe(
       (results: ApiAuthResponse) => {
+        this.isLoading = false;
         console.log('Authentication success, token obtained');
         this.formError = null;
         this.router.navigate(['/professeur/home']);
       },
       (response) => {
+        this.isLoading = false;
         console.error(response);
         if (response.error.code === 401) {
           this.formError = {reason: 'BAD_CREDENTIALS'};
+        } else {
+          this.formError = {reason: 'UNKNOWN_ERROR'};
         }
       }
     );
