@@ -1,0 +1,76 @@
+<div class="modal-header">
+  <h4 class="modal-title">Configuration de lien vidéo Youtube</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="formConfigurationVideo" (submit)="configurer()">
+  <div class="modal-body">
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="enable_auto_play" id="enable-auto-play">
+      <label class="custom-control-label" for="enable-auto-play">
+        Démarrer automatiquement la lecture de la vidéo ?
+      </label>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="enable_controls" id="enable-controls">
+      <label class="custom-control-label" for="enable-controls">
+        Permettre l'utilisation des boutons de contrôle de la vidéo ?
+      </label>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="enable_auto_hide_controls" id="enable-auto-hide-controls">
+      <label class="custom-control-label" for="enable-auto-hide-controls">
+        Cacher automatiquement les boutons de contrôle de la vidéo (mais conserver la possibilité de les voir si on bouge la sourie) ?
+      </label>
+    </div>
+
+    <hr>
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="disable_start_after" (ngModelChange)="onDisableStartAfterChanges($event)" id="disable-start-after">
+      <label class="custom-control-label" for="disable-start-after">
+        Démarrer la vidéo au début
+      </label>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="start-at">Démarer à</label>
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="start_after" id="start-at">
+          <div class="input-group-append">
+            <span class="input-group-text">secondes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+      <input class="custom-control-input" type="checkbox" formControlName="disable_end_after" (ngModelChange)="onDisableEndAfterChanges($event)" id="disable-end-after">
+      <label class="custom-control-label" for="disable-end-after">
+        Arrêter la vidéo à la fin
+      </label>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="end-at">Arrêter à</label>
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="end_after" id="end-at">
+          <div class="input-group-append">
+            <span class="input-group-text">secondes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-danger">Enregistrer</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('close-btn')">Annuler</button>
+  </div>
+</form>

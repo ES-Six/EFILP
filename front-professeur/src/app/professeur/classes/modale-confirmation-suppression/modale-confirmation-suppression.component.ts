@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesseurService } from '../../professeur.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-confirmation-suppression',
@@ -14,6 +15,7 @@ export class ModaleConfirmationSuppressionComponent implements OnInit {
   public isLoading = false;
 
   constructor(public activeModal: NgbActiveModal,
+              private toastr: ToastrService,
               private professeurService: ProfesseurService) { }
 
   ngOnInit() {
@@ -24,9 +26,12 @@ export class ModaleConfirmationSuppressionComponent implements OnInit {
     this.professeurService.deleteClasse(this.id_classe).subscribe(
       (result) => {
         this.isLoading = false;
+        this.toastr.success('Classe supprimée');
         this.activeModal.close('classe_supprimée');
       },
       (error) => {
+        this.isLoading = false;
+        this.toastr.error('Echec de suppression de la classe');
         console.error(error);
       }
     );

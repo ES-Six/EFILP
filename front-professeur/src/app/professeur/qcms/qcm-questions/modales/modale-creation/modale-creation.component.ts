@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {ProfesseurService} from '../../../../professeur.service';
-import {forkJoin} from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ProfesseurService } from '../../../../professeur.service';
+import { forkJoin } from 'rxjs';
+import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-creation',
@@ -13,11 +15,16 @@ export class ModaleCreationComponent implements OnInit {
 
   @Input() id_qcm: number;
 
+  private configurerLienYoutubeModalInstance: NgbModalRef = null;
+
   public formAjoutQuestion: FormGroup = null;
   public isLoading = false;
+  public idYoutubeVideo: string = null;
 
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
+              private toastr: ToastrService,
+              private modalService: NgbModal,
               private professeurService: ProfesseurService) {
 
     this.formAjoutQuestion = this.fb.group({
@@ -72,9 +79,12 @@ export class ModaleCreationComponent implements OnInit {
     forkJoin(observables).subscribe(
       (result) => {
         this.isLoading = false;
+        this.toastr.success('Toutes les réponses ont étés ajoutés à la question');
         this.activeModal.close('question_reponses_creees');
       },
       (error) => {
+        this.toastr.warning('Echec de création de certaines réponses de la question');
+        this.activeModal.dismiss('partial_failure');
         console.error(error);
       }
     );
@@ -84,9 +94,11 @@ export class ModaleCreationComponent implements OnInit {
     if (this.formAjoutQuestion.value.has_media) {
       this.professeurService.upsertMedia(this.id_qcm, id_question, this.formAjoutQuestion.value.media).subscribe(
         (result) => {
+          this.toastr.success('Média ajouté à la question');
           this.createReponses(id_question);
         },
         (error) => {
+          this.toastr.error(`Echec de l'ajout du média à la question`);
           console.error(error);
         }
       );
@@ -99,12 +111,40 @@ export class ModaleCreationComponent implements OnInit {
     this.isLoading = true;
     this.professeurService.createQuestion(this.id_qcm, this.formAjoutQuestion.value).subscribe(
       (result) => {
+        this.toastr.success('Question créée avec succès');
         this.createMedia(result.id_question);
       },
       (error) => {
+        this.toastr.error('Echec de création de la question');
         console.error(error);
       }
     );
+  }
+
+  checkYoutubeLink() {
+    if (this.formAjoutQuestion.value.media &&
+      this.formAjoutQuestion.value.media.type === 'VIDEO') {
+      this.idYoutubeVideo = ProfesseurService.YouTubeGetID(this.formAjoutQuestion.value.media.url);
+    } else {
+      this.idYoutubeVideo = null;
+    }
+  }
+
+  configureYoutubeLink() {
+    this.configurerLienYoutubeModalInstance = this.modalService.open(ModaleConfigYoutubeEmbedComponent, {
+      centered: true,
+    });
+
+    this.configurerLienYoutubeModalInstance.componentInstance.id_video_youtube = this.idYoutubeVideo;
+    this.configurerLienYoutubeModalInstance.componentInstance.url = this.formAjoutQuestion.value.media.url;
+
+    this.configurerLienYoutubeModalInstance.result.then((url) => {
+      this.formAjoutQuestion.controls.media.patchValue({
+        url
+      });
+    }, (reason) => {
+      // Confirmation rejetée
+    });
   }
 
   onSubmitQuestion() {

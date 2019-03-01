@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProfesseurService} from '../../../professeur.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProfesseurService } from '../../../professeur.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-creation',
@@ -15,6 +16,7 @@ export class ModaleCreationComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
+              private toastr: ToastrService,
               private professeurService: ProfesseurService) {
 
     this.formAjoutQCM = this.fb.group({
@@ -32,9 +34,12 @@ export class ModaleCreationComponent implements OnInit {
     this.professeurService.createQCM(this.formAjoutQCM.value).subscribe(
       (result) => {
         this.isLoading = false;
+        this.toastr.success('QCM créé');
         this.activeModal.close('qcm_creee');
       },
       (error) => {
+        this.isLoading = false;
+        this.toastr.error('Echec de création du QCM');
         console.error(error);
       }
     );

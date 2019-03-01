@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesseurService } from '../../../../professeur.service';
-import { Question, Reponse} from '../../../../../app.models';
-import {forkJoin, from, Observable} from 'rxjs';
-import {concatMap} from 'rxjs/operators';
+import { Question, Reponse } from '../../../../../app.models';
+import { forkJoin, from, Observable } from 'rxjs';
+import { concatMap} from 'rxjs/operators';
+import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-modification',
@@ -17,12 +19,16 @@ export class ModaleModificationComponent implements OnInit {
   @Input() question: Question;
 
   private reponsesToDelete: Reponse[] = [];
+  private configurerLienYoutubeModalInstance: NgbModalRef = null;
 
   public formModificationQuestion: FormGroup = null;
   public isLoading = false;
+  public idYoutubeVideo: string = null;
 
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
+              private toastr: ToastrService,
+              private modalService: NgbModal,
               private professeurService: ProfesseurService) {
 
     this.formModificationQuestion = this.fb.group({
@@ -67,6 +73,7 @@ export class ModaleModificationComponent implements OnInit {
         });
 
         this.formModificationQuestion.controls.media.enable();
+        this.checkYoutubeLink();
       }
 
       if (this.question.reponses instanceof Array) {
@@ -138,33 +145,28 @@ export class ModaleModificationComponent implements OnInit {
       (results) => {
         console.log(results);
         this.isLoading = false;
+        this.toastr.success('Les réponses ont étés mises à jour');
         this.activeModal.close('question_mise_à_jour');
       },
       (errors) => {
+        this.isLoading = false;
+        this.toastr.warning('Echec de mise à jour de certaines réponses');
+        this.activeModal.dismiss('partial_failure');
         console.log(errors);
       }
     );
-
-    /*
-    forkJoin(observables).subscribe(
-      (result) => {
-        this.isLoading = false;
-        this.activeModal.close('question_mise_à_jour');
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-    */
   }
 
   updateMedia() {
     if (this.formModificationQuestion.value.media) {
       this.professeurService.upsertMedia(this.id_qcm, this.question.id, this.formModificationQuestion.value.media).subscribe(
         (result) => {
+          this.toastr.success('Média mis à jour');
           this.updateResponses();
         },
         (error) => {
+          this.isLoading = false;
+          this.toastr.error('Echec de mise à jour de la question');
           console.error(error);
         }
       );
@@ -172,9 +174,12 @@ export class ModaleModificationComponent implements OnInit {
       if (this.question.media) {
         this.professeurService.deleteMedia(this.id_qcm, this.question.id).subscribe(
           (result) => {
+            this.toastr.success('Média supprimé');
             this.updateResponses();
           },
           (error) => {
+            this.isLoading = false;
+            this.toastr.error('Echec de suppression du média');
             console.error(error);
           }
         );
@@ -188,12 +193,41 @@ export class ModaleModificationComponent implements OnInit {
     this.isLoading = true;
     this.professeurService.updateQuestion(this.id_qcm, this.question.id, this.formModificationQuestion.value).subscribe(
       (result) => {
+        this.toastr.success('Question mise à jour');
         this.updateMedia();
       },
       (error) => {
+        this.isLoading = false;
+        this.toastr.error('Echec de mise à jour de la question');
         console.error(error);
       }
     );
+  }
+
+  checkYoutubeLink() {
+    if (this.formModificationQuestion.value.media &&
+        this.formModificationQuestion.value.media.type === 'VIDEO') {
+      this.idYoutubeVideo = ProfesseurService.YouTubeGetID(this.formModificationQuestion.value.media.url);
+    } else {
+      this.idYoutubeVideo = null;
+    }
+  }
+
+  configureYoutubeLink() {
+    this.configurerLienYoutubeModalInstance = this.modalService.open(ModaleConfigYoutubeEmbedComponent, {
+      centered: true,
+    });
+
+    this.configurerLienYoutubeModalInstance.componentInstance.id_video_youtube = this.idYoutubeVideo;
+    this.configurerLienYoutubeModalInstance.componentInstance.url = this.formModificationQuestion.value.media.url;
+
+    this.configurerLienYoutubeModalInstance.result.then((url) => {
+      this.formModificationQuestion.controls.media.patchValue({
+        url
+      });
+    }, (reason) => {
+      // Confirmation rejetée
+    });
   }
 
   onSubmitQuestion() {

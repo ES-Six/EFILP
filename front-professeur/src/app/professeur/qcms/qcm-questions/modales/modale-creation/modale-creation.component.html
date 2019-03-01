@@ -38,7 +38,7 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="type">Type de média <span class="text-danger" *ngIf="formAjoutQuestion.controls.media.enabled">*</span></label>
-          <select class="form-control" formControlName="type" id="type" type="text">
+          <select class="form-control" formControlName="type" (change)="checkYoutubeLink()" id="type" type="text">
             <option value="TEXT">Texte</option>
             <option value="IMAGE">Image</option>
             <option value="AUDIO">Audio</option>
@@ -50,13 +50,19 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="url">Url <span class="text-danger" *ngIf="formAjoutQuestion.controls.media.enabled">*</span></label>
-          <input type="text" class="form-control" formControlName="url" id="url">
+          <input type="text" class="form-control" formControlName="url" (ngModelChange)="checkYoutubeLink()" id="url">
         </div>
       </div>
     </div>
 
     <div>
-      <button type="button" class="my-3 btn btn-primary" (click)="ajoutReponse()">
+      <button type="button" class="my-3 btn btn-danger btn-block" *ngIf="idYoutubeVideo !== null && idYoutubeVideo.length > 0" (click)="configureYoutubeLink()">
+        <i class="fab fa-youtube"></i> Paramétrer les options de lecture de la vidéo Youtube
+      </button>
+    </div>
+
+    <div>
+      <button type="button" class="my-3 btn btn-primary btn-block" (click)="ajoutReponse()">
         <i class="fas fa-plus"></i> Ajouter une réponse
       </button>
     </div>

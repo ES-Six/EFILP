@@ -45,6 +45,7 @@ import {
 } from './professeur/qcms/qcm-questions/modales/modale-modification/modale-modification.component';
 import { GestionCompteComponent } from './professeur/gestion-compte/gestion-compte.component';
 import { ModaleSuppressionComponent } from './professeur/gestion-compte/modale-suppression/modale-suppression.component';
+import { ModaleConfigYoutubeEmbedComponent } from './professeur/qcms/qcm-questions/modales/modale-config-youtube-embed/modale-config-youtube-embed.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ModaleSuppressionComponent } from './professeur/gestion-compte/modale-s
     ModaleModificationQuestionComponent,
     GestionCompteComponent,
     ModaleSuppressionComponent,
+    ModaleConfigYoutubeEmbedComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +93,7 @@ import { ModaleSuppressionComponent } from './professeur/gestion-compte/modale-s
     ModaleCreationQuestionComponent,
     ModaleSuppressionQuestionComponent,
     ModaleModificationQuestionComponent,
+    ModaleConfigYoutubeEmbedComponent,
   ]
 })
 export class AppModule { }

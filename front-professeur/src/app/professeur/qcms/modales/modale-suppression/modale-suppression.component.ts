@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {ProfesseurService} from '../../../professeur.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProfesseurService } from '../../../professeur.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-suppression',
@@ -14,6 +15,7 @@ export class ModaleSuppressionComponent implements OnInit {
   public isLoading = false;
 
   constructor(public activeModal: NgbActiveModal,
+              private toastr: ToastrService,
               private professeurService: ProfesseurService) { }
 
   ngOnInit() { }
@@ -23,9 +25,11 @@ export class ModaleSuppressionComponent implements OnInit {
     this.professeurService.deleteQCM(this.id_qcm).subscribe(
       (result) => {
         this.isLoading = false;
+        this.toastr.success('QCM supprimé');
         this.activeModal.close('qcm_supprimé');
       },
       (error) => {
+        this.toastr.error('Echec de suppression du QCM');
         console.error(error);
       }
     );

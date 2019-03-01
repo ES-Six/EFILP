@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesseurService } from '../../professeur.service';
 import { Classe } from '../../../app.models';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-modification',
@@ -17,6 +18,7 @@ export class ModaleModificationComponent implements OnInit, OnChanges {
 
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
+              private toastr: ToastrService,
               private professeurService: ProfesseurService) {
 
     this.formEditionClasse = this.fb.group({
@@ -29,7 +31,7 @@ export class ModaleModificationComponent implements OnInit, OnChanges {
     if (this.classe) {
       this.formEditionClasse.patchValue({
         nom: this.classe.nom
-      })
+      });
     }
   }
 
@@ -37,7 +39,7 @@ export class ModaleModificationComponent implements OnInit, OnChanges {
     if (this.classe) {
       this.formEditionClasse.patchValue({
         nom: this.classe.nom
-      })
+      });
     }
   }
 
@@ -46,9 +48,11 @@ export class ModaleModificationComponent implements OnInit, OnChanges {
     this.professeurService.updateClasse(this.classe.id, this.formEditionClasse.value).subscribe(
       (result) => {
         this.isLoading = false;
+        this.toastr.success('Classe mise à jour');
         this.activeModal.close('classe_mise_a_jour');
       },
-      (error) => {
+      (error) => {this.isLoading = false;
+        this.toastr.error('Echec de mise à jour de la classe');
         console.error(error);
       }
     );

@@ -1,27 +1,19 @@
 # Front-Professeur-EFILP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.1.
+Ce projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version 7.1.1.
 
-## Development server
+## Serveur de développement
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Utilisez `ng serve` pour lancer le serveur local de développement. Puis utilisez l'URL `http://localhost:4200/`. L'application sera automatiquement rechargée si vous modifier n'importe quel fichier source du frontal.
 
-## Code scaffolding
+## Génération de code
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Utilisez `ng generate component component-name` pour générer un nouveau composant. Vous pouvez aussi utiliser `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Utilisez `ng build` pour générer une build du projet. Les artefacts de build seront stockés dans le dossier `dist/`. Utilisez le paramètre `--prod` pour générer une build de production.
 
-## Running unit tests
+## Plus d'aide
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Pour obtenir plus d'aide sur Angular CLI utilisez `ng help` ou rendez-vous sur le [README d'Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md).

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesseurService } from '../../../../professeur.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modale-suppression',
@@ -15,6 +16,7 @@ export class ModaleSuppressionComponent implements OnInit {
   public isLoading = false;
 
   constructor(public activeModal: NgbActiveModal,
+              private toastr: ToastrService,
               private professeurService: ProfesseurService) {
 
   }
@@ -26,9 +28,11 @@ export class ModaleSuppressionComponent implements OnInit {
     this.professeurService.deleteQuestion(this.id_qcm, this.id_question).subscribe(
       (result) => {
         this.isLoading = false;
+        this.toastr.success('La question a été supprimée');
         this.activeModal.close('question_supprimée');
       },
       (error) => {
+        this.toastr.error('Echec de suppression de la question');
         console.error(error);
       }
     );
