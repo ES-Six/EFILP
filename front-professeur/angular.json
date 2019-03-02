@@ -27,7 +27,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "node_modules/socket.io-client/dist/socket.io.js"
+              "node_modules/socket.io-client/dist/socket.io.js",
+              "node_modules/chart.js/dist/Chart.bundle.js"
             ]
           },
           "configurations": {

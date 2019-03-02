@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ApiAuthResponse } from '../../app.models';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import {SessionService} from '../../session.service';
 
 @Component({
   selector: 'app-login-form',
@@ -11,20 +12,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginFormComponent implements OnInit {
   @HostBinding('class') hostClass = 'vertical-center';
 
-  public formLogin: FormGroup = null;
+  public formCodeConnectionParticipant: FormGroup = null;
   public isLoading = false;
-  public showIsSuccess: string = null;
-  public formError: { reason: string } | null = null;
-
-  private lastUrl: string = null;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private sessionService: SessionService,
     private route: ActivatedRoute) {
-    this.formLogin = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+    this.formCodeConnectionParticipant = this.fb.group({
+      code: ['', Validators.required]
     });
   }
 
@@ -32,16 +29,24 @@ export class LoginFormComponent implements OnInit {
 
   }
 
-  goToUserPanel() {
-
+  connectionSession(code: string) {
+    this.sessionService.fetchSession(code).subscribe(
+      (data) => {
+        this.sessionService.setSession(data.results);
+        this.router.navigate(['presentation']);
+      },
+      (error) => {
+        this.formCodeConnectionParticipant.controls.code.setErrors({badSession: true});
+        console.log(error);
+      }
+    )
   }
 
-  onSubmitFormLogin() {
-    this.formError = null;
-    if (this.formLogin.valid) {
-
+  onSubmitConnectionSession() {
+    if (this.formCodeConnectionParticipant.valid) {
+      this.connectionSession(this.formCodeConnectionParticipant.value.code);
     } else {
-      console.log('invalid form');
+      this.formCodeConnectionParticipant.controls.code.markAsTouched();
     }
   }
 }

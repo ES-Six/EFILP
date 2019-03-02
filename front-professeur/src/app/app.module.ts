@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AuthService } from './login/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ChartsModule } from 'ng2-charts';
 import { ProfesseurComponent } from './professeur/professeur.component';
 import { HomeComponent } from './professeur/home/home.component';
 import { ClassesComponent } from './professeur/classes/classes.component';
@@ -59,6 +60,7 @@ import {
 } from './professeur/sessions/modale-suppression/modale-suppression.component';
 import { PresentationComponent } from './professeur/presentation/presentation.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     ModaleCreationSessionComponent,
     ModaleSuppressionSessionComponent,
     PresentationComponent,
+    SafeUrlPipe,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     HttpClientModule,
     ToastrModule.forRoot(),
     QRCodeModule,
+    ChartsModule,
   ],
   providers: [AuthService, CookieService, ProfesseurService],
   bootstrap: [AppComponent],

@@ -1,3 +1,5 @@
+import { SafeUrl } from '@angular/platform-browser';
+
 export class ApiSuccessResponse<T extends Object> {
   constructor(
     public results: T,
@@ -34,6 +36,8 @@ export class Classe {
 }
 
 export class Media {
+  public safeUrl: SafeUrl;
+
   constructor(
     public id: number,
     public url: string,

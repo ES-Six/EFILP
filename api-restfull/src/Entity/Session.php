@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serialize;
 
@@ -43,6 +45,16 @@ class Session
      * @ORM\JoinColumn(nullable=false)
      */
     private $classe;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="session")
+     */
+    private $statistiqueReponses;
+
+    public function __construct()
+    {
+        $this->statistiqueReponses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +117,37 @@ class Session
     public function setClasse(?Classe $classe): self
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StatistiqueReponse[]
+     */
+    public function getStatistiqueReponses(): Collection
+    {
+        return $this->statistiqueReponses;
+    }
+
+    public function addStatistiqueReponse(StatistiqueReponse $statistiqueReponse): self
+    {
+        if (!$this->statistiqueReponses->contains($statistiqueReponse)) {
+            $this->statistiqueReponses[] = $statistiqueReponse;
+            $statistiqueReponse->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatistiqueReponse(StatistiqueReponse $statistiqueReponse): self
+    {
+        if ($this->statistiqueReponses->contains($statistiqueReponse)) {
+            $this->statistiqueReponses->removeElement($statistiqueReponse);
+            // set the owning side to null (unless already changed)
+            if ($statistiqueReponse->getSession() === $this) {
+                $statistiqueReponse->setSession(null);
+            }
+        }
 
         return $this;
     }

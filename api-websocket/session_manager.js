@@ -83,7 +83,7 @@ module.exports = class SessionManager {
     }
 
     envoiClassementTop3() {
-        return (id) => {
+        return () => {
             const scores = [];
             // Créer le tableau des scores
             for (let i = 0; i < this.participants.length; i++) {
@@ -106,12 +106,12 @@ module.exports = class SessionManager {
 
             scores.splice(0, 3);
 
-            this.io.to(id).emit('TOP_3', scores);
+            this.io.to(`session_${this.session.id}`).emit('TOP_3', scores);
         };
     }
 
     removeSensitiveInfos(question) {
-        if (question.reponses) {
+        if (question && question.reponses) {
             for (let i = 0; i < question.reponses.length; i ++) {
                 delete question.reponses[i].est_valide;
                 delete question.reponses[i].statistique_reponses;
@@ -125,30 +125,34 @@ module.exports = class SessionManager {
             this.io.to(`session_${this.session.id}`).emit('QUESTION_STARTED', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
             this.activeQuestionChrono = setTimeout(() => {
                 this.io.to(`session_${this.session.id}`).emit('QUESTION_TIMEOUT', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
+                this.envoiClassementTop3()();
                 this.idxQuestion ++;
             }, this.qcm.questions[this.idxQuestion].duree * 1000 || 10000);
         } else {
-            this.professeur.socket.emit('QCM_ENDED', null);
+            this.io.to(`session_${this.session.id}`).emit('QCM_ENDED', null);
         }
     }
 
     skipQuestion() {
-        if (this.activeQuestionChrono) {
-            try {
-                clearTimeout(this.activeQuestionChrono);
-                this.activeQuestionChrono = null;
-                this.io.to(`session_${this.session.id}`).emit('QUESTION_SKIPPED', this.removeSensitiveInfos(this.qcm.questions[idx]));
-                this.idxQuestion++;
-            } catch (exception) {
-                console.error(exception);
+        return () => {
+            if (this.activeQuestionChrono) {
+                try {
+                    clearTimeout(this.activeQuestionChrono);
+                    this.activeQuestionChrono = null;
+                    this.io.to(`session_${this.session.id}`).emit('QUESTION_SKIPPED', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
+                    this.envoiClassementTop3()();
+                    this.idxQuestion++;
+                } catch (exception) {
+                    console.error(exception);
+                }
             }
-        }
+        };
     }
 
     startMedia() {
         return () => {
             if (this.qcm.questions[this.idxQuestion] && this.qcm.questions[this.idxQuestion].media) {
-                this.io.to(`session_${this.session.id}`).emit('START_MEDIA', this.removeSensitiveInfos(this.qcm.questions[idx]));
+                this.io.to(`session_${this.session.id}`).emit('START_MEDIA', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
             } else {
                 this.startQuestion();
             }
@@ -156,9 +160,10 @@ module.exports = class SessionManager {
     }
 
     skipMedia() {
-        if (this.qcm.questions[this.idxQuestion].media) {
-            this.io.to(`session_${this.session.id}`).emit('SKIP_MEDIA', this.removeSensitiveInfos(this.qcm.questions[idx]));
-        }
+        return () => {
+            this.io.to(`session_${this.session.id}`).emit('NOTICE_SKIP_MEDIA', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
+            this.startQuestion();
+        };
     }
 
     startSession() {
@@ -171,6 +176,8 @@ module.exports = class SessionManager {
             console.log('QCM', response.data.results);
             this.professeur.socket.on('REQUEST_STATS', this.envoiClassementTop3());
             this.professeur.socket.on('NEXT_SLIDE', this.startMedia());
+            this.professeur.socket.on('SKIP_MEDIA', this.skipMedia());
+            this.professeur.socket.on('SKIP_QUESTION', this.skipQuestion());
             for (let i = 0; i < this.participants.length; i ++) {
                 this.participants[i].socket.on('REQUEST_STATS', this.envoiClassementTop3());
                 this.participants[i].socket.on('SEND_RESPONSE', this.respondToQuestion());

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Classe;
 use App\Entity\Participant;
 use App\Entity\QCM;
+use App\Entity\Question;
 use App\Entity\Session;
+use App\Entity\StatistiqueReponse;
 use App\Entity\User;
+use App\Service\QCMValidation;
 use App\Service\SessionValidation;
 use App\Service\Shared;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,6 +55,7 @@ class SessionController extends AbstractFOSRestController
     /**
      * @Rest\Get("/professeurs/{id_professeur}/sessions")
      * @ParamConverter("professeur", options={"mapping": {"id_professeur" : "id"}})
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == request.get('id_professeur')")
      *
      * @param User $professeur
      * @return \Symfony\Component\HttpFoundation\Response
@@ -191,5 +195,41 @@ class SessionController extends AbstractFOSRestController
             }
         }
         return $this->handleView($this->shared->createSuccessResponse($participant));
+    }
+    
+    /**
+     * @Rest\Get("/statistiques/session/{id_session}/questions/{id_question}")
+     * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
+     * @ParamConverter("session", options={"mapping": {"id_session" : "id"}})
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId()")
+     *
+     * @param Question $question
+     * @param Session $session
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @api {get} /v1/professeurs/{id_professeur}/classes Voir une session par son code unique
+     * @apiName StatistiquesReponsesParQuestionParSession
+     * @apiGroup Sessions
+     * @apiVersion 1.0.0
+     *
+     * @apiExample {curl} Exemple d'utilisation:
+     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/statistiques/session/{id_session}/questions/{id_question}"
+     */
+    public function getStatistiqueReponsesParQuestionParSessionAction(Question $question, Session $session)
+    {
+        $statiqtiquesReponsesParQuestionParSession = $this->em->createQueryBuilder()
+            ->select('DISTINCT Reponse, COUNT(statistique_reponse.id) nbr_reponses')
+            ->from(StatistiqueReponse::class, 'StatistiqueReponse')
+            ->join('StatistiqueReponse.reponse', 'Reponse')
+            ->join('Reponse.question', 'Question')
+            ->join('StatistiqueReponse.participant', 'Participant')
+            ->andWhere('Question.id = :id_question')
+            ->andWhere('StatistiqueReponse.session = :id_session')
+            ->groupBy('Question.id')
+            ->setParameters(['id_question'=>$question->getId(), 'id_session'=>$session->getId()])
+            ->getQuery()
+            ->getResult();
+
+        return $this->handleView($this->shared->createSuccessResponse($statiqtiquesReponsesParQuestionParSession));
     }
 }

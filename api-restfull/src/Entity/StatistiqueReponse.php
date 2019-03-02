@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StatistiqueReponseRepository")
  * @ORM\Table(name="statistique_reponse",
  * uniqueConstraints={
- *     @ORM\UniqueConstraint(name="unique_metric", columns={"reponse_id", "participant_id"})
+ *     @ORM\UniqueConstraint(name="unique_metric", columns={"reponse_id", "participant_id", "session_id"})
  * })
  */
 class StatistiqueReponse
@@ -31,6 +31,12 @@ class StatistiqueReponse
      * @ORM\JoinColumn(nullable=false)
      */
     private $participant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="statistiqueReponses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $session;
 
     public function getId(): ?int
     {
@@ -57,6 +63,18 @@ class StatistiqueReponse
     public function setParticipant(?Participant $participant): self
     {
         $this->participant = $participant;
+
+        return $this;
+    }
+
+    public function getSession(): ?Session
+    {
+        return $this->session;
+    }
+
+    public function setSession(?Session $session): self
+    {
+        $this->session = $session;
 
         return $this;
     }

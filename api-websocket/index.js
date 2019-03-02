@@ -78,6 +78,8 @@ io.sockets.on('connection', (socket) => {
                         }
                         console.log('ajout participant');
                         session_manager.addParticipant(participant, socket);
+
+                        socket.emit('AUTHENTICATION_SUCCESS', null);
                     }
                 })
             }
@@ -114,6 +116,7 @@ io.sockets.on('connection', (socket) => {
                         console.log('definir professeur');
                         response.data.results.token = token;
                         session_manager.setProfesseur(response.data.results, socket);
+                        socket.emit('AUTHENTICATION_SUCCESS', null);
                         socket.on('SESSION_START', () => {
                             session_manager.startSession();
                         })

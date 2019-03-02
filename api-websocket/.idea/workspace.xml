@@ -2,20 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/index.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/angular.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/app.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/app.models.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/sessions/sessions.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/sessions/sessions.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/environments/environment.prod.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/styles.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,12 +30,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.js">
+        <entry file="file://$PROJECT_DIR$/session_manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="43" column="63" lean-forward="true" selection-start-line="43" selection-start-column="63" selection-end-line="43" selection-end-column="63" />
+            <state relative-caret-position="193">
+              <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
             </state>
           </provider>
         </entry>
@@ -48,6 +54,10 @@
       <find>socket.on</find>
       <find>socket.off</find>
       <find>.off(</find>
+      <find>envoiClassementTop3</find>
+      <find>skipQuestion</find>
+      <find>SKIP_MEDIA</find>
+      <find>skipMedia</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -59,17 +69,17 @@
         <option value="$PROJECT_DIR$/environment.js" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/qcm._managerjs.js" />
-        <option value="$PROJECT_DIR$/session_manager.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/session_manager.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="177" />
-    <option name="y" value="125" />
-    <option name="width" value="1540" />
-    <option name="height" value="924" />
+    <option name="x" value="303" />
+    <option name="y" value="97" />
+    <option name="width" value="1492" />
+    <option name="height" value="884" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -137,17 +147,18 @@
       <workItem from="1550939770845" duration="365000" />
       <workItem from="1550940187794" duration="9000" />
       <workItem from="1551473822725" duration="1033000" />
+      <workItem from="1551516365895" duration="11084000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25493000" />
+    <option name="totallyTimeSpent" value="36577000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="177" y="125" width="1540" height="924" extended-state="1" />
+    <frame x="303" y="97" width="1492" height="884" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2370173" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24484181" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -210,13 +221,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/qcm._managerjs.js" />
-    <entry file="file://$PROJECT_DIR$/session_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -232,8 +236,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="43" column="63" lean-forward="true" selection-start-line="43" selection-start-column="63" selection-end-line="43" selection-end-column="63" />
+        <state relative-caret-position="462">
+          <caret line="119" column="48" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/session_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
         </state>
       </provider>
     </entry>

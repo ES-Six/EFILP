@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LoginFormComponent} from './login/login-form/login-form.component';
+import { PresentationComponent } from './presentation/presentation.component';
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
 * le logins, récupération de mot de passe, etc...
@@ -13,6 +14,7 @@ export const routes: Routes = [
     component: LoginComponent,
     children: [
       { path: 'login', component: LoginFormComponent },
+      { path: 'presentation', component: PresentationComponent },
     ]
   },
 ];

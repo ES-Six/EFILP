@@ -470,5 +470,19 @@ export class ProfesseurService {
         })
       );
   }
+
+  fetchSessionParticipant(code_session: string) {
+    return this.httpClient.get<ApiSuccessResponse<Session>>(
+      `${environment.api_base_url}/apprenant/sessions/${code_session}`,
+      {
+        observe: 'body',
+        responseType: 'json'
+      }
+    ).pipe(
+      map((data: ApiSuccessResponse<Session>) => {
+        return data.results;
+      })
+    );
+  }
 }
 

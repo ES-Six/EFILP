@@ -1,0 +1,42 @@
+<div>
+  <div *ngIf="step === 'LOADING'" class="d-flex custom-flex-container w-100">
+    <div class="justify-content-center align-self-center mx-auto">
+      <div class="text-center">
+        <img src="../../../assets/loading.gif" alt="Image de chargement" width="80" height="80">
+        <br>
+        Chargement en cours...
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step === 'WAITING_FOR_SESSION_START'" class="d-flex custom-flex-container w-100">
+    <div class="justify-content-center align-self-center mx-auto">
+      <div class="text-center">
+        <img src="../../../assets/loading.gif" alt="Image de chargement" width="80" height="80">
+        <br>
+        Attente du début de la session...
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step === 'ASK_INFO_PARTICIPANT'" class="d-flex custom-flex-container w-100">
+    <div class="justify-content-center align-self-center mx-auto">
+      <form [formGroup]="formCollectParticipant" (submit)="onSubmitCollectParticipant()">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" formControlName="nom" id="nom">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="prenom">Prénom</label>
+            <input type="text" class="form-control" formControlName="prenom" id="prenom">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Participer à la session</button>
+      </form>
+    </div>
+  </div>
+</div>
