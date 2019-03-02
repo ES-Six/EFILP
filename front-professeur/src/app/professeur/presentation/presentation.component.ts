@@ -28,14 +28,24 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    maintainAspectRatio: true
+    maintainAspectRatio: true,
+    scales: {
+      yAxes: [{
+        display: true,
+        ticks: {
+          beginAtZero: true,
+          stepSize: 1
+        }
+      }]
+    }
   };
-  public barChartLabels: string[] = ['rep_1', 'rep_2', 'rep_3', 'rep_4'];
+  public barChartLabels: string[] = [];
   public barChartType = 'bar';
   public barChartLegend = true;
+  public displayStats = false;
 
   public barChartData: any[] = [
-    {data: [4, 1, 2, 3], label: 'Nombre de réponses'}
+    {data: [], label: 'Nombre de réponses'}
   ];
 
   constructor(private route: ActivatedRoute,
@@ -117,6 +127,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   }
 
   goToNextSlide() {
+    this.displayStats = false;
     this.socket.emit('NEXT_SLIDE', null);
   }
 
@@ -152,7 +163,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
         } else {
           this.currentTimestamp = this.endTimestamp;
         }
-      }, 500);
+      }, 250);
       this.step = 'QUESTION';
     });
 
@@ -174,6 +185,31 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
     this.socket.on('TOP_3', (top_3) => {
       console.log(top_3);
+      this.professeurService.fetchStatistiquesReponsesParQuestionParSession(this.question.id, this.id_session).subscribe(
+        (results) => {
+          if (results instanceof Array) {
+
+            const nb_reponses = [];
+            this.barChartLabels = [];
+
+            for (let i = 0; i < results.length; i ++) {
+              if (results[i].reponse) {
+                this.barChartLabels.push(results[i].reponse.nom);
+                nb_reponses.push(results[i].nbr_reponses);
+              }
+            }
+
+            this.barChartData = [
+              {data: nb_reponses, label: 'Nombre de réponses'}
+            ];
+
+            this.displayStats = true;
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
       this.step = 'STATS';
     });
   }

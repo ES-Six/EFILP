@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api-restfull/src/Controller/SessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../api-restfull/src/Controller/SessionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

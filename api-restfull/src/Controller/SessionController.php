@@ -6,6 +6,7 @@ use App\Entity\Classe;
 use App\Entity\Participant;
 use App\Entity\QCM;
 use App\Entity\Question;
+use App\Entity\Reponse;
 use App\Entity\Session;
 use App\Entity\StatistiqueReponse;
 use App\Entity\User;
@@ -196,12 +197,12 @@ class SessionController extends AbstractFOSRestController
         }
         return $this->handleView($this->shared->createSuccessResponse($participant));
     }
-    
+
     /**
      * @Rest\Get("/statistiques/session/{id_session}/questions/{id_question}")
      * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
      * @ParamConverter("session", options={"mapping": {"id_session" : "id"}})
-     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId()")
+     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == session.getClasse().getProfesseur().getId()")
      *
      * @param Question $question
      * @param Session $session
@@ -217,15 +218,17 @@ class SessionController extends AbstractFOSRestController
      */
     public function getStatistiqueReponsesParQuestionParSessionAction(Question $question, Session $session)
     {
-        $statiqtiquesReponsesParQuestionParSession = $this->em->createQueryBuilder()
-            ->select('DISTINCT Reponse, COUNT(statistique_reponse.id) nbr_reponses')
+        $subquery = $this->em->createQueryBuilder()
+            ->select('COUNT(StatistiqueReponse.reponse)')
             ->from(StatistiqueReponse::class, 'StatistiqueReponse')
-            ->join('StatistiqueReponse.reponse', 'Reponse')
-            ->join('Reponse.question', 'Question')
-            ->join('StatistiqueReponse.participant', 'Participant')
-            ->andWhere('Question.id = :id_question')
-            ->andWhere('StatistiqueReponse.session = :id_session')
-            ->groupBy('Question.id')
+            ->andWhere('StatistiqueReponse.reponse = Reponse.id')
+            ->andWhere('StatistiqueReponse.session = :id_session');
+
+        $statiqtiquesReponsesParQuestionParSession = $this->em->createQueryBuilder()
+            ->select('DISTINCT Reponse reponse')
+            ->addSelect("({$subquery->getQuery()->getDQL()}) nbr_reponses")
+            ->from(Reponse::class, 'Reponse')
+            ->andWhere('Reponse.question = :id_question')
             ->setParameters(['id_question'=>$question->getId(), 'id_session'=>$session->getId()])
             ->getQuery()
             ->getResult();

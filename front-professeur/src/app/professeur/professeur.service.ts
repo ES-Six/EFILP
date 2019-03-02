@@ -484,5 +484,22 @@ export class ProfesseurService {
       })
     );
   }
+
+  fetchStatistiquesReponsesParQuestionParSession(id_question: number, id_session: number) {
+    return this.httpClient.get<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/statistiques/session/${id_session}/questions/${id_question}`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    ).pipe(
+      map((data: ApiSuccessResponse<any>) => {
+        return data.results;
+      })
+    );
+  }
 }
 

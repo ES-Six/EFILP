@@ -57,11 +57,17 @@
   <div *ngIf="step === 'STATS'" class="mx-auto" style="width: 80%;max-height: calc(100vh - 72px)">
     <h3 class="w-100 text-center">Statistiques des réponses</h3>
     <canvas baseChart
+            *ngIf="displayStats"
             [datasets]="barChartData"
             [labels]="barChartLabels"
             [options]="barChartOptions"
             [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
+    <div *ngIf="!displayStats" class="text-center">
+      <img src="../../../assets/loading.gif" width="80" height="80">
+      <br>
+      Chargement en cours...
+    </div>
     <h3 class="w-100 text-center" *ngIf="session && session.config_affichage_classement">Top 5 des meilleurs scores</h3>
     <div *ngIf="session && session.config_affichage_classement">
       Participant_1<br>
