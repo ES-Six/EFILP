@@ -22,6 +22,9 @@ export class PresentationComponent implements OnInit, OnDestroy {
   public question: Question;
   public session: Session;
   public step: string;
+  public currentTimestamp: number;
+  public endTimestamp: number;
+  public chrono: any = null;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -42,6 +45,10 @@ export class PresentationComponent implements OnInit, OnDestroy {
               private router: Router) {
 
     this.step = 'LOADING';
+  }
+
+  static getTimestamp() {
+    return ((new Date()).getTime() / 1000);
   }
 
   ngOnInit() {
@@ -103,6 +110,10 @@ export class PresentationComponent implements OnInit, OnDestroy {
     if (this.socket) {
       this.socket.disconnect();
     }
+    if (this.chrono !== null) {
+      clearTimeout(this.chrono);
+      this.chrono = null;
+    }
   }
 
   goToNextSlide() {
@@ -132,14 +143,28 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
     this.socket.on('QUESTION_STARTED', (question) => {
       this.question = question;
+      this.currentTimestamp = PresentationComponent.getTimestamp();
+      this.endTimestamp = PresentationComponent.getTimestamp() + question.duree;
+      this.chrono = setInterval(() => {
+        const timestamp = PresentationComponent.getTimestamp();
+        if (Math.trunc(this.endTimestamp - timestamp) > 0) {
+          this.currentTimestamp = timestamp;
+        } else {
+          this.currentTimestamp = this.endTimestamp;
+        }
+      }, 500);
       this.step = 'QUESTION';
     });
 
     this.socket.on('QUESTION_SKIPPED', () => {
+      clearTimeout(this.chrono);
+      this.chrono = null;
       this.step = 'LOADING';
     });
 
     this.socket.on('QUESTION_TIMEOUT', () => {
+      clearTimeout(this.chrono);
+      this.chrono = null;
       this.step = 'LOADING';
     });
 

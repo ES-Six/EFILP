@@ -61,6 +61,7 @@ import {
 import { PresentationComponent } from './professeur/presentation/presentation.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { TruncPipe } from './pipes/trunc.pipe';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
     ModaleSuppressionSessionComponent,
     PresentationComponent,
     SafeUrlPipe,
+    TruncPipe,
   ],
   imports: [
     BrowserModule,

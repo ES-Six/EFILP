@@ -82,13 +82,14 @@ module.exports = class SessionManager {
         return score;
     }
 
-    envoiClassementTop3() {
+    envoiClassementTop5() {
         return () => {
             const scores = [];
             // Créer le tableau des scores
             for (let i = 0; i < this.participants.length; i++) {
                 scores.push({
                     score: this.getScoreParticipant(this.participants[i].id),
+                    username: this.participants[i].username,
                     id_participant: this.participants[i].id
                 });
             }
@@ -125,7 +126,7 @@ module.exports = class SessionManager {
             this.io.to(`session_${this.session.id}`).emit('QUESTION_STARTED', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
             this.activeQuestionChrono = setTimeout(() => {
                 this.io.to(`session_${this.session.id}`).emit('QUESTION_TIMEOUT', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
-                this.envoiClassementTop3()();
+                this.envoiClassementTop5()();
                 this.idxQuestion ++;
             }, this.qcm.questions[this.idxQuestion].duree * 1000 || 10000);
         } else {
@@ -140,7 +141,7 @@ module.exports = class SessionManager {
                     clearTimeout(this.activeQuestionChrono);
                     this.activeQuestionChrono = null;
                     this.io.to(`session_${this.session.id}`).emit('QUESTION_SKIPPED', this.removeSensitiveInfos(this.qcm.questions[this.idxQuestion]));
-                    this.envoiClassementTop3()();
+                    this.envoiClassementTop5()();
                     this.idxQuestion++;
                 } catch (exception) {
                     console.error(exception);
@@ -174,12 +175,12 @@ module.exports = class SessionManager {
         })
         .then(response => {
             console.log('QCM', response.data.results);
-            this.professeur.socket.on('REQUEST_STATS', this.envoiClassementTop3());
+            this.professeur.socket.on('REQUEST_STATS', this.envoiClassementTop5());
             this.professeur.socket.on('NEXT_SLIDE', this.startMedia());
             this.professeur.socket.on('SKIP_MEDIA', this.skipMedia());
             this.professeur.socket.on('SKIP_QUESTION', this.skipQuestion());
             for (let i = 0; i < this.participants.length; i ++) {
-                this.participants[i].socket.on('REQUEST_STATS', this.envoiClassementTop3());
+                this.participants[i].socket.on('REQUEST_STATS', this.envoiClassementTop5());
                 this.participants[i].socket.on('SEND_RESPONSE', this.respondToQuestion());
             }
 

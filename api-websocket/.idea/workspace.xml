@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/app.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/app.models.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/index.d.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/session_manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+            <state relative-caret-position="182">
+              <caret line="140" column="33" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -54,10 +38,11 @@
       <find>socket.on</find>
       <find>socket.off</find>
       <find>.off(</find>
-      <find>envoiClassementTop3</find>
       <find>skipQuestion</find>
       <find>SKIP_MEDIA</find>
       <find>skipMedia</find>
+      <find>envoiClassementTop3</find>
+      <find>envoiClassementTop5</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,12 +132,12 @@
       <workItem from="1550939770845" duration="365000" />
       <workItem from="1550940187794" duration="9000" />
       <workItem from="1551473822725" duration="1033000" />
-      <workItem from="1551516365895" duration="11084000" />
+      <workItem from="1551516365895" duration="12090000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36577000" />
+    <option name="totallyTimeSpent" value="37583000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="303" y="97" width="1492" height="884" extended-state="1" />
@@ -243,8 +228,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/session_manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+        <state relative-caret-position="182">
+          <caret line="140" column="33" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="33" />
         </state>
       </provider>
     </entry>

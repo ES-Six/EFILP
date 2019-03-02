@@ -42,8 +42,12 @@
   </div>
 
   <div *ngIf="step === 'QUESTION'" class="container-fluid px-0 d-flex flex-column" style="height: calc(100vh - 72px)">
-    <div class="d-flex justify-content-center align-items-center" style="flex-grow: 1">
-      <h3 class="text-center">{{ question.titre }}</h3>
+    <div class="d-flex justify-content-center align-items-center flex-column" style="flex-grow: 1">
+      <h3 class="w-100 text-center mb-4">{{ question.titre }}</h3>
+      <br>
+      <div class="h4 w-100 text-center" *ngIf="endTimestamp - currentTimestamp | trunc">
+        Temps restant : {{ endTimestamp - currentTimestamp | trunc }} secondes
+      </div>
     </div>
     <div>
       <button class="btn btn-primary my-1 mr-2 float-right" style="max-height: 50px" (click)="skipQuestion()">Suivant</button>
