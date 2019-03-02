@@ -78,8 +78,6 @@ io.sockets.on('connection', (socket) => {
                         }
                         console.log('ajout participant');
                         session_manager.addParticipant(participant, socket);
-
-                        socket.emit('AUTHENTICATION_SUCCESS', null);
                     }
                 })
             }

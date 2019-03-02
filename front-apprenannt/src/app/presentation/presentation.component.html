@@ -39,4 +39,18 @@
       </form>
     </div>
   </div>
+
+  <div *ngIf="step === 'ASK_USERNAME'" class="d-flex custom-flex-container w-100">
+    <div class="justify-content-center align-self-center mx-auto">
+      <form [formGroup]="formCollectUsername" (submit)="onSubmitCollectUsername()">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="username">Pseudonyme</label>
+            <input type="text" class="form-control" formControlName="username" id="username">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Participer à la session</button>
+      </form>
+    </div>
+  </div>
 </div>

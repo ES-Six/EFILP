@@ -14,6 +14,7 @@ export class PresentationComponent implements OnInit {
 
   public step: string;
   public formCollectParticipant: FormGroup = null;
+  public formCollectUsername: FormGroup = null;
 
   constructor(private sessionService: SessionService,
               private fb: FormBuilder,
@@ -27,6 +28,10 @@ export class PresentationComponent implements OnInit {
     this.formCollectParticipant = this.fb.group({
       nom: ['', [Validators.required]],
       prenom: ['', [Validators.required]]
+    });
+
+    this.formCollectUsername = this.fb.group({
+      username: ['', [Validators.required]]
     });
 
     if (this.sessionService.getCookieParticipantData()) {
@@ -69,6 +74,18 @@ export class PresentationComponent implements OnInit {
     }
   }
 
+  onSubmitCollectUsername() {
+    if (this.formCollectUsername.valid) {
+      this.step = 'WAITING_FOR_SESSION_START';
+      this.socket.emit('SET_USERNAME', {
+        id_participant: this.sessionService.getParticipant().id,
+        username: this.formCollectUsername.value.username
+      });
+    } else {
+      this.formCollectUsername.controls.username.markAsTouched();
+    }
+  }
+
   connectionSessionWebsocket() {
     this.socket = io.connect('http://localhost:8080');
 
@@ -80,6 +97,14 @@ export class PresentationComponent implements OnInit {
     this.socket.on('PARTICIPANT_ID_REQUESTED', () => {
       console.log('ID PARTIIPANT requested');
       this.socket.emit('PARTICIPANT_ID', this.sessionService.getParticipant().id);
+    });
+
+    this.socket.on('REQUEST_USERNAME', () => {
+      this.step = 'ASK_USERNAME';
+    });
+
+    this.socket.on('QCM_ENDED', () => {
+      this.router.navigate(['login']);
     });
   }
 }

@@ -12,14 +12,34 @@ module.exports = class SessionManager {
         this.idxQuestion = 0;
         this.activeQuestionChrono = null;
         this.responsesMetrics = [];
+        this.generatedAnimalNames = ['Cosmic', 'Bionic', 'Xenial', 'Trusty', 'Yakkety', 'Utopic', 'Precise', 'Oneiric', 'Lucid', 'Hoary'];
+        this.generatedAuxiliaryNames = ['Cuttlefish', 'Beaver', 'Xerus', 'Tahr', 'Yak', 'Unicorn', 'Pangolin', 'Ocelot', 'Lynx', 'Hedgehog'];
     }
 
     addParticipant(participant, socket) {
         socket.join(`session_${this.session.id}`);
+        socket.emit('AUTHENTICATION_SUCCESS', null);
+        socket.on('GET_USERNAME', this.getUsername());
+
+        if (this.session && this.session.config_generation_pseudo === 1) {
+            participant.username = `${this.generatedAnimalNames[Math.floor(Math.random() * this.generatedAnimalNames.length)]} ${this.generatedAuxiliaryNames[Math.floor(Math.random() * this.generatedAuxiliaryNames.length)]}`;
+            socket.emit('USERNAME_PARTICIPANT', participant.username);
+        }
+
         this.participants.push({...participant, socket});
+
         if (this.professeur) {
-            console.log('nouveau participant notif');
-            this.professeur.socket.emit('NEW_PARTICIPANT', participant);
+            if (this.session && this.session.config_generation_pseudo === 1) {
+                console.log('nouveau participant notif: username auto');
+                this.professeur.socket.emit('NEW_PARTICIPANT', {
+                    id: participant.id,
+                    username: participant.username
+                });
+            } else {
+                console.log('nouveau participant: username manual');
+                socket.on('SET_USERNAME', this.setUsername());
+                socket.emit('REQUEST_USERNAME', null);
+            }
         }
     }
 
@@ -59,7 +79,7 @@ module.exports = class SessionManager {
                     }
                 }
 
-                this.mysqlclient.query('INSERT INTO statistique_reponse (reponse_id, participant_id) VALUES (?, ?)', [response_data.id_reponse, response_data.id_participant], (error, results, fields) => {
+                this.mysqlclient.query('INSERT INTO statistique_reponse (reponse_id, participant_id, session_id) VALUES (?, ?, ?)', [response_data.id_reponse, response_data.id_participant, this.session.id], (error, results, fields) => {
                     if (error) {
                         if (!error.Error === 'ER_DUP_ENTRY') {
                             console.error(error);
@@ -167,6 +187,37 @@ module.exports = class SessionManager {
         };
     }
 
+    setUsername() {
+        return (datas) => {
+            for (let i = 0; i < this.participants.length; i++) {
+                if (datas && this.session &&
+                    this.participants[i].id === datas.id_participant &&
+                    this.session.config_generation_pseudo === 0 &&
+                    !this.participants[i].username) {
+
+                    this.participants[i].username = datas.username;
+                    if (this.professeur) {
+                        this.professeur.socket.emit('NEW_PARTICIPANT', {
+                            id: this.participants[i].id,
+                            username: this.participants[i].username
+                        });
+                    }
+                    break;
+                }
+            }
+        };
+    }
+
+    getUsername() {
+        return (id_participant) => {
+            for (let i = 0; i < this.participants.length; i++) {
+                if (this.participants[i].id === id_participant && this.participants[i].socket) {
+                    this.participants[i].socket.emit('USERNAME_PARTICIPANT', this.participants[i].username);
+                }
+            }
+        };
+    }
+
     startSession() {
         axios.get(`${env.parsed.URL_API_RESTFULL}/qcms/${this.session.qcm_id}`, {
             headers: {
@@ -174,7 +225,7 @@ module.exports = class SessionManager {
             }
         })
         .then(response => {
-            console.log('QCM', response.data.results);
+            console.log('QCM loaded');
             this.professeur.socket.on('REQUEST_STATS', this.envoiClassementTop5());
             this.professeur.socket.on('NEXT_SLIDE', this.startMedia());
             this.professeur.socket.on('SKIP_MEDIA', this.skipMedia());
@@ -189,6 +240,7 @@ module.exports = class SessionManager {
         })
         .catch(error => {
             console.log(error);
+            this.io.to(`session_${this.session.id}`).emit('INTERNAL_ERROR', 'Echec de chargement distant du QCM');
         });
     }
 };

@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../api-restfull/src/Controller/SessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../api-restfull/src/Controller/SessionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/session_manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="140" column="33" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="33" />
+            <state relative-caret-position="533">
+              <caret line="242" column="114" selection-start-line="242" selection-start-column="114" selection-end-line="242" selection-end-column="114" />
             </state>
           </provider>
         </entry>
@@ -43,6 +44,10 @@
       <find>skipMedia</find>
       <find>envoiClassementTop3</find>
       <find>envoiClassementTop5</find>
+      <find>setUsername</find>
+      <find>NEW_PARTICIPANT</find>
+      <find>participants[i]</find>
+      <find>console.log(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -60,7 +65,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="303" />
     <option name="y" value="97" />
     <option name="width" value="1492" />
@@ -132,15 +137,15 @@
       <workItem from="1550939770845" duration="365000" />
       <workItem from="1550940187794" duration="9000" />
       <workItem from="1551473822725" duration="1033000" />
-      <workItem from="1551516365895" duration="12090000" />
+      <workItem from="1551516365895" duration="15738000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37583000" />
+    <option name="totallyTimeSpent" value="41231000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="303" y="97" width="1492" height="884" extended-state="1" />
+    <frame x="303" y="97" width="1492" height="884" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24484181" />
@@ -221,15 +226,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="119" column="48" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="48" />
+        <state relative-caret-position="581">
+          <caret line="79" column="42" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/session_manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="140" column="33" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="33" />
+        <state relative-caret-position="533">
+          <caret line="242" column="114" selection-start-line="242" selection-start-column="114" selection-end-line="242" selection-end-column="114" />
         </state>
       </provider>
     </entry>

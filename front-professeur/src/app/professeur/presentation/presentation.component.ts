@@ -107,7 +107,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('NEW_PARTICIPANT', (participant) => {
-      this.toastr.info(`${participant.prenom} ${participant.nom} s'est connecté à la session`);
+      this.toastr.info(`${participant.username} s'est connecté à la session`);
       console.log('Nouveau participant', `${participant.nom} ${participant.prenom}`);
     });
   }
