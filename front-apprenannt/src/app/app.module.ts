@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { PresentationComponent } from './presentation/presentation.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LoginQrcodeComponent } from './login/login-qrcode/login-qrcode.component';
 
 
 
@@ -18,6 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
     LoginComponent,
     LoginFormComponent,
     PresentationComponent,
+    LoginQrcodeComponent,
   ],
   imports: [
     BrowserModule,

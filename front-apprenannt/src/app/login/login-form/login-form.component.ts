@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
         this.formCodeConnectionParticipant.controls.code.setErrors({badSession: true});
         console.log(error);
       }
-    )
+    );
   }
 
   onSubmitConnectionSession() {

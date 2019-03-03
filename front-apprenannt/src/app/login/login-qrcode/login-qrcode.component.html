@@ -1,0 +1,17 @@
+<div>
+  <div class="container-fluid px-0 flex-column" [class.d-flex]="!isLoading" [class.d-none]="isLoading" style="height: 100vh">
+    <div class="d-flex justify-content-center align-items-center flex-column" style="flex-grow: 1;">
+      <video id="camera-view" class="d-block mw-100 mh-100 mx-2 my-2 m-0" style="width: calc(100% - 1rem);"></video>
+    </div>
+    <div style="width: calc(100% - 1rem);">
+      <button class="btn btn-primary my-2 btn-block ml-2" routerLink="../login">Retour</button>
+    </div>
+  </div>
+  <div class="container-fluid px-0 flex-column" [class.d-flex]="isLoading" [class.d-none]="!isLoading" style="height: 100vh">
+    <div class="d-flex justify-content-center align-items-center flex-column" style="flex-grow: 1;">
+      <img src="../../../assets/loading.gif" width="150px" height="150px" alt="Chargement en cours...">
+      <br>
+      Chargement en cours...
+    </div>
+  </div>
+</div>
