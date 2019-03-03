@@ -34,7 +34,7 @@ export class ModaleCreationComponent implements OnInit {
       has_media: [false, [Validators.required]],
       media: this.fb.group({
         type: ['VIDEO', [Validators.required]],
-        url: ['', [Validators.required]],
+        url: ['', [Validators.required, Validators.maxLength(2083)]],
       })
     });
 

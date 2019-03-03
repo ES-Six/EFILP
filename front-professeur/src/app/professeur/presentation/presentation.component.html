@@ -24,16 +24,23 @@
   </div>
 
   <div *ngIf="step === 'MEDIA'" class="container-fluid px-0 d-flex flex-column" style="height: calc(100vh - 72px)">
-    <div class="my-1 mx-2">
+    <div class="my-1 mx-2 mb-4">
       <h3 class="text-center">{{ question.titre }}</h3>
     </div>
 
-    <div *ngIf="question && question.media && question.media.type === 'TEXT'">{{ question.media.url }}</div>
-    <div *ngIf="question && question.media && question.media.type === 'IMAGE'">
-      <img [src]="question.media.url" alt="Impossible de charger l'image...">
+    <div *ngIf="question && question.media && question.media.type === 'TEXT'" style="flex-grow: 1">
+      <div class="h4 mx-3" style="height: calc(100% - 50px)">{{ question.media.url }}</div>
+      <button class="btn btn-primary my-1 mr-2 float-right" style="max-height: 50px" (click)="skipMedia()">Suivant</button>
     </div>
-    <div *ngIf="question && question.media && question.media.type === 'AUDIO'">
-      <iframe [src]="question.media.url | safeUrl"></iframe>
+    <div *ngIf="question && question.media && question.media.type === 'IMAGE'" class="mh-100" style="min-height: 350px;flex-grow: 1">
+      <div style="height: calc(100% - 50px)">
+        <img [src]="question.media.url" class="d-block mx-auto" alt="Impossible de charger l'image..." style="max-height: 100%;min-width: 350px; max-width: 100%">
+      </div>
+      <button class="btn btn-primary my-1 mr-2 float-right" style="max-height: 50px" (click)="skipMedia()">Suivant</button>
+    </div>
+    <div *ngIf="question && question.media && question.media.type === 'AUDIO'" class="w-100" style="width: 100%; flex-grow: 1">
+      <iframe [src]="question.media.url | safeUrl" style="width: calc(100% - 1rem);height: calc(100% - 50px)"></iframe>
+      <button class="btn btn-primary my-1 mr-2 float-right" style="max-height: 50px" (click)="skipMedia()">Suivant</button>
     </div>
     <div *ngIf="question && question.media && question.media.type === 'VIDEO'" class="w-100" style="width: 100%; flex-grow: 1">
       <iframe [src]="question.media.url | safeUrl" class="py-0 my-0 ml-2" style="width: calc(100% - 1rem);height: calc(100% - 50px)"></iframe>

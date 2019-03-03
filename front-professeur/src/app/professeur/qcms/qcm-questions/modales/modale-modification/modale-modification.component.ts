@@ -40,7 +40,7 @@ export class ModaleModificationComponent implements OnInit {
       media: this.fb.group({
         id: [null],
         type: ['VIDEO', [Validators.required]],
-        url: ['', [Validators.required]],
+        url: ['', [Validators.required, Validators.maxLength(2083)]],
       })
     });
 
