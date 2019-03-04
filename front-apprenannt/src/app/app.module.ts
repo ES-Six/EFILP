@@ -10,6 +10,8 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { PresentationComponent } from './presentation/presentation.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginQrcodeComponent } from './login/login-qrcode/login-qrcode.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { TruncPipe } from './pipes/trunc.pipe';
 
 
 
@@ -20,6 +22,8 @@ import { LoginQrcodeComponent } from './login/login-qrcode/login-qrcode.componen
     LoginFormComponent,
     PresentationComponent,
     LoginQrcodeComponent,
+    SafeUrlPipe,
+    TruncPipe,
   ],
   imports: [
     BrowserModule,

@@ -11,10 +11,14 @@ import {Router} from '@angular/router';
 export class PresentationComponent implements OnInit {
 
   private socket;
+  private currentTimestamp: number;
+  private endTimestamp: number;
 
   public step: string;
   public formCollectParticipant: FormGroup = null;
   public formCollectUsername: FormGroup = null;
+  public question: any = null;
+  public chrono: any = null;
 
   constructor(private sessionService: SessionService,
               private fb: FormBuilder,
@@ -49,6 +53,10 @@ export class PresentationComponent implements OnInit {
     } else {
       this.step = 'ASK_INFO_PARTICIPANT';
     }
+  }
+
+  static getTimestamp() {
+    return ((new Date()).getTime() / 1000);
   }
 
   ngOnInit() {
@@ -101,6 +109,47 @@ export class PresentationComponent implements OnInit {
 
     this.socket.on('REQUEST_USERNAME', () => {
       this.step = 'ASK_USERNAME';
+    });
+
+    this.socket.on('START_MEDIA', (question) => {
+      this.step = 'MEDIA';
+      this.question = question;
+      console.log(question);
+    });
+
+    this.socket.on('NOTICE_SKIP_MEDIA', () => {
+      this.step = 'LOADING';
+    });
+
+    this.socket.on('QUESTION_STARTED', (question) => {
+      this.question = question;
+      this.currentTimestamp = PresentationComponent.getTimestamp();
+      this.endTimestamp = PresentationComponent.getTimestamp() + question.duree;
+      this.chrono = setInterval(() => {
+        const timestamp = PresentationComponent.getTimestamp();
+        if (Math.trunc(this.endTimestamp - timestamp) > 0) {
+          this.currentTimestamp = timestamp;
+        } else {
+          this.currentTimestamp = this.endTimestamp;
+        }
+      }, 250);
+      this.step = 'QUESTION';
+    });
+
+    this.socket.on('QUESTION_SKIPPED', () => {
+      clearTimeout(this.chrono);
+      this.chrono = null;
+      this.step = 'LOADING';
+    });
+
+    this.socket.on('QUESTION_TIMEOUT', () => {
+      clearTimeout(this.chrono);
+      this.chrono = null;
+      this.step = 'LOADING';
+    });
+
+    this.socket.on('TOP_3', (top_3) => {
+
     });
 
     this.socket.on('QCM_ENDED', () => {
