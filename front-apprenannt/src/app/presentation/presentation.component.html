@@ -118,4 +118,17 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="step === 'FINAL_TOP_5'" class="d-flex w-100" style="height: 100vh">
+    <div class="d-flex justify-content-center align-self-center mx-auto">
+      <div class="text-center">
+        <h3>TOP 5 des meilleurs scores</h3>
+        <div *ngIf="top_5 && top_5.length > 0" class="w-100">
+          <span *ngFor="let participant of top_5; let i = index">{{ i + 1 }}) {{ participant.nom }}: {{ participant.score }} bonne(s) réponse(s)</span>
+        </div>
+        <br>
+        <button class="btn btn-dark px-2 py-4" routerLink="/">Quitter la session</button>
+      </div>
+    </div>
+  </div>
 </div>

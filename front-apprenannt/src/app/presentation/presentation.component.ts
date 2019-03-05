@@ -185,7 +185,11 @@ export class PresentationComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('QCM_ENDED', () => {
-      this.router.navigate(['login']);
+      if (this.session && this.session.config_affichage_classement === true) {
+        this.step = 'FINAL_TOP_5';
+      } else {
+        this.router.navigate(['login']);
+      }
     });
   }
 }

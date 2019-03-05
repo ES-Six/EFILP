@@ -44,6 +44,7 @@ class QCM
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="qcm")
+     * @Serialize\Exclude()
      */
     private $sessions;
 

@@ -30,13 +30,13 @@ module.exports = class SessionManager {
 
         if (this.professeur) {
             if (this.session && this.session.config_generation_pseudo === 1) {
-                console.log('nouveau participant notif: username auto');
+                console.log('new person: username auto');
                 this.professeur.socket.emit('NEW_PARTICIPANT', {
                     id: participant.id,
                     username: participant.username
                 });
             } else {
-                console.log('nouveau participant: username manual');
+                console.log('new person: username manual');
                 socket.on('SET_USERNAME', this.setUsername());
                 socket.emit('REQUEST_USERNAME', null);
             }
@@ -70,8 +70,6 @@ module.exports = class SessionManager {
             if (this.qcm.questions[this.idxQuestion] &&
                 this.qcm.questions[this.idxQuestion].reponses) {
 
-                console.log('available_reponse ', this.qcm.questions[this.idxQuestion].reponses);
-
                 for (let i = 0; i < this.qcm.questions[this.idxQuestion].reponses.length; i++) {
                     if (this.qcm.questions[this.idxQuestion].reponses[i].id === response_data.id_reponse) {
                         this.responsesMetrics.push({
@@ -97,7 +95,6 @@ module.exports = class SessionManager {
 
     getScoreParticipant(id_participant) {
         let score = 0;
-        console.log('metrics', this.responsesMetrics);
         for (let i = 0; i < this.responsesMetrics.length; i ++) {
             if (id_participant === this.responsesMetrics[i].id_participant && this.responsesMetrics[i].est_valide) {
                 score ++;
@@ -135,6 +132,9 @@ module.exports = class SessionManager {
 
     removeSensitiveInfos(original_question) {
         // Force Deep copy of object
+        if (!original_question) {
+            return original_question;
+        }
         let question = JSON.parse(JSON.stringify(original_question));
         if (question && question.reponses) {
             for (let i = 0; i < question.reponses.length; i ++) {

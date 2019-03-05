@@ -37,17 +37,22 @@ class Session
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\QCM", inversedBy="sessions")
      * @ORM\JoinColumn(nullable=false)
+     * @Serialize\Type("integer")
+     * @Serialize\Accessor(getter="getIdQCM")
      */
     private $qcm;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="sessions")
      * @ORM\JoinColumn(nullable=false)
+     * @Serialize\Type("integer")
+     * @Serialize\Accessor(getter="getIdClasse")
      */
     private $classe;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="session")
+     * @Serialize\Exclude()
      */
     private $statistiqueReponses;
 
@@ -150,5 +155,16 @@ class Session
         }
 
         return $this;
+    }
+
+    /*
+     * Méthodes pour le JMS serializer
+     */
+    public function getIdClasse(): ?int {
+        return $this->classe instanceof Classe ? $this->classe->getId() : null;
+    }
+
+    public function getIdQCM(): ?int {
+        return $this->qcm instanceof QCM ? $this->qcm->getId() : null;
     }
 }
