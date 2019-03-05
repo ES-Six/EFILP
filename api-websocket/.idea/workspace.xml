@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-qrcode/login-qrcode.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-qrcode/login-qrcode.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-qrcode/login-qrcode.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-qrcode/login-qrcode.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

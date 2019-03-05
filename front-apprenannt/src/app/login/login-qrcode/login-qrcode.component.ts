@@ -13,6 +13,7 @@ export class LoginQrcodeComponent implements OnInit, OnDestroy {
   private scanner = null;
 
   public isLoading = false;
+  public noCamera = false;
 
   constructor(private route: ActivatedRoute,
               private sessionService: SessionService,
@@ -43,6 +44,7 @@ export class LoginQrcodeComponent implements OnInit, OnDestroy {
       video: document.getElementById('camera-view'),
       scanPeriod: 1
     });
+
     this.scanner.addListener('scan', (qr_code_content: string) => {
       LoginQrcodeComponent.onQrCodeScanned(qr_code_content);
     });
@@ -51,10 +53,12 @@ export class LoginQrcodeComponent implements OnInit, OnDestroy {
       if (cameras.length > 0) {
         this.scanner.start(cameras[0]);
       } else {
+        this.noCamera = true;
         console.error('No cameras found.');
       }
     }).catch((e) => {
-      console.error(e);
+      this.noCamera = true;
+      console.error('Unable to initialize instascan.js');
     });
   }
 
