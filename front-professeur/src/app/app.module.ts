@@ -62,6 +62,9 @@ import { PresentationComponent } from './professeur/presentation/presentation.co
 import { QRCodeModule } from 'angularx-qrcode';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { TruncPipe } from './pipes/trunc.pipe';
+import { StatistiquesComponent } from './professeur/statistiques/statistiques.component';
+import { ElevesComponent } from './professeur/statistiques/eleves/eleves.component';
+import { ClassesComponent as StatistiquesClassesComponent } from './professeur/statistiques/classes/classes.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +94,9 @@ import { TruncPipe } from './pipes/trunc.pipe';
     PresentationComponent,
     SafeUrlPipe,
     TruncPipe,
+    StatistiquesComponent,
+    ElevesComponent,
+    StatistiquesClassesComponent,
   ],
   imports: [
     BrowserModule,

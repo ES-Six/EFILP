@@ -6,11 +6,14 @@ import { AuthGuard } from './guard/auth.guard';
 import { ProfesseurComponent } from './professeur/professeur.component';
 import { HomeComponent } from './professeur/home/home.component';
 import { ClassesComponent } from './professeur/classes/classes.component';
+import { ClassesComponent as StatistiquesClassesComponent } from './professeur/statistiques/classes/classes.component';
 import { QcmsComponent } from './professeur/qcms/qcms.component';
 import { QcmQuestionsComponent } from './professeur/qcms/qcm-questions/qcm-questions.component';
 import { GestionCompteComponent } from './professeur/gestion-compte/gestion-compte.component';
 import { SessionsComponent } from './professeur/sessions/sessions.component';
 import {PresentationComponent} from './professeur/presentation/presentation.component';
+import {StatistiquesComponent} from './professeur/statistiques/statistiques.component';
+import {ElevesComponent} from './professeur/statistiques/eleves/eleves.component';
 
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
@@ -38,6 +41,9 @@ export const routes: Routes = [
       { path: 'sessions', component: SessionsComponent },
       { path: 'qcms/:id', component: QcmQuestionsComponent },
       { path: 'presentation/:id', component: PresentationComponent },
+      { path: 'statistiques', component: StatistiquesComponent },
+      { path: 'statistiques/classes', component: StatistiquesClassesComponent },
+      { path: 'statistiques/eleves', component: ElevesComponent },
     ]
   },
 
