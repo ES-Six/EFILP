@@ -25,6 +25,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   public top_5: any = [];
   public session: any = null;
   public username = '';
+  public score = 0;
 
   constructor(private sessionService: SessionService,
               private fb: FormBuilder,
@@ -45,7 +46,6 @@ export class PresentationComponent implements OnInit, OnDestroy {
     });
 
     if (this.sessionService.getCookieParticipantData()) {
-
       this.sessionService.collectExistingParticipantSession(this.sessionService.getCookieParticipantData().id).subscribe(
         (data) => {
           this.sessionService.setParticipant(data.results);
@@ -133,10 +133,12 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
     this.socket.on('REQUEST_USERNAME', () => {
       this.step = 'ASK_USERNAME';
+      this.socket.emit('REQUEST_SCORE', this.sessionService.getParticipant().id);
     });
 
     this.socket.on('USERNAME_PARTICIPANT', (username) => {
       this.username = username;
+      this.socket.emit('REQUEST_SCORE', this.sessionService.getParticipant().id);
     });
 
     this.socket.on('START_MEDIA', (question) => {
@@ -170,6 +172,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
       clearTimeout(this.chrono);
       this.chrono = null;
       this.step = 'WAITING_USER_INPUT_REQUIRED';
+      this.socket.emit('REQUEST_SCORE', this.sessionService.getParticipant().id);
     });
 
     this.socket.on('QUESTION_TIMEOUT', () => {
@@ -177,11 +180,13 @@ export class PresentationComponent implements OnInit, OnDestroy {
       clearTimeout(this.chrono);
       this.chrono = null;
       this.step = 'WAITING_USER_INPUT_REQUIRED';
+      this.socket.emit('REQUEST_SCORE', this.sessionService.getParticipant().id);
     });
 
     this.socket.on('TOP_3', (top_5) => {
       this.session = this.sessionService.getSession();
       this.top_5 = top_5;
+      this.socket.emit('REQUEST_SCORE', this.sessionService.getParticipant().id);
     });
 
     this.socket.on('QCM_ENDED', () => {
@@ -189,6 +194,12 @@ export class PresentationComponent implements OnInit, OnDestroy {
         this.step = 'FINAL_TOP_5';
       } else {
         this.router.navigate(['login']);
+      }
+    });
+
+    this.socket.on('SCORE_PARTICIPANT', (score) => {
+      if (score) {
+        this.score = score;
       }
     });
   }

@@ -23,13 +23,19 @@ module.exports = class SessionManager {
         socket.on('GET_USERNAME', this.getUsername());
 
         if (this.session && this.session.config_generation_pseudo === 1) {
-            participant.username = `${this.generatedAnimalNames[Math.floor(Math.random() * this.generatedAnimalNames.length)]} ${this.generatedAuxiliaryNames[Math.floor(Math.random() * this.generatedAuxiliaryNames.length)]}`;
-            socket.emit('USERNAME_PARTICIPANT', participant.username);
+            if (!participant.username) {
+                participant.username = `${this.generatedAnimalNames[Math.floor(Math.random() * this.generatedAnimalNames.length)]} ${this.generatedAuxiliaryNames[Math.floor(Math.random() * this.generatedAuxiliaryNames.length)]}`;
+            }
         }
 
         this.participants.push({...participant, socket});
 
-        if (this.professeur) {
+        if (participant.username) {
+            socket.emit('USERNAME_PARTICIPANT', participant.username);
+            this.sendScoreToParticipant()(participant.id);
+        }
+
+        if (this.professeur && !participant.username) {
             if (this.session && this.session.config_generation_pseudo === 1) {
                 console.log('new person: username auto');
                 this.professeur.socket.emit('NEW_PARTICIPANT', {
@@ -224,6 +230,16 @@ module.exports = class SessionManager {
         };
     }
 
+    sendScoreToParticipant() {
+        return (id_participant) => {
+            for (let i = 0; i < this.participants.length; i++) {
+                if (this.participants[i].id === id_participant && this.participants[i].socket) {
+                    this.participants[i].socket.emit('SCORE_PARTICIPANT', this.getScoreParticipant(id_participant));
+                }
+            }
+        };
+    }
+
     startSession() {
         axios.get(`${env.parsed.URL_API_RESTFULL}/qcms/${this.session.qcm_id}`, {
             headers: {
@@ -238,6 +254,7 @@ module.exports = class SessionManager {
             this.professeur.socket.on('SKIP_QUESTION', this.skipQuestion());
             for (let i = 0; i < this.participants.length; i ++) {
                 this.participants[i].socket.on('REQUEST_STATS', this.envoiClassementTop5());
+                this.participants[i].socket.on('REQUEST_SCORE', this.sendScoreToParticipant());
                 this.participants[i].socket.on('SEND_RESPONSE', this.respondToQuestion());
             }
 

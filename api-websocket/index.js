@@ -67,15 +67,18 @@ io.sockets.on('connection', (socket) => {
                 // Empêcher le changement du participant
                 socket.off('PARTICIPANT_ID', participantIdCallback);
 
+                let username;
                 // Ajout du participant dans la session
                 sessions.forEach((session_manager) => {
                     if (session_manager.getSession().id === session.id) {
                         const participants = session_manager.getParticiants();
                         for (let i = 0; i < participants.length; i ++) {
                             if (participants[i].id === participant.id) {
+                                username = participants[i].username;
                                 session_manager.delParticipant(i);
                             }
                         }
+                        participant.username = username;
                         console.log('ajout participant');
                         session_manager.addParticipant(participant, socket);
                     }

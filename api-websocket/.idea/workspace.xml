@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="" />
+    <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,20 +15,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/session_manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3632">
-              <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+            <state relative-caret-position="401">
+              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="87" column="52" selection-start-line="87" selection-start-column="52" selection-end-line="87" selection-end-column="52" />
+            <state relative-caret-position="323">
+              <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -65,8 +70,8 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/qcm._managerjs.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/session_manager.js" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/session_manager.js" />
       </list>
     </option>
   </component>
@@ -144,12 +149,12 @@
       <workItem from="1551473822725" duration="1033000" />
       <workItem from="1551516365895" duration="15787000" />
       <workItem from="1551777256917" duration="4930000" />
-      <workItem from="1551803169569" duration="2736000" />
+      <workItem from="1551803169569" duration="5443000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48946000" />
+    <option name="totallyTimeSpent" value="51653000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="303" y="125" width="1442" height="884" extended-state="0" />
@@ -231,17 +236,17 @@
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager.js">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3632">
-          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        <state relative-caret-position="323">
+          <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/session_manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="87" column="52" selection-start-line="87" selection-start-column="52" selection-end-line="87" selection-end-column="52" />
+        <state relative-caret-position="401">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
         </state>
       </provider>
     </entry>
