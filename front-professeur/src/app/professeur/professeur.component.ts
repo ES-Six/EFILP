@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../login/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../app.models';
+import { ProfesseurService } from './professeur.service';
 
 @Component({
   selector: 'app-professeur',
@@ -14,7 +15,9 @@ export class ProfesseurComponent implements OnInit {
   public mobileMenuOpened = false;
   public user: User = null;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router,
+              private authService: AuthService,
+              public professeurService: ProfesseurService) { }
 
   ngOnInit() {
     this.user = this.authService.getUserInfo();

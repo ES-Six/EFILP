@@ -11,6 +11,8 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 @Injectable()
 export class ProfesseurService {
 
+  private menuMode = 'ADMIN_MENU';
+
   constructor(private httpClient: HttpClient, private authService: AuthService) {
 
   }
@@ -25,6 +27,14 @@ export class ProfesseurService {
       ID = null;
     }
     return ID;
+  }
+
+  setMenuMode(mode) {
+    this.menuMode = mode;
+  }
+
+  getMenuMode() {
+    return this.menuMode;
   }
 
   markAllFormlementsAsTouched(form: FormGroup) {

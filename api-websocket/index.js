@@ -84,6 +84,14 @@ io.sockets.on('connection', (socket) => {
         });
     };
 
+    const destroySession = (id_session) => {
+        for (let i = 0; i < sessions.length; i ++) {
+            if (sessions[i].getSession().id === id_session) {
+                sessions.splice(i, 1);
+            }
+        }
+    };
+
     const tokenProfesseurCallback = (token) => {
         socket.off('PARTICIPANT_ID', participantIdCallback);
         axios.get(`${env.parsed.URL_API_RESTFULL}/professeurs/current`, {
@@ -105,7 +113,7 @@ io.sockets.on('connection', (socket) => {
                     }
                 }
                 if (!session_exist) {
-                    sessions.push(new SessionManager(connection, io, session));
+                    sessions.push(new SessionManager(connection, io, session, destroySession));
                 }
 
                 // Assigner le professeur dans sa session
@@ -130,5 +138,3 @@ io.sockets.on('connection', (socket) => {
     socket.on('SESSION_ID', sessionIdCallback);
     socket.emit('SESSION_ID_REQUESTED', null);
 });
-
-// connection.end();

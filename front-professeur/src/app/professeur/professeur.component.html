@@ -1,12 +1,12 @@
 <div>
   <nav class="navbar navbar-dark sticky-top navbar-expand-lg bg-dark">
-    <a class="navbar-brand text-white" routerLink="/professeur">EFILP</a>
+    <a class="navbar-brand text-white" routerLink="/professeur">EFILP<span *ngIf="professeurService.getMenuMode() === 'PRESENTATOR_MENU'"> - mode présentation</span></a>
     <button class="navbar-toggler" (click)="mobileMenuOpened = !mobileMenuOpened" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText" [class.show]="mobileMenuOpened">
 
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" *ngIf="professeurService.getMenuMode() === 'ADMIN_MENU'">
         <li class="nav-item active">
           <a class="nav-link" routerLink="/professeur">Accueil</a>
         </li>
@@ -24,15 +24,19 @@
         </li>
       </ul>
 
+      <ul class="navbar-nav mr-auto" *ngIf="professeurService.getMenuMode() === 'PRESENTATOR_MENU'"></ul>
+
       <ul class="navbar-nav">
         <li class="nav-item dropdown" (click)="userDropdownOpened = !userDropdownOpened" [class.show]="userDropdownOpened">
           <a class="nav-link dropdown-toggle" href="javascript:">
-            {{ user?.username }}
+            <span *ngIf="professeurService.getMenuMode() === 'ADMIN_MENU'">{{ user?.username }}</span>
+            <span *ngIf="professeurService.getMenuMode() === 'PRESENTATOR_MENU'">SESSION</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" [class.show]="userDropdownOpened" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/professeur/gestion-compte">Paramètres de compte</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="logout()" href="javascript:">Deconnection</a>
+            <a class="dropdown-item" routerLink="/professeur/gestion-compte" *ngIf="professeurService.getMenuMode() === 'ADMIN_MENU'">Paramètres de compte</a>
+            <div class="dropdown-divider" *ngIf="professeurService.getMenuMode() === 'ADMIN_MENU'"></div>
+            <a class="dropdown-item" (click)="logout()" href="javascript:" *ngIf="professeurService.getMenuMode() === 'ADMIN_MENU'">Deconnection</a>
+            <a class="dropdown-item" routerLink="/professeur/home" *ngIf="professeurService.getMenuMode() === 'PRESENTATOR_MENU'">Quitter la session</a>
           </div>
         </li>
       </ul>

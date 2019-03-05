@@ -62,6 +62,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.professeurService.setMenuMode('PRESENTATOR_MENU');
     this.route.params.subscribe(params => {
       this.id_session = params['id'];
       this.id_session_pad = String(this.id_session).padStart(8, '0');
@@ -117,6 +118,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.professeurService.setMenuMode('ADMIN_MENU');
     if (this.socket) {
       this.socket.disconnect();
     }

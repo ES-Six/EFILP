@@ -2,7 +2,8 @@ const axios = require('axios');
 const env = require('./environment.js');
 
 module.exports = class SessionManager {
-    constructor(mysqlclient, io, session) {
+    constructor(mysqlclient, io, session, onDestroy) {
+        this.destroy = onDestroy;
         this.io = io;
         this.mysqlclient = mysqlclient;
         this.session = session;
@@ -155,6 +156,7 @@ module.exports = class SessionManager {
             }, this.qcm.questions[this.idxQuestion].duree * 1000 || 10000);
         } else {
             this.io.to(`session_${this.session.id}`).emit('QCM_ENDED', null);
+            this.destroy(this.session.id);
         }
     }
 
