@@ -69,6 +69,9 @@ module.exports = class SessionManager {
         return (response_data) => {
             if (this.qcm.questions[this.idxQuestion] &&
                 this.qcm.questions[this.idxQuestion].reponses) {
+
+                console.log('available_reponse ', this.qcm.questions[this.idxQuestion].reponses);
+
                 for (let i = 0; i < this.qcm.questions[this.idxQuestion].reponses.length; i++) {
                     if (this.qcm.questions[this.idxQuestion].reponses[i].id === response_data.id_reponse) {
                         this.responsesMetrics.push({
@@ -94,6 +97,7 @@ module.exports = class SessionManager {
 
     getScoreParticipant(id_participant) {
         let score = 0;
+        console.log('metrics', this.responsesMetrics);
         for (let i = 0; i < this.responsesMetrics.length; i ++) {
             if (id_participant === this.responsesMetrics[i].id_participant && this.responsesMetrics[i].est_valide) {
                 score ++;
@@ -125,13 +129,13 @@ module.exports = class SessionManager {
                 }
             });
 
-            scores.splice(0, 3);
-
-            this.io.to(`session_${this.session.id}`).emit('TOP_3', scores);
+            this.io.to(`session_${this.session.id}`).emit('TOP_3', scores.splice(0, 5));
         };
     }
 
-    removeSensitiveInfos(question) {
+    removeSensitiveInfos(original_question) {
+        // Force Deep copy of object
+        let question = JSON.parse(JSON.stringify(original_question));
         if (question && question.reponses) {
             for (let i = 0; i < question.reponses.length; i ++) {
                 delete question.reponses[i].est_valide;
@@ -236,6 +240,7 @@ module.exports = class SessionManager {
             }
 
             this.qcm = response.data.results;
+
             this.startMedia()();
         })
         .catch(error => {

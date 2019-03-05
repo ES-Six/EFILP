@@ -25,6 +25,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   public currentTimestamp: number;
   public endTimestamp: number;
   public chrono: any = null;
+  public top_5: any = null;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -43,7 +44,6 @@ export class PresentationComponent implements OnInit, OnDestroy {
   public barChartType = 'bar';
   public barChartLegend = true;
   public displayStats = false;
-
   public barChartData: any[] = [
     {data: [], label: 'Nombre de réponses'}
   ];
@@ -183,8 +183,9 @@ export class PresentationComponent implements OnInit, OnDestroy {
       this.router.navigate(['/professeur/home']);
     });
 
-    this.socket.on('TOP_3', (top_3) => {
-      console.log(top_3);
+    this.socket.on('TOP_3', (top_5) => {
+      console.log(top_5);
+      this.top_5 = top_5;
       this.professeurService.fetchStatistiquesReponsesParQuestionParSession(this.question.id, this.id_session).subscribe(
         (results) => {
           if (results instanceof Array) {

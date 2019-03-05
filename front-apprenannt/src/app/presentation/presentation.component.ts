@@ -1,24 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { SessionService} from '../session.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SessionService } from '../session.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-presentation',
   templateUrl: './presentation.component.html',
   styleUrls: ['./presentation.component.css']
 })
-export class PresentationComponent implements OnInit {
+export class PresentationComponent implements OnInit, OnDestroy {
 
   private socket;
   private currentTimestamp: number;
   private endTimestamp: number;
 
+  public mobileMenuOpened = false;
+  public userDropdownOpened = false;
   public step: string;
   public formCollectParticipant: FormGroup = null;
   public formCollectUsername: FormGroup = null;
   public question: any = null;
   public chrono: any = null;
+  public disableResponses = false;
+  public top_5: any = [];
+  public session: any = null;
+  public username = '';
 
   constructor(private sessionService: SessionService,
               private fb: FormBuilder,
@@ -59,7 +65,16 @@ export class PresentationComponent implements OnInit {
     return ((new Date()).getTime() / 1000);
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ngOnDestroy() {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+    if (this.chrono !== null) {
+      clearTimeout(this.chrono);
+      this.chrono = null;
+    }
   }
 
   onSubmitCollectParticipant() {
@@ -89,9 +104,18 @@ export class PresentationComponent implements OnInit {
         id_participant: this.sessionService.getParticipant().id,
         username: this.formCollectUsername.value.username
       });
+      this.username = this.formCollectUsername.value.username;
     } else {
       this.formCollectUsername.controls.username.markAsTouched();
     }
+  }
+
+  onAnswerToQuestion(reponse: any) {
+    this.disableResponses = true;
+    this.socket.emit('SEND_RESPONSE', {
+      id_participant: this.sessionService.getParticipant().id,
+      id_reponse: reponse.id
+    })
   }
 
   connectionSessionWebsocket() {
@@ -111,6 +135,10 @@ export class PresentationComponent implements OnInit {
       this.step = 'ASK_USERNAME';
     });
 
+    this.socket.on('USERNAME_PARTICIPANT', (username) => {
+      this.username = username;
+    });
+
     this.socket.on('START_MEDIA', (question) => {
       this.step = 'MEDIA';
       this.question = question;
@@ -122,6 +150,7 @@ export class PresentationComponent implements OnInit {
     });
 
     this.socket.on('QUESTION_STARTED', (question) => {
+      this.disableResponses = false;
       this.question = question;
       this.currentTimestamp = PresentationComponent.getTimestamp();
       this.endTimestamp = PresentationComponent.getTimestamp() + question.duree;
@@ -137,19 +166,22 @@ export class PresentationComponent implements OnInit {
     });
 
     this.socket.on('QUESTION_SKIPPED', () => {
+      this.disableResponses = false;
       clearTimeout(this.chrono);
       this.chrono = null;
       this.step = 'LOADING';
     });
 
     this.socket.on('QUESTION_TIMEOUT', () => {
+      this.disableResponses = false;
       clearTimeout(this.chrono);
       this.chrono = null;
       this.step = 'LOADING';
     });
 
-    this.socket.on('TOP_3', (top_3) => {
-
+    this.socket.on('TOP_3', (top_5) => {
+      this.session = this.sessionService.getSession();
+      this.top_5 = top_5;
     });
 
     this.socket.on('QCM_ENDED', () => {

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="" />
+    <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,7 +15,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/session_manager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="141" column="16" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -32,6 +48,7 @@
       <find>NEW_PARTICIPANT</find>
       <find>participants[i]</find>
       <find>console.log(</find>
+      <find>respondToQuestion</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,11 +139,12 @@
       <workItem from="1550940187794" duration="9000" />
       <workItem from="1551473822725" duration="1033000" />
       <workItem from="1551516365895" duration="15787000" />
+      <workItem from="1551777256917" duration="4930000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41280000" />
+    <option name="totallyTimeSpent" value="46210000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="303" y="125" width="1492" height="884" extended-state="0" />
@@ -216,8 +234,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/session_manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="242" column="114" selection-start-line="242" selection-start-column="114" selection-end-line="242" selection-end-column="114" />
+        <state relative-caret-position="238">
+          <caret line="141" column="16" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="16" />
         </state>
       </provider>
     </entry>

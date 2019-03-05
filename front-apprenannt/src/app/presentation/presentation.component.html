@@ -1,5 +1,31 @@
 <div>
-  <div *ngIf="step === 'LOADING'" class="d-flex custom-flex-container w-100" style="height: 100vh">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-lg bg-dark">
+    <a class="navbar-brand text-white" routerLink="/professeur">EFILP - participation</a>
+    <button class="navbar-toggler" (click)="mobileMenuOpened = !mobileMenuOpened" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText" [class.show]="mobileMenuOpened">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link">Score : X</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav" *ngIf="username">
+        <li class="nav-item dropdown" (click)="userDropdownOpened = !userDropdownOpened" [class.show]="userDropdownOpened">
+          <a class="nav-link dropdown-toggle" href="javascript:">
+            Pseudonyme : {{ username || 'Aucun pseudonyme' }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" [class.show]="userDropdownOpened" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/">Quitter la session</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div *ngIf="step === 'LOADING'" class="d-flex w-100" style="height: 100vh">
     <div class="d-flex justify-content-center align-self-center mx-auto">
       <div class="text-center">
         <img src="../../../assets/loading.gif" alt="Image de chargement" width="150" height="150">
@@ -9,18 +35,23 @@
     </div>
   </div>
 
-  <div *ngIf="step === 'WAITING_FOR_SESSION_START'" class="d-flex custom-flex-container w-100" style="height: 100vh">
+  <div *ngIf="step === 'WAITING_FOR_SESSION_START'" class="d-flex w-100" style="height: 100vh">
     <div class="d-flex justify-content-center align-self-center mx-auto">
       <div class="text-center">
         <img src="../../../assets/loading.gif" alt="Image de chargement" width="150" height="150">
         <br>
-        Attente du début de la session...
+        <span class="d-block mb-4">Attente de participation à la session...</span><br>
+        <div *ngIf="top_5 && top_5.length > 0 && session && session.config_affichage_classement" class="w-100">
+          <h3>TOP 5 des meilleurs scores</h3>
+          <span *ngFor="let participant of top_5; let i = index">{{ i + 1 }}) {{ participant.nom }}: {{ participant.score }} bonne(s) réponse(s)</span>
+        </div>
       </div>
+
     </div>
   </div>
 
-  <div *ngIf="step === 'ASK_INFO_PARTICIPANT'" class="d-flex custom-flex-container w-100">
-    <div class="justify-content-center align-self-center mx-auto">
+  <div *ngIf="step === 'ASK_INFO_PARTICIPANT'" class="d-flex w-100 vh-100">
+    <div class="d-flex justify-content-center align-self-center mx-auto">
       <form [formGroup]="formCollectParticipant" (submit)="onSubmitCollectParticipant()">
         <div class="form-row">
           <div class="form-group col-md-12">
@@ -40,7 +71,7 @@
     </div>
   </div>
 
-  <div *ngIf="step === 'ASK_USERNAME'" class="d-flex custom-flex-container w-100" style="height: 100vh">
+  <div *ngIf="step === 'ASK_USERNAME'" class="d-flex w-100 vh-100">
     <div class="d-flex justify-content-center align-self-center mx-auto">
       <form [formGroup]="formCollectUsername" (submit)="onSubmitCollectUsername()">
         <div class="form-row">
@@ -81,6 +112,9 @@
       <br>
       <div class="h4 w-100 text-center" *ngIf="endTimestamp - currentTimestamp | trunc">
         Temps restant : {{ endTimestamp - currentTimestamp | trunc }} secondes
+      </div>
+      <div class="container">
+        <button type="button" *ngFor="let reponse of question.reponses" [disabled]="disableResponses" class="btn btn-dark mx-2 my-2 btn-block" (click)="onAnswerToQuestion(reponse)">{{ reponse.nom }}</button>
       </div>
     </div>
   </div>

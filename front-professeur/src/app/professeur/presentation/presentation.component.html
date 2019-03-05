@@ -76,11 +76,8 @@
       Chargement en cours...
     </div>
     <h3 class="w-100 text-center" *ngIf="session && session.config_affichage_classement">Top 5 des meilleurs scores</h3>
-    <div *ngIf="session && session.config_affichage_classement">
-      Participant_1<br>
-      Participant_2<br>
-      Participant_3<br>
-      Participant_4<br>
+    <div class="" *ngIf="session && session.config_affichage_classement">
+      <span *ngFor="let participant of top_5; let i = index">{{ i + 1 }}) {{ participant.username }}: {{ participant.score }} bonne(s) réponse(s)</span><br>
     </div>
     <div>
       <button class="btn btn-primary my-1 mr-2 float-right" style="max-height: 50px" (click)="goToNextSlide()">Suivant</button>

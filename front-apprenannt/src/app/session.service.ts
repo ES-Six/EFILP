@@ -23,7 +23,9 @@ export class SessionService {
   }
 
   setCookieParticipantData(data_participation) {
-    this.cookieService.set('data_participant', JSON.stringify(data_participation));
+    let expiration = (new Date());
+    expiration.setTime(expiration.getTime() + (1000 * 365 * 24 * 60 * 60)); // + 1 an
+    this.cookieService.set('data_participant', JSON.stringify(data_participation), expiration);
   }
 
   getCookieParticipantData() {
