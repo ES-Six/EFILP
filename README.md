@@ -16,6 +16,8 @@ Instructions de l'API restfull : [https://andnerb.github.io/EFILP/api-restfull/]
 
 Instructions de l'API websocket : [https://andnerb.github.io/EFILP/api-websocket/](https://andnerb.github.io/EFILP/api-websocket/)
 
+Instructions du frontal professeur : [https://andnerb.github.io/EFILP/front-apprenannt/](https://andnerb.github.io/EFILP/front-apprenannt)
+
 Instructions du frontal professeur : [https://andnerb.github.io/EFILP/front-professeur/](https://andnerb.github.io/EFILP/front-professeur)
 
 ## Technologies utilisées
