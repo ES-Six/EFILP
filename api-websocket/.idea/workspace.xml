@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/presentation/presentation.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/professeur.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/presentation/presentation.component.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -151,12 +147,12 @@
       <workItem from="1551473822725" duration="1033000" />
       <workItem from="1551516365895" duration="15787000" />
       <workItem from="1551777256917" duration="4930000" />
-      <workItem from="1551803169569" duration="2727000" />
+      <workItem from="1551803169569" duration="2736000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48937000" />
+    <option name="totallyTimeSpent" value="48946000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="303" y="125" width="1492" height="884" extended-state="0" />

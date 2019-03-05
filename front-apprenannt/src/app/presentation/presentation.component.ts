@@ -49,7 +49,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
       this.sessionService.collectExistingParticipantSession(this.sessionService.getCookieParticipantData().id).subscribe(
         (data) => {
           this.sessionService.setParticipant(data.results);
-          this.step = 'WAITING_FOR_SESSION_START';
+          this.step = 'WAITING_USER_INPUT_REQUIRED';
           this.connectionSessionWebsocket();
         },
         (error) => {
@@ -84,7 +84,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
           console.log(data);
           this.sessionService.setParticipant(data.results);
           this.sessionService.setCookieParticipantData(data.results);
-          this.step = 'WAITING_FOR_SESSION_START';
+          this.step = 'WAITING_USER_INPUT_REQUIRED';
           this.connectionSessionWebsocket();
         },
         (error) => {
@@ -99,7 +99,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
   onSubmitCollectUsername() {
     if (this.formCollectUsername.valid) {
-      this.step = 'WAITING_FOR_SESSION_START';
+      this.step = 'WAITING_USER_INPUT_REQUIRED';
       this.socket.emit('SET_USERNAME', {
         id_participant: this.sessionService.getParticipant().id,
         username: this.formCollectUsername.value.username
@@ -146,7 +146,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('NOTICE_SKIP_MEDIA', () => {
-      this.step = 'LOADING';
+      this.step = 'WAITING_USER_INPUT_REQUIRED';
     });
 
     this.socket.on('QUESTION_STARTED', (question) => {
@@ -169,14 +169,14 @@ export class PresentationComponent implements OnInit, OnDestroy {
       this.disableResponses = false;
       clearTimeout(this.chrono);
       this.chrono = null;
-      this.step = 'LOADING';
+      this.step = 'WAITING_USER_INPUT_REQUIRED';
     });
 
     this.socket.on('QUESTION_TIMEOUT', () => {
       this.disableResponses = false;
       clearTimeout(this.chrono);
       this.chrono = null;
-      this.step = 'LOADING';
+      this.step = 'WAITING_USER_INPUT_REQUIRED';
     });
 
     this.socket.on('TOP_3', (top_5) => {

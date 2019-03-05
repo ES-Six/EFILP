@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div *ngIf="step === 'WAITING_FOR_SESSION_START'" class="d-flex w-100" style="height: 100vh">
+  <div *ngIf="step === 'WAITING_USER_INPUT_REQUIRED'" class="d-flex w-100" style="height: 100vh">
     <div class="d-flex justify-content-center align-self-center mx-auto">
       <div class="text-center">
         <img src="../../../assets/loading.gif" alt="Image de chargement" width="150" height="150">
@@ -119,7 +119,7 @@
     </div>
   </div>
 
-  <div *ngIf="step === 'FINAL_TOP_5'" class="d-flex w-100" style="height: 100vh">
+  <div *ngIf="step === 'FINAL_TOP_5'" class="d-flex w-100" style="height: calc(100vh - 72px)">
     <div class="d-flex justify-content-center align-self-center mx-auto">
       <div class="text-center">
         <h3>TOP 5 des meilleurs scores</h3>
