@@ -38,6 +38,7 @@ class Participant
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="participant")
+     * @Serialize\Exclude()
      */
     private $statistiquesReponses;
 

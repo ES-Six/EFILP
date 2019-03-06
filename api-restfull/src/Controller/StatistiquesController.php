@@ -162,13 +162,56 @@ class StatistiquesController extends AbstractFOSRestController
      */
     public function getStatistiqueParticipantDifficulteAction()
     {
-        // L'algorithme consiste à détecter les participants avec un ratio de bonnes réponses inferieur à 50%
+        // L'algorithme consiste à détecter les participants avec 50% ou plus de mauvaises réponses
         $classes = $this->tokenStorage->getToken()->getUser()->getClasses();
         $results = [];
         foreach ($classes as $classe) {
-            $participants = [];
 
-            $results []= $participants;
+            $subqueryBonnesReponses = $this->em->createQueryBuilder()
+                ->select('COUNT(SubStatistiqueGoodReponse.reponse)')
+                ->from(StatistiqueReponse::class, 'SubStatistiqueGoodReponse')
+                ->join('SubStatistiqueGoodReponse.reponse','ReponseSubStatistiqueGoodReponse')
+                ->andWhere('ReponseSubStatistiqueGoodReponse.est_valide = 1')
+                ->andWhere('SubStatistiqueGoodReponse.participant = Participant');
+
+            $subqueryMauvaisesReponses = $this->em->createQueryBuilder()
+                ->select('COUNT(SubStatistiqueBadReponse.reponse)')
+                ->from(StatistiqueReponse::class, 'SubStatistiqueBadReponse')
+                ->join('SubStatistiqueBadReponse.reponse','ReponseSubStatistiqueBadReponse')
+                ->andWhere('ReponseSubStatistiqueBadReponse.est_valide = 0')
+                ->andWhere('SubStatistiqueBadReponse.participant = Participant');
+
+            $stats_participants = $statiqtiquesReponsesParQuestionParSession = $this->em->createQueryBuilder()
+                ->select('DISTINCT Participant participant')
+                ->addSelect("({$subqueryBonnesReponses->getQuery()->getDQL()}) nbr_bonnes_reponses")
+                ->addSelect("({$subqueryMauvaisesReponses->getQuery()->getDQL()}) nbr_mauvaises_reponses")
+                ->from(Participant::class, 'Participant')
+                ->from(StatistiqueReponse::class, 'StatistiqueReponse')
+                ->join('StatistiqueReponse.session', 'Session')
+                ->join('Session.classe', 'Classe')
+                ->andWhere('StatistiqueReponse.participant = Participant')
+                ->andWhere('StatistiqueReponse.session = Session')
+                ->andWhere('Classe.id = :id_classe')
+                ->setParameters(['id_classe'=>$classe->getId()])
+                ->getQuery()
+                ->getResult();
+
+            $participantsEnDifficulte = [];
+            foreach ($stats_participants as $stats_participant) {
+                $ratio = 0;
+                if ($stats_participant['nbr_bonnes_reponses'] + $stats_participant['nbr_mauvaises_reponses'] > 0) {
+                    $ratio = ($stats_participant['nbr_mauvaises_reponses'] * 100) / ($stats_participant['nbr_bonnes_reponses'] + $stats_participant['nbr_mauvaises_reponses']);
+                }
+                if ($ratio >= 50) {
+                    $stats_participant['ratio'] = $ratio;
+                    $participantsEnDifficulte []= $stats_participant;
+                }
+            }
+
+            $results []= [
+                'classe'=>$classe,
+                'participants'=> $participantsEnDifficulte
+            ];
         }
 
         return $this->handleView($this->shared->createSuccessResponse($results));
