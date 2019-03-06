@@ -197,42 +197,4 @@ class SessionController extends AbstractFOSRestController
         }
         return $this->handleView($this->shared->createSuccessResponse($participant));
     }
-
-    /**
-     * @Rest\Get("/statistiques/session/{id_session}/questions/{id_question}")
-     * @ParamConverter("question", options={"mapping": {"id_question" : "id"}})
-     * @ParamConverter("session", options={"mapping": {"id_session" : "id"}})
-     * @Security("is_granted('ROLE_PROFESSEUR') && user.getId() == session.getClasse().getProfesseur().getId()")
-     *
-     * @param Question $question
-     * @param Session $session
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @api {get} /v1/professeurs/{id_professeur}/classes Voir une session par son code unique
-     * @apiName StatistiquesReponsesParQuestionParSession
-     * @apiGroup Sessions
-     * @apiVersion 1.0.0
-     *
-     * @apiExample {curl} Exemple d'utilisation:
-     *     curl -X GET -H "Authorization: Bearer votre_jeton_d_authentification_ici" -i "http://api-rest-efilp/v1/statistiques/session/{id_session}/questions/{id_question}"
-     */
-    public function getStatistiqueReponsesParQuestionParSessionAction(Question $question, Session $session)
-    {
-        $subquery = $this->em->createQueryBuilder()
-            ->select('COUNT(StatistiqueReponse.reponse)')
-            ->from(StatistiqueReponse::class, 'StatistiqueReponse')
-            ->andWhere('StatistiqueReponse.reponse = Reponse.id')
-            ->andWhere('StatistiqueReponse.session = :id_session');
-
-        $statiqtiquesReponsesParQuestionParSession = $this->em->createQueryBuilder()
-            ->select('DISTINCT Reponse reponse')
-            ->addSelect("({$subquery->getQuery()->getDQL()}) nbr_reponses")
-            ->from(Reponse::class, 'Reponse')
-            ->andWhere('Reponse.question = :id_question')
-            ->setParameters(['id_question'=>$question->getId(), 'id_session'=>$session->getId()])
-            ->getQuery()
-            ->getResult();
-
-        return $this->handleView($this->shared->createSuccessResponse($statiqtiquesReponsesParQuestionParSession));
-    }
 }

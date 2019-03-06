@@ -39,11 +39,13 @@ class Classe
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="classe")
+     * @Serialize\Exclude()
      */
     private $sessions;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="classe")
+     * @Serialize\Exclude()
      */
     private $participants;
 

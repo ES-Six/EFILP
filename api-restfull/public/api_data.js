@@ -752,6 +752,57 @@ define({ "api": [
     "groupTitle": "Sessions"
   },
   {
+    "type": "get",
+    "url": "/v1/professeurs/{id_professeur}/classes",
+    "title": "Voir une session par son code unique",
+    "name": "StatistiquesReponsesParQuestionParSession",
+    "group": "Sessions",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/statistiques/session/{id_session}/questions/{id_question}\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/StatistiquesController.php",
+    "groupTitle": "Sessions"
+  },
+  {
+    "type": "get",
+    "url": "/v1/statistiques/participant_en_difficulte",
+    "title": "Voir les participants en difficultés",
+    "name": "StatistiquesParticipantsEnDifficult_",
+    "group": "Statistiques",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/statistiques/participant_en_difficulte\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/StatistiquesController.php",
+    "groupTitle": "Statistiques"
+  },
+  {
+    "type": "get",
+    "url": "/v1/statistiques/classes",
+    "title": "Voir les sattistiques du nombre de bonnes / mauvaises réponses pour l'ensemble des classes d'un professeur",
+    "name": "StatistiquesReponsesParClasse",
+    "group": "Statistiques",
+    "version": "1.0.0",
+    "examples": [
+      {
+        "title": "Exemple d'utilisation:",
+        "content": "curl -X GET -H \"Authorization: Bearer votre_jeton_d_authentification_ici\" -i \"http://api-rest-efilp/v1/statistiques/classes\"",
+        "type": "curl"
+      }
+    ],
+    "filename": "src/Controller/StatistiquesController.php",
+    "groupTitle": "Statistiques"
+  },
+  {
     "type": "post",
     "url": "/v1/professeurs/register",
     "title": "Créer un compte professeur",

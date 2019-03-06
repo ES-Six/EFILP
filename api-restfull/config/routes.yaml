@@ -28,3 +28,10 @@ sessions:
   prefix: /v1
   resource: App\Controller\SessionController
   name_prefix:  api_sessions_
+
+statistiques:
+  type: rest
+  host: ~
+  prefix: /v1
+  resource: App\Controller\StatistiquesController
+  name_prefix:  api_statistiques_
