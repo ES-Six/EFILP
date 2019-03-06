@@ -79,7 +79,7 @@ class StatistiquesController extends AbstractFOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @api {get} /v1/statistiques/classes Voir les sattistiques du nombre de bonnes / mauvaises réponses pour l'ensemble des classes d'un professeur
+     * @api {get} /v1/statistiques/classes Voir les statistiques des réponses par classes
      * @apiName StatistiquesReponsesParClasse
      * @apiGroup Statistiques
      * @apiVersion 1.0.0

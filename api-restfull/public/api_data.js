@@ -788,7 +788,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/v1/statistiques/classes",
-    "title": "Voir les sattistiques du nombre de bonnes / mauvaises réponses pour l'ensemble des classes d'un professeur",
+    "title": "Voir les statistiques des réponses par classes",
     "name": "StatistiquesReponsesParClasse",
     "group": "Statistiques",
     "version": "1.0.0",
