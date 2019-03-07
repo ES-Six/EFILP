@@ -56,7 +56,7 @@ class Session
     private $classe;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="session")
+     * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="session", cascade={"remove"})
      * @Serialize\Exclude()
      */
     private $statistiqueReponses;
