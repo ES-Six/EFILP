@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       if (params['reason']) {
         this.formError = {reason: params['reason']};
       }
