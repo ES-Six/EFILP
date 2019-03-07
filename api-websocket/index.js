@@ -9,8 +9,7 @@ const connection = mysql.createConnection({
     port     : env.parsed.DB_PORT,
     user     : env.parsed.DB_USER,
     password : env.parsed.DB_PASS,
-    database : env.parsed.DB_NAME,
-    insecureAuth : true
+    database : env.parsed.DB_NAME
 });
 // Création d'un serveur HTTP basique
 const server = http.createServer((req, res) => {
