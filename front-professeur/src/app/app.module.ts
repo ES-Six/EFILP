@@ -65,6 +65,7 @@ import { TruncPipe } from './pipes/trunc.pipe';
 import { StatistiquesComponent } from './professeur/statistiques/statistiques.component';
 import { ElevesComponent } from './professeur/statistiques/eleves/eleves.component';
 import { ClassesComponent as StatistiquesClassesComponent } from './professeur/statistiques/classes/classes.component';
+import { FormRegistrationComponent } from './login/form-registration/form-registration.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { ClassesComponent as StatistiquesClassesComponent } from './professeur/s
     StatistiquesComponent,
     ElevesComponent,
     StatistiquesClassesComponent,
+    FormRegistrationComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import { SessionsComponent } from './professeur/sessions/sessions.component';
 import {PresentationComponent} from './professeur/presentation/presentation.component';
 import {StatistiquesComponent} from './professeur/statistiques/statistiques.component';
 import {ElevesComponent} from './professeur/statistiques/eleves/eleves.component';
+import {FormRegistrationComponent} from './login/form-registration/form-registration.component';
 
 /*
 ** Ce fichier contient les routes vers les composants racines tel que
@@ -26,6 +27,7 @@ export const routes: Routes = [
     component: LoginComponent,
     children: [
       { path: 'login', component: LoginFormComponent },
+      { path: 'registration', component: FormRegistrationComponent },
     ]
   },
   { path: 'professeur', redirectTo: 'professeur/home', pathMatch: 'full' },

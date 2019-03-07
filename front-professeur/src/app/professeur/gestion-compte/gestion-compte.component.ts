@@ -86,8 +86,20 @@ export class GestionCompteComponent implements OnInit {
     }
   }
 
+  validatePasswordConfirmation() {
+    if (this.formChangementMotPasse.value.newPassword !== this.formChangementMotPasse.value.confirmationPassword) {
+      this.formChangementMotPasse.controls.confirmationPassword.setErrors({passwordsNotMatching: true});
+      this.professeurService.markAllFormlementsAsTouched(this.formChangementMotPasse);
+      return false;
+    }
+    return true;
+  }
+
   onSubmitPasswordChange() {
     if (this.formChangementMotPasse.valid) {
+      if (!this.validatePasswordConfirmation()) {
+        return;
+      }
       this.isLoading = true;
       this.loaderService.setDisplayLoader(true);
       this.authService.changePassword(this.authService.getUserInfo().id, this.formChangementMotPasse.value).subscribe(
@@ -109,6 +121,7 @@ export class GestionCompteComponent implements OnInit {
         }
       );
     } else {
+      this.validatePasswordConfirmation();
       this.professeurService.markAllFormlementsAsTouched(this.formChangementMotPasse);
     }
   }

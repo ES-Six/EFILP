@@ -3,6 +3,7 @@ import { ApiAuthResponse } from '../../app.models';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AuthService} from '../auth.service';
+import {ProfesseurService} from '../../professeur/professeur.service';
 
 @Component({
   selector: 'app-login-form',
@@ -20,6 +21,7 @@ export class LoginFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
+    private professeurService: ProfesseurService,
     private route: ActivatedRoute) {
     this.formLogin = this.fb.group({
       username: ['', Validators.required],
@@ -55,10 +57,9 @@ export class LoginFormComponent implements OnInit {
 
   onSubmitFormLogin() {
     if (this.formLogin.valid) {
-      console.log('valid form');
       this.requestLogin();
     } else {
-      console.log('invalid form');
+      this.professeurService.markAllFormlementsAsTouched(this.formLogin);
     }
   }
 }

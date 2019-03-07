@@ -89,4 +89,15 @@ export class AuthService {
       }
     );
   }
+
+  createAccount(account) {
+    return this.httpClient.post<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/professeurs/register`,
+      account,
+      {
+        observe: 'body',
+        responseType: 'json'
+      }
+    );
+  }
 }

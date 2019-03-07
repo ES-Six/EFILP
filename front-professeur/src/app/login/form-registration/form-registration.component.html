@@ -1,0 +1,54 @@
+<div class="d-flex min-vh-100 bg-login-custom" style="background-color: #9db6c0">
+  <form
+    [formGroup]="formRegistration"
+    (submit)="onSubmitFormRegistration()"
+    class="bg-white col-11 col-sm-9 col-md-6 col-lg-4 mx-auto px-2 py-2 my-4 justify-content-center align-self-center rounded"
+    method="post">
+    <h4 class="text-center">Création d'un compte sur EFILP</h4>
+
+    <div *ngIf="formRegistration.controls.username.errors && formRegistration.controls.username.errors.usernameAlreadyExist">
+      <label class="text-danger">Ce nom d'utilisateur et déjà utilisé</label>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input type="text" class="form-control" formControlName="username" id="username">
+    </div>
+    <div class="form-group">
+      <label for="prenom">Prénom</label>
+      <input type="text" class="form-control" formControlName="prenom" id="prenom">
+    </div>
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" class="form-control" formControlName="nom" id="nom">
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" class="form-control" formControlName="password" [class.is-invalid]="formRegistration.controls.password.invalid && formRegistration.controls.password.touched" id="password">
+      <div *ngIf="formRegistration.controls.password.errors && formRegistration.controls.password.errors.minlength && formRegistration.controls.password.errors.minlength.requiredLength > formRegistration.controls.password.errors.minlength.actualLength" class="invalid-feedback">
+        Le mot de passe dois faire au moins 6 caractères
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="confirm-password">Confirmez le mot de passe</label>
+      <input type="password" class="form-control" formControlName="confirm_password" [class.is-invalid]="formRegistration.controls.confirm_password.invalid && formRegistration.controls.confirm_password.touched" id="confirm-password">
+      <div *ngIf="formRegistration.controls.confirm_password.errors && formRegistration.controls.confirm_password.errors.minlength && formRegistration.controls.confirm_password.errors.minlength.requiredLength > formRegistration.controls.confirm_password.errors.minlength.actualLength" class="invalid-feedback">
+        Le mot de passe dois faire au moins 6 caractères
+      </div>
+      <div *ngIf="formRegistration.controls.confirm_password.errors && formRegistration.controls.confirm_password.errors.passwordsNotMatching === true" class="invalid-feedback">
+        Le mot de passe et sa confirmation ne correspondent pas
+      </div>
+    </div>
+
+    <a routerLink="../login" class="d-block my-3">
+      Vous avez déjà un compte ?
+    </a>
+
+    <div class="form-group text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Connexion</span>
+        <img *ngIf="isLoading" src="../../../assets/loading.gif" width="50" height="50" alt="Chargement en cours...">
+      </button>
+    </div>
+  </form>
+</div>

@@ -52,8 +52,11 @@
       <div class="form-group col-md-6">
         <label for="confirmation-password">Confirmation du mot de passe<span class="text-danger">*</span></label>
         <input type="password" class="form-control" [class.is-invalid]="formChangementMotPasse.controls.confirmationPassword.invalid && formChangementMotPasse.controls.confirmationPassword.touched" formControlName="confirmationPassword" id="confirmation-password">
-        <div *ngIf="formChangementMotPasse.controls.newPassword.errors && formChangementMotPasse.controls.newPassword.errors.minLength !== null" class="invalid-feedback">
+        <div *ngIf="formChangementMotPasse.controls.confirmationPassword.errors && formChangementMotPasse.controls.confirmationPassword.errors.minlength && formChangementMotPasse.controls.confirmationPassword.errors.minlength.requiredLength > formChangementMotPasse.controls.confirmationPassword.errors.minlength.actualLength" class="invalid-feedback">
           Le mot de passe dois faire au moins 6 caractères
+        </div>
+        <div *ngIf="formChangementMotPasse.controls.confirmationPassword.errors && formChangementMotPasse.controls.confirmationPassword.errors.passwordsNotMatching === true" class="invalid-feedback">
+          Le mot de passe et sa confirmation ne correspondent pas
         </div>
       </div>
     </div>
