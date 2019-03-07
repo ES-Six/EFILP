@@ -62,14 +62,14 @@ class User implements UserInterface, \Serializable, JWTUserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="professeur")
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="professeur", cascade={"remove"})
      * @Serialize\Type("array<integer>")
      * @Serialize\Accessor(getter="getIdClasses")
      */
     private $classes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\QCM", mappedBy="professeur")
+     * @ORM\OneToMany(targetEntity="App\Entity\QCM", mappedBy="professeur", cascade={"remove"})
      * @Serialize\Type("array<integer>")
      * @Serialize\Accessor(getter="getIdQCMs")
      * @Serialize\SerializedName("qcms")
