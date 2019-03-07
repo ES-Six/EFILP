@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../../loader.service';
+import { YoutubeValidator } from '../../../../../validators/youtube.validator';
 
 @Component({
   selector: 'app-modale-creation',
@@ -36,7 +37,7 @@ export class ModaleCreationComponent implements OnInit {
       has_media: [false, [Validators.required]],
       media: this.fb.group({
         type: ['VIDEO', [Validators.required]],
-        url: ['', [Validators.required, Validators.maxLength(2083)]],
+        url: ['', [Validators.required, Validators.maxLength(2083), YoutubeValidator]],
       })
     });
 

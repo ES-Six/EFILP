@@ -8,6 +8,7 @@ import { concatMap} from 'rxjs/operators';
 import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from '../../../../../loader.service';
+import { YoutubeValidator } from '../../../../../validators/youtube.validator';
 
 @Component({
   selector: 'app-modale-modification',
@@ -42,7 +43,7 @@ export class ModaleModificationComponent implements OnInit {
       media: this.fb.group({
         id: [null],
         type: ['VIDEO', [Validators.required]],
-        url: ['', [Validators.required, Validators.maxLength(2083)]],
+        url: ['', [Validators.required, Validators.maxLength(2083), YoutubeValidator]],
       })
     });
 
