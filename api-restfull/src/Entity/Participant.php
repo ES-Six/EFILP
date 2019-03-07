@@ -37,7 +37,7 @@ class Participant
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="participant")
+     * @ORM\OneToMany(targetEntity="App\Entity\StatistiqueReponse", mappedBy="participant", cascade={"remove"})
      * @Serialize\Exclude()
      */
     private $statistiquesReponses;

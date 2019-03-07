@@ -36,14 +36,14 @@ class QCM
     private $professeur;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="qcm")
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="qcm", cascade={"remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      * @Serialize\Groups({"complete"})
      */
     private $questions;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="qcm")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="qcm", cascade={"remove"})
      * @Serialize\Exclude()
      */
     private $sessions;

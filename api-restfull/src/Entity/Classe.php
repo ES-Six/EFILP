@@ -38,13 +38,13 @@ class Classe
     private $professeur;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="classe")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="classe", cascade={"remove"})
      * @Serialize\Exclude()
      */
     private $sessions;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="classe")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="classe", cascade={"remove"})
      * @Serialize\Exclude()
      */
     private $participants;
