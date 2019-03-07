@@ -17,3 +17,11 @@ Utilisez `ng build` pour générer une build du projet. Les artefacts de build s
 ## Plus d'aide
 
 Pour obtenir plus d'aide sur Angular CLI utilisez `ng help` ou rendez-vous sur le [README d'Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Dépannage
+
+#### Le module de scan de QRCode ne fonctionne par sur certains navigateurs
+
+- Vérifiez que vous avez activer HTTPS sur le serveur http(s) que vous utilisez
+
+- Vérifiez que le navigateur utilisé a les capacités d'utiliser la caméra embarquée de l'appareil sur lequel il est lancé.
