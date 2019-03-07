@@ -2,23 +2,17 @@
   <div>
     <button class="my-3 btn btn-primary rounded-circle" (click)="creerQCM()"><i class="fas fa-plus"></i></button>
   </div>
-  <div class="py-2 my-1 bg-light class-container border d-flex" *ngFor="let qcm of qcms">
-    <span class="ml-3 justify-content-center align-self-center">{{ qcm.nom }}</span>
+  <div class="py-2 my-1 bg-light border d-flex flex-md-nowrap flex-wrap text-center text-md-left" *ngFor="let qcm of qcms">
+    <span class="ml-3 justify-content-center align-self-center col-md-8 text-truncate">{{ qcm.nom }}</span>
 
-    <div class="ml-auto justify-content-center align-self-center">
-      <button class="btn btn-primary rounded-circle" [routerLink]="'../qcms/'+qcm.id"><i class="fas fa-ellipsis-h"></i></button>
+    <div class="d-flex d-md-block mx-auto mx-auto ml-md-auto mr-md-0">
+      <button class="btn btn-primary rounded-circle mx-1" [routerLink]="'../qcms/'+qcm.id"><i class="fas fa-ellipsis-h"></i></button>
+      <button class="btn btn-success rounded-circle mx-1" routerLink="../sessions"><i class="fas fa-play"></i></button>
+      <button class="btn btn-success rounded-circle mx-1" (click)="editerQCM(qcm)"><i class="fas fa-pen-square"></i></button>
+      <button class="btn btn-danger rounded-circle mx-1" (click)="supprimerQCM(qcm.id)"><i class="fas fa-trash"></i></button>
     </div>
-
-    <div class="ml-2 justify-content-center align-self-center">
-      <button class="btn btn-success rounded-circle" [routerLink]="'../nouvelle-sessions/'+qcm.id"><i class="fas fa-play"></i></button>
-    </div>
-
-    <div class="ml-2 justify-content-center align-self-center">
-      <button class="btn btn-success rounded-circle" (click)="editerQCM(qcm)"><i class="fas fa-pen-square"></i></button>
-    </div>
-
-    <div class="mx-2 justify-content-center align-self-center">
-      <button class="btn btn-danger rounded-circle" (click)="supprimerQCM(qcm.id)"><i class="fas fa-trash"></i></button>
-    </div>
+  </div>
+  <div class="py-2 my-1 bg-light class-container border d-flex" *ngIf="qcms.length === 0">
+    <span class="w-100 text-center">Aucun QCM à afficher</span>
   </div>
 </div>

@@ -2,21 +2,21 @@
   <div>
     <button type="button" class="my-3 btn btn-primary rounded-circle" (click)="creerQuestion()"><i class="fas fa-plus"></i></button>
   </div>
-  <div cdkDrag class="my-1 bg-light class-container border d-flex" style="display: flex !important;flex-direction: row;justify-content: center;align-items: stretch;" *ngFor="let question of qcm?.questions">
+  <div cdkDrag class="my-1 bg-light class-container border d-flex flex-row justify-content-center align-items-stretch" *ngFor="let question of qcm?.questions">
     <div class="px-2 drag-n-drop-cursor">
       <div style="align-items: center;height: 100%;display: flex;">
         <i class="fas fa-ellipsis-v"></i>
       </div>
     </div>
 
-    <span class="ml-2 justify-content-center align-self-center">{{ question.titre }}</span>
+    <span class="ml-3 justify-content-center align-self-center col-md-8 text-truncate">{{ question.titre }}</span>
 
-    <div class="my-2 ml-auto justify-content-center align-self-center">
-      <button type="button" class="btn btn-success rounded-circle" (click)="editerQuestion(question)"><i class="fas fa-pen-square"></i></button>
+    <div class="d-flex d-md-block mx-auto ml-md-auto mr-md-0 my-1">
+      <button type="button" class="btn btn-success rounded-circle mx-1 my-1" (click)="editerQuestion(question)"><i class="fas fa-pen-square"></i></button>
+      <button type="button" class="btn btn-danger rounded-circle mx-1 my-1" (click)="supprimerQuestion(question.id)" style="width: 40px;height: 38px"><i class="fas fa-trash"></i></button>
     </div>
-
-    <div class="my-2 mx-2 justify-content-center align-self-center">
-      <button type="button" class="btn btn-danger rounded-circle" (click)="supprimerQuestion(question.id)"><i class="fas fa-trash"></i></button>
-    </div>
+  </div>
+  <div class="py-2 my-1 bg-light class-container border d-flex" *ngIf="!qcm || (qcm && !qcm.questions) || (qcm && qcm.questions && qcm.questions.length === 0)">
+    <span class="w-100 text-center">Ce QCM ne comporte aucune question</span>
   </div>
 </div>

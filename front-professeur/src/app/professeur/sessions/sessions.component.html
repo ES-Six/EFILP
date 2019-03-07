@@ -1,18 +1,14 @@
 <div class="container">
   <div><button class="my-3 btn btn-primary rounded-circle" (click)="creerSession()"><i class="fas fa-plus"></i></button></div>
-  <div class="py-2 my-1 bg-light class-container border d-flex" *ngFor="let session of sessions">
-    <span class="ml-3 justify-content-center align-self-center">{{ session.nom_session }}</span>
+  <div class="py-2 my-1 bg-light border d-flex flex-md-nowrap flex-wrap text-center text-md-left" *ngFor="let session of sessions">
+    <span class="ml-3 justify-content-center align-self-center col-md-8 text-truncate">{{ session.nom_session }}</span>
 
-    <div class="ml-auto justify-content-center align-self-center" *ngIf="!session.est_terminee">
-      <button class="btn btn-success rounded-circle" [routerLink]="'../presentation/'+session.id"><i class="fas fa-play"></i></button>
-    </div>
-
-    <div class="ml-auto justify-content-center align-self-center" *ngIf="session.est_terminee" ngbPopover="Cette session est terminée et ne peux pas être relancée" triggers="mouseenter:mouseleave" popoverTitle="Session fermée">
-      <button class="btn btn-danger rounded-circle" disabled><i class="fas fa-play"></i></button>
-    </div>
-
-    <div class="mx-2 justify-content-center align-self-center">
-      <button class="btn btn-danger rounded-circle" (click)="supprimerSession(session.id)"><i class="fas fa-trash"></i></button>
+    <div class="d-flex d-md-block mx-auto mx-auto ml-md-auto mr-md-0">
+      <button class="btn btn-success rounded-circle mx-1" *ngIf="!session.est_terminee" [routerLink]="'../presentation/'+session.id"><i class="fas fa-play"></i></button>
+      <div class="d-inline" *ngIf="session.est_terminee" ngbPopover="Cette session est terminée et ne peux pas être relancée" triggers="mouseenter:mouseleave" popoverTitle="Session fermée">
+        <button class="btn btn-danger rounded-circle mx-1" disabled><i class="fas fa-play"></i></button>
+      </div>
+      <button class="btn btn-danger rounded-circle mx-1" (click)="supprimerSession(session.id)"><i class="fas fa-trash"></i></button>
     </div>
   </div>
   <div class="py-2 my-1 bg-light class-container border d-flex" *ngIf="sessions.length === 0">

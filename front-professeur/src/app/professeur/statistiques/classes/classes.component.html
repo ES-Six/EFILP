@@ -1,7 +1,15 @@
 <div class="text-center">
   <h3 class="my-3">Statistiques des réponses par sessions dans une classe</h3>
   <div *ngFor="let statistique of statistiques">
-    <h4 class="my-3">Classe : {{ statistique.classe.nom }}</h4>
+    <div *ngIf="!statistique.stats_sessions || (statistique.stats_sessions && statistique.stats_sessions.length === 0);else showClassName">
+      <h4 class="my-3">Le classe {{ statistique.classe.nom }} ne dispose d'aucune donnée à analyser</h4>
+    </div>
+    <ng-template #showClassName>
+      <h4 class="my-3">
+        Classe : {{ statistique.classe.nom }}
+      </h4>
+    </ng-template>
+
     <div *ngFor="let stats_session of statistique.stats_sessions">
       <h5 class="my-2">Session : {{ stats_session.session.nom_session }}</h5>
       <div class="pie-chart-container mx-auto">
@@ -13,5 +21,9 @@
                 [chartType]="'pie'"></canvas>
       </div>
     </div>
+
+  </div>
+  <div *ngIf="!statistiques || (statistiques && statistiques.length === 0)">
+    <h6 class="my-3">Aucune donnée statistique n'est disponible actuellement</h6>
   </div>
 </div>

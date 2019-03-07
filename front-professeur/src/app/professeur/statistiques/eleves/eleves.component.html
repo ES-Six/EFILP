@@ -2,7 +2,15 @@
   <h3 class="my-3">Statistiques des candidats en difficulté</h3>
   <p>Un candidat est considérer comme ne difficulté si ratio de mauvaises réponses est d'au moins 50%</p>
   <div *ngFor="let statistique of statistiques">
-    <h4 class="my-3">Classe : {{ statistique.classe.nom }}</h4>
+    <div *ngIf="!statistique.stats_participants || (statistique.stats_participants && statistique.stats_participants.length === 0);else showClassName">
+      <h4 class="my-3">Aucun élève en difficulté détecté dans la classe: {{ statistique.classe.nom }}</h4>
+    </div>
+    <ng-template #showClassName>
+      <h4 class="my-3">
+        Classe : {{ statistique.classe.nom }}
+      </h4>
+    </ng-template>
+
     <div *ngFor="let stats_participant of statistique.stats_participants">
       <h5 class="my-2">Participant : {{ stats_participant.participant.nom }} {{ stats_participant.participant.prenom }}</h5>
       <div class="pie-chart-container mx-auto">
@@ -14,5 +22,8 @@
                 [chartType]="'pie'"></canvas>
       </div>
     </div>
+  </div>
+  <div *ngIf="!statistiques || (statistiques && statistiques.length === 0)">
+    <h6 class="my-3">Aucune donnée statistique n'est disponible actuellement</h6>
   </div>
 </div>
