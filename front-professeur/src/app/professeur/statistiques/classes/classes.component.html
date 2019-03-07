@@ -1,3 +1,17 @@
-<p>
-  classes works!
-</p>
+<div class="text-center">
+  <h3 class="my-3">Statistiques des réponses par sessions dans une classe</h3>
+  <div *ngFor="let statistique of statistiques">
+    <h4 class="my-3">Classe : {{ statistique.classe.nom }}</h4>
+    <div *ngFor="let stats_session of statistique.stats_sessions">
+      <h5 class="my-2">Session : {{ stats_session.session.nom_session }}</h5>
+      <div class="pie-chart-container mx-auto">
+        <canvas baseChart
+                [datasets]="stats_session.pie_chart_data"
+                [labels]="stats_session.pie_chart_labels"
+                [options]="stats_session.pie_chart_options"
+                [legend]="true"
+                [chartType]="'pie'"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

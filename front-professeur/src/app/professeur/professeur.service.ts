@@ -511,5 +511,39 @@ export class ProfesseurService {
       })
     );
   }
+
+  fetchStatistiquesReponsesParSessionsParClasse() {
+    return this.httpClient.get<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/statistiques/classes`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    ).pipe(
+      map((data: ApiSuccessResponse<any>) => {
+        return data.results;
+      })
+    );
+  }
+
+  fetchStatistiquesParticipantsEnDifficulte() {
+    return this.httpClient.get<ApiSuccessResponse<any>>(
+      `${environment.api_base_url}/statistiques/participant_en_difficulte`,
+      {
+        observe: 'body',
+        responseType: 'json',
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        })
+      }
+    ).pipe(
+      map((data: ApiSuccessResponse<any>) => {
+        return data.results;
+      })
+    );
+  }
 }
 

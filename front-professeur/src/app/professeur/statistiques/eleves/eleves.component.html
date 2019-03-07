@@ -1,3 +1,18 @@
-<p>
-  eleves works!
-</p>
+<div class="text-center">
+  <h3 class="my-3">Statistiques des candidats en difficulté</h3>
+  <p>Un candidat est considérer comme ne difficulté si ratio de mauvaises réponses est d'au moins 50%</p>
+  <div *ngFor="let statistique of statistiques">
+    <h4 class="my-3">Classe : {{ statistique.classe.nom }}</h4>
+    <div *ngFor="let stats_participant of statistique.stats_participants">
+      <h5 class="my-2">Participant : {{ stats_participant.participant.nom }} {{ stats_participant.participant.prenom }}</h5>
+      <div class="pie-chart-container mx-auto">
+        <canvas baseChart
+                [datasets]="stats_participant.pie_chart_data"
+                [labels]="stats_participant.pie_chart_labels"
+                [options]="stats_participant.pie_chart_options"
+                [legend]="true"
+                [chartType]="'pie'"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
