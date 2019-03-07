@@ -1,5 +1,8 @@
 <div>
   <div class="container-fluid px-0 flex-column" [class.d-flex]="!isLoading" [class.d-none]="isLoading" style="height: 100vh">
+    <div *ngIf="multipleCamera" style="width: calc(100% - 1rem);">
+      <button class="btn btn-primary my-2 btn-block ml-2" (click)="onClickSwitchCamera()">Changer de caméra</button>
+    </div>
     <div class="d-flex justify-content-center align-items-center flex-column" style="flex-grow: 1;">
       <video id="camera-view" class="mw-100 mh-100 mx-2 my-2 m-0"  [class.d-block]="!noCamera" [class.d-none]="noCamera" style="width: calc(100% - 1rem);"></video>
       <label *ngIf="noCamera" class="text-danger mx-2">

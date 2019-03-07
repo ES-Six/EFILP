@@ -82,7 +82,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   }
 
   websocketConnection() {
-    this.socket = io.connect('http://localhost:8080');
+    this.socket = io.connect(environment.url_api_websocket);
 
     this.socket.on('SESSION_ID_REQUESTED', () => {
       console.log('ID SESSION requested');

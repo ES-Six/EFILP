@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../../session.service';
+import {Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-qrcode',
@@ -11,13 +13,31 @@ import { SessionService } from '../../session.service';
 export class LoginQrcodeComponent implements OnInit, OnDestroy {
 
   private scanner = null;
+  private cameraIdx = 0;
 
   public isLoading = false;
   public noCamera = false;
+  public multipleCamera = false;
+
+  cameraSwitched: Subject<any> = new Subject<any>();
 
   constructor(private route: ActivatedRoute,
               private sessionService: SessionService,
-              private router: Router) { }
+              private router: Router) {
+
+    this.cameraSwitched.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(value =>  {
+      if (this.scanner !== null) {
+        this.scanner.stop();
+        this.scanner = null;
+        this.cameraIdx ++;
+        this.enableQrcodeScanner();
+      }
+    });
+
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -55,7 +75,10 @@ export class LoginQrcodeComponent implements OnInit, OnDestroy {
 
     Instascan.Camera.getCameras().then((cameras) => {
       if (cameras.length > 0) {
-        this.scanner.start(cameras[0]);
+        if (cameras.length > 1) {
+          this.multipleCamera = true;
+        }
+        this.scanner.start(cameras[this.cameraIdx % cameras.length]);
       } else {
         this.noCamera = true;
         console.error('No cameras found.');
@@ -66,6 +89,9 @@ export class LoginQrcodeComponent implements OnInit, OnDestroy {
     });
   }
 
+  onClickSwitchCamera() {
+    this.cameraSwitched.next(this.cameraIdx);
+  }
 
   static onQrCodeScanned(qr_code_content: string): void {
     if (qr_code_content.startsWith(`${environment.url_frontal_apprenant}/qrcode`, 0)) {
