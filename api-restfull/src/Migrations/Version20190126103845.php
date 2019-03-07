@@ -30,15 +30,7 @@ final class Version20190126103845 extends AbstractMigration implements Container
 
     public function postUp(Schema $schema)
     {
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $encoder = $this->container->get('security.password_encoder');
-
-        $user = new User();
-        $user->setUsername('professeur')->setNom('Ladidou')
-            ->setPrenom('Mathematou')->setRoles('ROLE_PROFESSEUR')
-            ->setPassword($encoder->encodePassword($user, 'root'));
-        $em->persist($user);
-        $em->flush();
+        
     }
 
     public function down(Schema $schema) : void
