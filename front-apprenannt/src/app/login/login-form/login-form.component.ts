@@ -13,7 +13,7 @@ export class LoginFormComponent implements OnInit {
   @HostBinding('class') hostClass = 'vertical-center';
 
   public formCodeConnectionParticipant: FormGroup = null;
-  public isLoading = false;
+  public isMobile = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +23,12 @@ export class LoginFormComponent implements OnInit {
     this.formCodeConnectionParticipant = this.fb.group({
       code: ['', Validators.required]
     });
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   }
 
   ngOnInit() {

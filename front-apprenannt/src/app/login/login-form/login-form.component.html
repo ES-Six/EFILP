@@ -15,9 +15,9 @@
     </div>
     <button type="submit" class="btn btn-primary btn-dark" style="width: 177.9837px">Valider le code</button>
   </form>
-  <hr>
-  <br>
-  <span class="h4 mb-2">Ou scannez un QRCode</span>
-  <br>
-  <button type="button" class="btn btn-primary px-2 py-2 btn-dark" style="width: 177.9837px" routerLink="../qrcode">Scanner un QRCode</button>
+  <hr *ngIf="isMobile">
+  <br *ngIf="isMobile">
+  <span class="h4 mb-2" *ngIf="isMobile">Ou scannez un QRCode</span>
+  <br *ngIf="isMobile">
+  <button type="button" class="btn btn-primary px-2 py-2 btn-dark" style="width: 177.9837px" routerLink="../qrcode" *ngIf="isMobile">Scanner un QRCode</button>
 </div>

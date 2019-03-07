@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../api-restfull/src/Entity/Session.php" beforeDir="false" afterPath="$PROJECT_DIR$/../api-restfull/src/Entity/Session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/session_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/session_manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-form/login-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-qrcode/login-qrcode.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front-apprenannt/src/app/login/login-qrcode/login-qrcode.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-professeur/src/app/professeur/sessions/sessions.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-professeur/src/app/professeur/sessions/sessions.component.html" afterDir="false" />
-    </list>
+    <list default="true" id="fd40a380-9bfd-4e3f-8736-237e66797132" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,12 +137,12 @@
       <workItem from="1551516365895" duration="15787000" />
       <workItem from="1551777256917" duration="4930000" />
       <workItem from="1551803169569" duration="6027000" />
-      <workItem from="1551962688021" duration="1171000" />
+      <workItem from="1551962688021" duration="1285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53408000" />
+    <option name="totallyTimeSpent" value="53522000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="124" y="125" width="1621" height="884" extended-state="1" />
