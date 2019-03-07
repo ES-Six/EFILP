@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesseurService } from '../../../../professeur.service';
 import { ToastrService } from 'ngx-toastr';
-import {LoaderService} from '../../../../../loader.service';
+import { LoaderService } from '../../../../../loader.service';
 
 @Component({
   selector: 'app-modale-suppression',

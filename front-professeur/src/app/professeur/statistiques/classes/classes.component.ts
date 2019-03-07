@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfesseurService } from '../../professeur.service';
+import { LoaderService } from '../../../loader.service';
 
 @Component({
   selector: 'app-classes',
@@ -10,14 +11,18 @@ export class ClassesComponent implements OnInit {
 
   public statistiques: any[] = [];
 
-  constructor(private professeurService: ProfesseurService) { }
+  constructor(private professeurService: ProfesseurService,
+              private loaderService: LoaderService) { }
 
   ngOnInit() {
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.fetchStatistiquesReponsesParSessionsParClasse().subscribe(
       (statistiques: any) => {
+        this.loaderService.setDisplayLoader(false);
         this.genPieChart(statistiques);
       },
       (error) => {
+        this.loaderService.setDisplayLoader(false);
         console.error(error);
       }
     );

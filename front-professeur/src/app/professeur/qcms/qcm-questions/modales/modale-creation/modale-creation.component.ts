@@ -5,7 +5,7 @@ import { ProfesseurService } from '../../../../professeur.service';
 import { forkJoin } from 'rxjs';
 import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
 import { ToastrService } from 'ngx-toastr';
-import {LoaderService} from '../../../../../loader.service';
+import { LoaderService } from '../../../../../loader.service';
 
 @Component({
   selector: 'app-modale-creation',

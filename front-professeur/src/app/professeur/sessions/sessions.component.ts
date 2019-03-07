@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesseurService } from '../professeur.service';
 import { ModaleSuppressionComponent } from './modale-suppression/modale-suppression.component';
 import { ModaleCreationComponent } from './modale-creation/modale-creation.component';
+import { LoaderService } from '../../loader.service';
 
 @Component({
   selector: 'app-sessions',
@@ -18,6 +19,7 @@ export class SessionsComponent implements OnInit {
   private supprimerSessionModalInstance: NgbModalRef = null;
 
   constructor(private professeurService: ProfesseurService,
+              private loaderService: LoaderService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -25,12 +27,15 @@ export class SessionsComponent implements OnInit {
   }
 
   refreshSessions() {
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.getSessions().subscribe(
       (sessions: Session[]) => {
         this.sessions = sessions;
+        this.loaderService.setDisplayLoader(false);
       },
       (error) => {
         console.error(error);
+        this.loaderService.setDisplayLoader(false);
       }
     );
   }

@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModaleCreationComponent } from './modale-creation/modale-creation.component';
 import { ModaleConfirmationSuppressionComponent } from './modale-confirmation-suppression/modale-confirmation-suppression.component';
 import { ModaleModificationComponent } from './modale-modification/modale-modification.component';
+import { LoaderService } from '../../loader.service';
 
 @Component({
   selector: 'app-classes',
@@ -20,6 +21,7 @@ export class ClassesComponent implements OnInit {
   private supprimerClasseModalInstance: NgbModalRef = null;
 
   constructor(private professeurService: ProfesseurService,
+              private loaderService: LoaderService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -27,11 +29,14 @@ export class ClassesComponent implements OnInit {
   }
 
   refreshClasses() {
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.getClasses().subscribe(
       (classes: Classe[]) => {
+        this.loaderService.setDisplayLoader(false);
         this.classes = classes;
       },
       (error) => {
+        this.loaderService.setDisplayLoader(false);
         console.error(error);
       }
     );

@@ -7,7 +7,7 @@ import { forkJoin, from, Observable } from 'rxjs';
 import { concatMap} from 'rxjs/operators';
 import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
 import { ToastrService } from 'ngx-toastr';
-import {LoaderService} from '../../../../../loader.service';
+import { LoaderService } from '../../../../../loader.service';
 
 @Component({
   selector: 'app-modale-modification',

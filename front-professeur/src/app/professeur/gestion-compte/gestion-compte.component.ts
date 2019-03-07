@@ -7,6 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ModaleSuppressionComponent } from './modale-suppression/modale-suppression.component';
+import { LoaderService } from '../../loader.service';
 
 @Component({
   selector: 'app-gestion-compte',
@@ -26,6 +27,7 @@ export class GestionCompteComponent implements OnInit {
               private router: Router,
               private toastr: ToastrService,
               private authService: AuthService,
+              private loaderService: LoaderService,
               private professeurService: ProfesseurService) {
 
     this.formEditionInformationsPersonelles = this.fb.group({
@@ -53,10 +55,12 @@ export class GestionCompteComponent implements OnInit {
   onSubmitInformationsPersonelles() {
     if (this.formEditionInformationsPersonelles.valid) {
       this.isLoading = true;
+      this.loaderService.setDisplayLoader(true);
       const oldUsername = this.authService.getUserInfo().username;
 
       this.professeurService.updateProfesseur(this.authService.getUserInfo().id, this.formEditionInformationsPersonelles.value).subscribe(
         (result) => {
+          this.loaderService.setDisplayLoader(false);
           this.toastr.success('Informations mises à jour');
           // Si le nom d'utilisateur a changé il faut se déconnecter pour
           // obtenir un nouveau token car le token courrant n'est plus valide
@@ -69,6 +73,7 @@ export class GestionCompteComponent implements OnInit {
         (error) => {
           console.error(error);
           this.isLoading = false;
+          this.loaderService.setDisplayLoader(false);
           if (error.status === 409) {
             this.formEditionInformationsPersonelles.controls.username.setErrors({usernameAlreadyExist: true});
           } else {
@@ -84,14 +89,17 @@ export class GestionCompteComponent implements OnInit {
   onSubmitPasswordChange() {
     if (this.formChangementMotPasse.valid) {
       this.isLoading = true;
+      this.loaderService.setDisplayLoader(true);
       this.authService.changePassword(this.authService.getUserInfo().id, this.formChangementMotPasse.value).subscribe(
         (result) => {
+          this.loaderService.setDisplayLoader(false);
           this.toastr.success('Le mot de passe a été mis à jour');
           this.formChangementMotPasse.reset();
           this.isLoading = false;
         },
         (error) => {
           this.isLoading = false;
+          this.loaderService.setDisplayLoader(false);
           console.error(error);
           if (error.status === 403) {
             this.formChangementMotPasse.controls.currentPassword.setErrors({invalidCurrentPassword: true});

@@ -4,7 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ProfesseurService } from '../../professeur.service';
 import { AuthService } from '../../../login/auth.service';
-import {Classe, QCM} from '../../../app.models';
+import { Classe, QCM } from '../../../app.models';
+import { LoaderService } from '../../../loader.service';
 
 @Component({
   selector: 'app-modale-creation',
@@ -22,6 +23,7 @@ export class ModaleCreationComponent implements OnInit {
               private fb: FormBuilder,
               private toastr: ToastrService,
               private authService: AuthService,
+              private loaderService: LoaderService,
               private professeurService: ProfesseurService) {
 
     this.formAjoutSession = this.fb.group({
@@ -56,14 +58,17 @@ export class ModaleCreationComponent implements OnInit {
 
   creerSession() {
     this.isLoading = true;
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.createSession(this.authService.getUserInfo().id, this.formAjoutSession.value).subscribe(
       (result) => {
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.success('Session créée');
         this.activeModal.close('session_creee');
       },
       (error) => {
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.error('Echec de création de la session');
         console.error(error);
       }

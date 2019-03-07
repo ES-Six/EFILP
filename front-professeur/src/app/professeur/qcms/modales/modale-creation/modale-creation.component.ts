@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesseurService } from '../../../professeur.service';
 import { ToastrService } from 'ngx-toastr';
-import {LoaderService} from '../../../../loader.service';
+import { LoaderService } from '../../../../loader.service';
 
 @Component({
   selector: 'app-modale-creation',
