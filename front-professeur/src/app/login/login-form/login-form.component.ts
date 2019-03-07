@@ -1,9 +1,9 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ApiAuthResponse } from '../../app.models';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {AuthService} from '../auth.service';
-import {ProfesseurService} from '../../professeur/professeur.service';
+import { AuthService } from '../auth.service';
+import { ProfesseurService } from '../../professeur/professeur.service';
 
 @Component({
   selector: 'app-login-form',
@@ -30,7 +30,11 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.route.params.subscribe(params => {
+      if (params['reason']) {
+        this.formError = {reason: params['reason']};
+      }
+    });
   }
 
   requestLogin() {
@@ -45,7 +49,7 @@ export class LoginFormComponent implements OnInit {
       (response) => {
         this.isLoading = false;
         console.error(response);
-        if (response.error.code === 401) {
+        if (response.status === 401) {
           this.formError = {reason: 'BAD_CREDENTIALS'};
         } else {
           this.formError = {reason: 'UNKNOWN_ERROR'};

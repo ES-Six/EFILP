@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
 
   handleError(state: RouterStateSnapshot, type: string) {
     console.log('Navitation !', state.url, type);
-    this.router.navigate(['/login'], { queryParams: { lastUrl: state.url, reason: type } });
+    this.router.navigate(['/login'], { queryParams: { reason: type } });
   }
 
   canActivate(
