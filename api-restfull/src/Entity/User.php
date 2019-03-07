@@ -11,8 +11,12 @@ use JMS\Serializer\Annotation as Serialize;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="user",indexes={
+ * @ORM\Table(name="user",
+ * indexes={
  *     @ORM\Index(name="role_idx", columns={"roles"}),
+ * },
+ * uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_username", columns={"username"})
  * })
  */
 class User implements UserInterface, \Serializable, JWTUserInterface
