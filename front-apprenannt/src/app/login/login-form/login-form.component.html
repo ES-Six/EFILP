@@ -4,7 +4,7 @@
     <div class="form-row justify-content-center align-self-center">
       <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
         <label for="code" class="h4">Saisissez un code de session</label>
-        <input type="text" class="form-control" formControlName="code" [class.is-invalid]="formCodeConnectionParticipant.controls.code.invalid && formCodeConnectionParticipant.controls.code.touched" id="code">
+        <input type="text" maxlength="16" class="form-control" formControlName="code" [class.is-invalid]="formCodeConnectionParticipant.controls.code.invalid && formCodeConnectionParticipant.controls.code.touched" id="code">
         <div *ngIf="formCodeConnectionParticipant.controls.code.errors && formCodeConnectionParticipant.controls.code.errors.badSession === true" class="invalid-feedback">
           Le code de session est incorrect
         </div>

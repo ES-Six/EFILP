@@ -10,7 +10,7 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="titre">Titre <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" formControlName="titre" id="titre">
+        <input type="text" class="form-control" formControlName="titre" id="titre" maxlength="255">
       </div>
     </div>
 
@@ -50,7 +50,7 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="url">Url <span class="text-danger" *ngIf="formModificationQuestion.controls.media.enabled">*</span></label>
-          <input type="text" class="form-control" (ngModelChange)="checkYoutubeLink()" formControlName="url" id="url">
+          <input type="text" class="form-control" (ngModelChange)="checkYoutubeLink()" formControlName="url" id="url" maxlength="2083">
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
         <div class="form-row">
           <div class="form-group col-md-12">
             <label [for]="'reponse-nom-'+i">Nom <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="nom" [id]="'reponse-nom-'+i">
+            <input type="text" class="form-control" formControlName="nom" [id]="'reponse-nom-'+i" maxlength="255">
           </div>
         </div>
 
