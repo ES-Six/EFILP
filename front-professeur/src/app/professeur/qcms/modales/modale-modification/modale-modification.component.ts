@@ -3,7 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesseurService } from '../../../professeur.service';
 import { QCM } from '../../../../app.models';
-import {ToastrService} from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from '../../../../loader.service';
 
 @Component({
   selector: 'app-modale-modification',
@@ -19,6 +20,7 @@ export class ModaleModificationComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
+              private loaderService: LoaderService,
               private toastr: ToastrService,
               private professeurService: ProfesseurService) {
 
@@ -38,14 +40,17 @@ export class ModaleModificationComponent implements OnInit {
 
   editerQCM() {
     this.isLoading = true;
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.updateQCM(this.qcm.id, this.formEditionQCM.value).subscribe(
       (result) => {
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.success('QCM mis à jour');
         this.activeModal.close('qcm_mise_a_jour');
       },
       (error) => {
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.error('Echec de la mise à jour du QCM');
         console.error(error);
       }

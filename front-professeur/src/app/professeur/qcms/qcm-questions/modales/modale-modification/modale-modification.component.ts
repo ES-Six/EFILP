@@ -7,6 +7,7 @@ import { forkJoin, from, Observable } from 'rxjs';
 import { concatMap} from 'rxjs/operators';
 import { ModaleConfigYoutubeEmbedComponent } from '../modale-config-youtube-embed/modale-config-youtube-embed.component';
 import { ToastrService } from 'ngx-toastr';
+import {LoaderService} from '../../../../../loader.service';
 
 @Component({
   selector: 'app-modale-modification',
@@ -28,6 +29,7 @@ export class ModaleModificationComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
               private toastr: ToastrService,
+              private loaderService: LoaderService,
               private modalService: NgbModal,
               private professeurService: ProfesseurService) {
 
@@ -145,11 +147,13 @@ export class ModaleModificationComponent implements OnInit {
       (results) => {
         console.log(results);
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.success('Les réponses ont étés mises à jour');
         this.activeModal.close('question_mise_à_jour');
       },
       (errors) => {
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.warning('Echec de mise à jour de certaines réponses');
         this.activeModal.dismiss('partial_failure');
         console.log(errors);
@@ -166,6 +170,7 @@ export class ModaleModificationComponent implements OnInit {
         },
         (error) => {
           this.isLoading = false;
+          this.loaderService.setDisplayLoader(false);
           this.toastr.error('Echec de mise à jour de la question');
           console.error(error);
         }
@@ -178,6 +183,7 @@ export class ModaleModificationComponent implements OnInit {
             this.updateResponses();
           },
           (error) => {
+            this.loaderService.setDisplayLoader(false);
             this.isLoading = false;
             this.toastr.error('Echec de suppression du média');
             console.error(error);
@@ -191,6 +197,7 @@ export class ModaleModificationComponent implements OnInit {
 
   updateQuestion() {
     this.isLoading = true;
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.updateQuestion(this.id_qcm, this.question.id, this.formModificationQuestion.value).subscribe(
       (result) => {
         this.toastr.success('Question mise à jour');
@@ -198,6 +205,7 @@ export class ModaleModificationComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
+        this.loaderService.setDisplayLoader(false);
         this.toastr.error('Echec de mise à jour de la question');
         console.error(error);
       }

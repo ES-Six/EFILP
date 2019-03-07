@@ -7,6 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModaleCreationComponent } from './modales/modale-creation/modale-creation.component';
 import { ModaleSuppressionComponent } from './modales/modale-suppression/modale-suppression.component';
 import { ModaleModificationComponent } from './modales/modale-modification/modale-modification.component';
+import { LoaderService } from '../../../loader.service';
 
 @Component({
   selector: 'app-qcm-questions',
@@ -24,6 +25,7 @@ export class QcmQuestionsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private modalService: NgbModal,
+              private loaderService: LoaderService,
               private professeurService: ProfesseurService) { }
 
   ngOnInit() {
@@ -34,12 +36,15 @@ export class QcmQuestionsComponent implements OnInit {
   }
 
   refreshQCMContent() {
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.getQCMContent(this.id_qcm).subscribe(
       (qcm: QCM) => {
         this.qcm = qcm;
+        this.loaderService.setDisplayLoader(false);
       },
       (error) => {
         console.error(error);
+        this.loaderService.setDisplayLoader(false);
       }
     );
   }

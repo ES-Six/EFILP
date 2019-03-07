@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModaleCreationComponent } from './modales/modale-creation/modale-creation.component';
 import { ModaleSuppressionComponent } from './modales/modale-suppression/modale-suppression.component';
 import { ModaleModificationComponent } from './modales/modale-modification/modale-modification.component';
+import { LoaderService } from '../../loader.service';
 
 @Component({
   selector: 'app-qcms',
@@ -20,19 +21,23 @@ export class QcmsComponent implements OnInit {
   private supprimerQCMModalInstance: NgbModalRef = null;
 
   constructor(private professeurService: ProfesseurService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private loaderService: LoaderService) { }
 
   ngOnInit() {
     this.refreshQCMs();
   }
 
   refreshQCMs() {
+    this.loaderService.setDisplayLoader(true);
     this.professeurService.getQCMs().subscribe(
       (qcms: QCM[]) => {
         this.qcms = qcms;
+        this.loaderService.setDisplayLoader(false);
       },
       (error) => {
         console.error(error);
+        this.loaderService.setDisplayLoader(false);
       }
     );
   }

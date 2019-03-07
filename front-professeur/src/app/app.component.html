@@ -1,1 +1,7 @@
+<div class="loader-container" *ngIf="loaderService.getDisplayLoader()">
+  <div class="d-block mx-auto lds-spinner lds-center">
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    <span class="text-white loader-text">Chargement en cours</span>
+  </div>
+</div>
 <router-outlet></router-outlet>

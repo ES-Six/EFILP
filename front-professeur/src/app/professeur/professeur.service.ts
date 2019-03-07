@@ -30,7 +30,9 @@ export class ProfesseurService {
   }
 
   setMenuMode(mode) {
-    this.menuMode = mode;
+    setTimeout(() => {
+      this.menuMode = mode;
+    }, 0);
   }
 
   getMenuMode() {
