@@ -247,4 +247,7 @@ export class ModaleModificationComponent implements OnInit {
     }
   }
 
+  getMediaFormGroup() {
+    return this.formModificationQuestion.controls.media as FormGroup;
+  }
 }

@@ -166,4 +166,7 @@ export class ModaleCreationComponent implements OnInit {
     }
   }
 
+  getMediaFormGroup() {
+    return this.formAjoutQuestion.controls.media as FormGroup;
+  }
 }

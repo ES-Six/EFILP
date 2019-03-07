@@ -50,8 +50,8 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="url">Url <span class="text-danger" *ngIf="formAjoutQuestion.controls.media.enabled">*</span></label>
-          <input type="text" class="form-control" formControlName="url" (ngModelChange)="checkYoutubeLink()" id="url" maxlength="2083" [class.is-invalid]="formAjoutQuestion.controls.media.controls.url.invalid && formAjoutQuestion.controls.media.controls.url.touched">
-          <div *ngIf="formAjoutQuestion.controls.media.controls.url.errors && formAjoutQuestion.controls.media.controls.url.errors.youtubeLinkNotConfigured === true" class="invalid-feedback">
+          <input type="text" class="form-control" formControlName="url" (ngModelChange)="checkYoutubeLink()" id="url" maxlength="2083" [class.is-invalid]="getMediaFormGroup().controls.url.invalid && getMediaFormGroup().controls.url.touched">
+          <div *ngIf="getMediaFormGroup().controls.url.errors && getMediaFormGroup().controls.url.errors.youtubeLinkNotConfigured === true" class="invalid-feedback">
             Vous devez configurer les paramètres de lecture de la vidéo de ce lien Youtube, utilisez le bouton ci-dessous
           </div>
         </div>
