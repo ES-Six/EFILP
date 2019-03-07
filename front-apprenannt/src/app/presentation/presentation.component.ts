@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SessionService } from '../session.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-presentation',
@@ -119,7 +120,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
   }
 
   connectionSessionWebsocket() {
-    this.socket = io.connect('http://localhost:8080');
+    this.socket = io.connect(environment.url_api_websocket);
 
     this.socket.on('SESSION_ID_REQUESTED', () => {
       console.log('ID SESSION requested');
