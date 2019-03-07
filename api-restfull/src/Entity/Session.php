@@ -30,6 +30,11 @@ class Session
     private $config_affichage_classement;
 
     /**
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    private $est_terminee = false;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nom_session;
@@ -166,5 +171,17 @@ class Session
 
     public function getIdQCM(): ?int {
         return $this->qcm instanceof QCM ? $this->qcm->getId() : null;
+    }
+
+    public function getEstTerminee(): ?bool
+    {
+        return $this->est_terminee;
+    }
+
+    public function setEstTerminee(bool $est_terminee): self
+    {
+        $this->est_terminee = $est_terminee;
+
+        return $this;
     }
 }

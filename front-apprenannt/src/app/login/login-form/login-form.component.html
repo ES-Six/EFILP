@@ -5,8 +5,11 @@
       <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
         <label for="code" class="h4">Saisissez un code de session</label>
         <input type="text" class="form-control" formControlName="code" [class.is-invalid]="formCodeConnectionParticipant.controls.code.invalid && formCodeConnectionParticipant.controls.code.touched" id="code">
-        <div *ngIf="formCodeConnectionParticipant.controls.code.errors && formCodeConnectionParticipant.controls.code.errors.badSession !== null" class="invalid-feedback">
+        <div *ngIf="formCodeConnectionParticipant.controls.code.errors && formCodeConnectionParticipant.controls.code.errors.badSession === true" class="invalid-feedback">
           Le code de session est incorrect
+        </div>
+        <div *ngIf="formCodeConnectionParticipant.controls.code.errors && formCodeConnectionParticipant.controls.code.errors.sessionClosed === true" class="invalid-feedback">
+          Cette session est fermée
         </div>
       </div>
     </div>

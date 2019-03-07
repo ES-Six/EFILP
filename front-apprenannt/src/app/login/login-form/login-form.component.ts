@@ -32,6 +32,10 @@ export class LoginFormComponent implements OnInit {
   connectionSession(code: string) {
     this.sessionService.fetchSession(code).subscribe(
       (data) => {
+        if (data.results.est_terminee === true) {
+          this.formCodeConnectionParticipant.controls.code.setErrors({sessionClosed: true});
+          return;
+        }
         this.sessionService.setSession(data.results);
         this.router.navigate(['presentation']);
       },

@@ -92,7 +92,7 @@ module.exports = class SessionManager {
                         if (!error.Error === 'ER_DUP_ENTRY') {
                             console.error(error);
                         } else {
-                            console.log("L'utilisateur a répondu plus d'une fois");
+                            console.warn("L'utilisateur a répondu plus d'une fois");
                         }
                     }
                 });
@@ -162,7 +162,16 @@ module.exports = class SessionManager {
             }, this.qcm.questions[this.idxQuestion].duree * 1000 || 10000);
         } else {
             this.io.to(`session_${this.session.id}`).emit('QCM_ENDED', null);
-            this.destroy(this.session.id);
+            this.mysqlclient.query('UPDATE session SET est_terminee = 1 WHERE id = ?', [this.session.id], (error, results, fields) => {
+                if (error) {
+                    if (!error) {
+                        console.log("Session terminée");
+                    } else {
+                        console.error("Echec de fermeture de la session");
+                    }
+                    this.destroy(this.session.id);
+                }
+            });
         }
     }
 

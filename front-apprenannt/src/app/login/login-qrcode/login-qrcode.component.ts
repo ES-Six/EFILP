@@ -26,6 +26,9 @@ export class LoginQrcodeComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.sessionService.fetchSession(code_session).subscribe(
           (data) => {
+            if (data.results.est_terminee === true) {
+              this.router.navigate(['/']);
+            }
             this.sessionService.setSession(data.results);
             this.router.navigate(['presentation']);
           },

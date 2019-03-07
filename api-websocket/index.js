@@ -41,6 +41,11 @@ io.sockets.on('connection', (socket) => {
                 return socket.emit('BAD_SESSION_ERROR', null);
             } else {
                 session = results[0];
+                if (session.est_fermee === 1) {
+                    socket.emit('BAD_SESSION_ERROR', 'La session est fermée');
+                    return;
+                }
+
                 console.log('Id session validé: ', session.id);
                 // Empecher le changement de la session
                 socket.off('SESSION_ID', sessionIdCallback);
