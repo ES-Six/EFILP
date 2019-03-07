@@ -28,7 +28,7 @@ L'API restfull EFILP permet la gestion des ressources de la plateforme EFILP
 
 - Installez des dépendances optimisés :
 
-        APP_ENV=prod php APP_DEBUG=0 composer.phar install --no-dev --optimize-autoloader
+        APP_ENV=prod APP_DEBUG=0 php composer.phar install --no-dev --optimize-autoloader
 
 - Puis configurez le projet en effectuant une copie du fichier .env sous le nom .env.local et éditant le fichier .env.local :
 
