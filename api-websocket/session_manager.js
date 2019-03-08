@@ -25,6 +25,10 @@ module.exports = class SessionManager {
         if (this.session && this.session.config_generation_pseudo === 1) {
             if (!participant.username) {
                 participant.username = `${this.generatedAnimalNames[Math.floor(Math.random() * this.generatedAnimalNames.length)]} ${this.generatedAuxiliaryNames[Math.floor(Math.random() * this.generatedAuxiliaryNames.length)]}`;
+                this.professeur.socket.emit('NEW_PARTICIPANT', {
+                    id: participant.id,
+                    username: participant.username
+                });
             }
         }
 
