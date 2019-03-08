@@ -20,7 +20,7 @@ Instructions du frontal participant : [https://andnerb.github.io/EFILP/front-app
 
 Instructions du frontal professeur : [https://andnerb.github.io/EFILP/front-professeur/](https://andnerb.github.io/EFILP/front-professeur)
 
-Des exemples de configuration sont disponibles dans le dossier [apache_conf](https://andnerb.github.io/EFILP/apache_conf)
+Des exemples de configuration sont disponibles dans le dossier [apache_conf](https://github.com/andnerb/EFILP/tree/master/apache_conf)
 
 ## Technologies utilisées
 
