@@ -174,13 +174,33 @@ class SessionController extends AbstractFOSRestController
 
             // Si le participant a changé de classe dans la session il est répliqué automatiquement
             if ($participant instanceof Participant && $participant->getClasse()->getId() !== $session->getClasse()->getId()) {
-                $participant = new Participant();
-                $participant->setClasse($session->getClasse())
-                    ->setNom($participant->getNom())
-                    ->setPrenom($participant->getPrenom());
+                $participantExist = $this->em->createQueryBuilder()
+                    ->select('Participant')
+                    ->from(Participant::class, 'Participant')
+                    ->andWhere('Participant.nom LIKE :nom')
+                    ->andWhere('Participant.prenom LIKE :prenom')
+                    ->andWhere('Participant.classe = :classe')
+                    ->setParameters(
+                        array(
+                            'nom' => $participant->getNom(),
+                            'prenom' => $participant->getPrenom(),
+                            'classe' => $session->getClasse()
+                        )
+                    )
+                    ->getQuery()
+                    ->getOneOrNullResult();
 
-                $this->em->persist($participant);
-                $this->em->flush();
+                if (!$participantExist instanceof Participant) {
+                    $participant = $participantExist;
+                } else {
+                    $participant = new Participant();
+                    $participant->setClasse($session->getClasse())
+                        ->setNom($participant->getNom())
+                        ->setPrenom($participant->getPrenom());
+
+                    $this->em->persist($participant);
+                    $this->em->flush();
+                }
             }
         } else {
             $participant = $this->em->createQueryBuilder()
