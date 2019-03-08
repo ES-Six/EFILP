@@ -20,6 +20,8 @@ Instructions du frontal participant : [https://andnerb.github.io/EFILP/front-app
 
 Instructions du frontal professeur : [https://andnerb.github.io/EFILP/front-professeur/](https://andnerb.github.io/EFILP/front-professeur)
 
+Des exemples de configuration sont disponibles dans le dossier [apache_conf](https://andnerb.github.io/EFILP/apache_conf)
+
 ## Technologies utilisées
 
 - Symfony v4(Framework)
@@ -30,3 +32,4 @@ Instructions du frontal professeur : [https://andnerb.github.io/EFILP/front-prof
 - Socket.io (lib javascript)
 - Bootstrap v4(css + lib javascript + package npm pour angular et typescript)
 - Chart.js (lib javascript)
+- Apache2
