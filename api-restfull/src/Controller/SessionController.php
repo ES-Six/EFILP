@@ -190,7 +190,7 @@ class SessionController extends AbstractFOSRestController
                     ->getQuery()
                     ->getOneOrNullResult();
 
-                if (!$participantExist instanceof Participant) {
+                if ($participantExist instanceof Participant) {
                     $participant = $participantExist;
                 } else {
                     $participant = new Participant();
