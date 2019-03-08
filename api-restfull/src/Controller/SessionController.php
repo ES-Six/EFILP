@@ -193,13 +193,15 @@ class SessionController extends AbstractFOSRestController
                 if ($participantExist instanceof Participant) {
                     $participant = $participantExist;
                 } else {
-                    $participant = new Participant();
-                    $participant->setClasse($session->getClasse())
+                    $new_participant = new Participant();
+                    $new_participant->setClasse($session->getClasse())
                         ->setNom($participant->getNom())
                         ->setPrenom($participant->getPrenom());
 
-                    $this->em->persist($participant);
+                    $this->em->persist($new_participant);
                     $this->em->flush();
+
+                    $participant = $new_participant;
                 }
             }
         } else {
