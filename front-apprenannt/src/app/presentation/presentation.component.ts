@@ -3,6 +3,8 @@ import { SessionService } from '../session.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-presentation',
@@ -30,6 +32,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
   constructor(private sessionService: SessionService,
               private fb: FormBuilder,
+              private cookieService: CookieService,
               private router: Router,) {
     this.step = 'LOADING';
 
@@ -49,6 +52,11 @@ export class PresentationComponent implements OnInit, OnDestroy {
     if (this.sessionService.getCookieParticipantData()) {
       this.sessionService.collectExistingParticipantSession(this.sessionService.getCookieParticipantData().id).subscribe(
         (data) => {
+          if (!data) {
+            this.cookieService.deleteAll();
+            this.step = 'ASK_INFO_PARTICIPANT';
+            return;
+          }
           this.sessionService.setParticipant(data.results);
           this.step = 'WAITING_USER_INPUT_REQUIRED';
           this.connectionSessionWebsocket();
