@@ -52,7 +52,7 @@ export class PresentationComponent implements OnInit, OnDestroy {
     if (this.sessionService.getCookieParticipantData()) {
       this.sessionService.collectExistingParticipantSession(this.sessionService.getCookieParticipantData().id).subscribe(
         (data) => {
-          if (!data) {
+          if (!data.results) {
             this.cookieService.deleteAll();
             this.step = 'ASK_INFO_PARTICIPANT';
             return;
