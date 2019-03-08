@@ -171,6 +171,17 @@ class SessionController extends AbstractFOSRestController
         $participant = null;
         if (!empty($request->get('code_dedoublonage'))) {
             $participant = $this->em->getRepository(Participant::class)->findOneById($request->get('code_dedoublonage'));
+
+            // Si le participant a changé de classe dans la session il est répliqué automatiquement
+            if ($participant instanceof Participant && $participant->getClasse()->getId() !== $session->getClasse()->getId()) {
+                $participant = new Participant();
+                $participant->setClasse($session->getClasse())
+                    ->setNom($participant->getNom())
+                    ->setPrenom($participant->getPrenom());
+
+                $this->em->persist($participant);
+                $this->em->flush();
+            }
         } else {
             $participant = $this->em->createQueryBuilder()
                 ->select('Participant')
