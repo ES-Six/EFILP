@@ -43,7 +43,7 @@
         <span class="d-block mb-4">Attente de participation à la session...</span><br>
         <div *ngIf="top_5 && top_5.length > 0 && session && session.config_affichage_classement" class="w-100">
           <h3>TOP 5 des meilleurs scores</h3>
-          <span *ngFor="let participant of top_5; let i = index">{{ i + 1 }}) {{ participant.nom }}: {{ participant.score }} bonne(s) réponse(s)</span>
+          <span *ngFor="let participant of top_5; let i = index" class="d-block w-100 text-center">{{ i + 1 }}) {{ participant.username }}: {{ participant.score }} bonne(s) réponse(s)</span>
         </div>
       </div>
 
