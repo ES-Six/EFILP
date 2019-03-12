@@ -71,13 +71,21 @@ class SessionController extends AbstractFOSRestController
      */
     public function getSessionProfesseurAction(User $professeur)
     {
-        $sessions = $this->em->createQueryBuilder()
-            ->select('DISTINCT Sessions')
-            ->from(Classe::class, 'Classes')
-            ->from(Session::class, 'Sessions')
-            ->andWhere('Classes.id = Sessions.classe')
-            ->getQuery()
-            ->getResult();
+        $classes = $professeur->getIdClasses();
+        $query = $this->em->createQueryBuilder();
+        if (count($classes) > 0) {
+            $sessions = $query->select('DISTINCT Sessions')
+                ->from(Classe::class, 'Classes')
+                ->from(Session::class, 'Sessions')
+                ->andWhere('Classes.id = Sessions.classe')
+                ->andWhere(
+                    $query->expr()->in('Classes.id', $classes)
+                )
+                ->getQuery()
+                ->getResult();
+        } else {
+            $sessions = [];
+        }
         return $this->handleView($this->shared->createSuccessResponse($sessions));
     }
 

@@ -124,7 +124,7 @@
       <div class="text-center">
         <h3>TOP 5 des meilleurs scores</h3>
         <div *ngIf="top_5 && top_5.length > 0" class="w-100">
-          <span *ngFor="let participant of top_5; let i = index">{{ i + 1 }}) {{ participant.nom }}: {{ participant.score }} bonne(s) réponse(s)</span>
+          <span *ngFor="let participant of top_5; let i = index" class="d-block w-100 text-center">{{ i + 1 }}) {{ participant.username }}: {{ participant.score }} bonne(s) réponse(s)</span>
         </div>
         <br>
         <button class="btn btn-dark px-2 py-4" routerLink="/">Quitter la session</button>
