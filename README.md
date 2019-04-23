@@ -12,15 +12,15 @@ Efficient and fast interactive learning platform signifie Plateforme d'apprentis
 
 Pour consulter les instructions relatives au déployement des 4 parties du projet lisez le README.md qui y est associé.
 
-Instructions de l'API restfull : [https://andnerb.github.io/EFILP/api-restfull/](https://andnerb.github.io/EFILP/api-restfull/)
+Instructions de l'API restfull : [https://es-six.github.io/EFILP/api-restfull/](https://es-six.github.io/EFILP/api-restfull/)
 
-Instructions de l'API websocket : [https://andnerb.github.io/EFILP/api-websocket/](https://andnerb.github.io/EFILP/api-websocket/)
+Instructions de l'API websocket : [https://es-six.github.io/EFILP/api-websocket/](https://es-six.github.io/EFILP/api-websocket/)
 
-Instructions du frontal participant : [https://andnerb.github.io/EFILP/front-apprenannt/](https://andnerb.github.io/EFILP/front-apprenannt)
+Instructions du frontal participant : [https://es-six.github.io/EFILP/front-apprenannt/](https://es-six.github.io/EFILP/front-apprenannt)
 
-Instructions du frontal professeur : [https://andnerb.github.io/EFILP/front-professeur/](https://andnerb.github.io/EFILP/front-professeur)
+Instructions du frontal professeur : [https://es-six.github.io/EFILP/front-professeur/](https://es-six.github.io/EFILP/front-professeur)
 
-Des exemples de configuration sont disponibles dans le dossier [apache_conf](https://github.com/andnerb/EFILP/tree/master/apache_conf)
+Des exemples de configuration sont disponibles dans le dossier [apache_conf](https://github.com/es-six/EFILP/tree/master/apache_conf)
 
 ## Technologies utilisées
 
